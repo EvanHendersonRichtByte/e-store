@@ -1,0 +1,261 @@
+:root {
+  --primary: #2f80ed;
+  --primary-dark: #344154;
+  --secondary: #1ccc66;
+  --tertiary: #eb5757;
+  --gray-1: #3e3e3e;
+  --gray-2: #b3b3b3;
+  --light-1: #fefefe;
+  --light-2: #f2f1f6;
+  --overlay-dark: rgba(28, 28, 28, 0.5);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+html {
+  font-size: 62.5%;
+  font-family: sans-serif;
+}
+
+section {
+  min-height: 100vh;
+}
+
+img,
+video,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+button {
+  border: none;
+}
+
+.btn {
+  padding: 1rem 2rem;
+  cursor: pointer;
+}
+
+.btn.btn-secondary {
+  background-color: var(--secondary);
+  color: var(--light-1);
+}
+
+.btn.btn-outline-light {
+  border: 1px solid var(--light-1);
+  transition: all 0.2s;
+}
+
+.btn.btn-outline-light:hover {
+  background-color: var(--light-1);
+  color: var(--primary-dark);
+}
+
+.bordered {
+  border-radius: 0.3rem;
+}
+
+input:focus {
+  outline: none;
+}
+
+::-webkit-input-placeholder {
+  /* Edge */
+  color: inherit;
+}
+
+:-ms-input-placeholder {
+  /* Internet Explorer 10-11 */
+  color: inherit;
+}
+
+::placeholder {
+  color: inherit;
+}
+
+a:link,
+a:visited,
+a:active {
+  color: inherit;
+  text-decoration: none;
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--overlay-dark);
+  color: var(--light-1);
+  padding: 1rem 6rem;
+}
+
+nav div {
+  display: flex;
+  align-items: center;
+}
+
+nav div > * {
+  margin-right: 2rem;
+}
+
+.client--login {
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url("../assets/static_images/loginuser.jpg");
+  background-size: cover;
+  color: var(--light-1);
+}
+
+.client--login .container {
+  display: flex;
+  flex-direction: column;
+  margin: 9rem 6rem;
+}
+
+.client--login .container h1,
+.client--login .container h5 {
+  font-weight: lighter;
+}
+
+.client--login .container h1 {
+  font-size: 4rem;
+}
+
+.client--login .container h1 ~ div {
+  display: flex;
+  align-items: center;
+  margin-top: 2rem;
+}
+
+.client--login .container form {
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  max-width: 25%;
+}
+
+.client--login .container form .form-group {
+  margin-top: 2rem;
+  position: relative;
+}
+
+.client--login .container form .form-group input {
+  border: 1px solid var(--light-1);
+  background-color: transparent;
+  padding: 1rem;
+  width: 100%;
+  border-radius: 0.5rem;
+  color: var(--light-1);
+}
+
+.client--login .container form .form-group i {
+  position: absolute;
+  right: 5%;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.client--login .container h5 {
+  font-size: 2rem;
+}
+
+.client--login .container h5 ~ a {
+  margin-left: 0.5rem;
+  color: var(--secondary);
+}
+
+.client--login .container form div:last-child {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 2rem;
+}
+
+.client--register {
+  height: 100vh;
+  display: flex;
+  justify-content: space-between;
+  overflow: hidden;
+}
+
+.client--register .container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  font-weight: lighter;
+  width: 50%;
+}
+
+.client--register .container h1 {
+  font-weight: inherit;
+  font-size: 3rem;
+}
+
+.client--register .container h5 {
+  margin: 1.5rem 0 1rem 0;
+  font-weight: inherit;
+  font-size: 2rem;
+}
+
+.client--register .container h1 ~ div {
+  display: flex;
+}
+
+.client--register .container h1 ~ div a {
+  margin-left: 1rem;
+  color: var(--secondary);
+}
+
+.client--register .container form {
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+}
+
+.client--register .container form .form-group {
+  margin-top: 2rem;
+  position: relative;
+}
+
+.client--register .container form .form-group input {
+  border: 1px solid var(--primary-dark);
+  background-color: transparent;
+  padding: 1rem;
+  width: 100%;
+  border-radius: 0.5rem;
+  color: var(--primary-dark);
+}
+
+.client--register .container form .form-group i {
+  position: absolute;
+  right: 5%;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.client--register .container form div:last-child {
+  margin-top: 2rem;
+}
+
+.client--register .image {
+  max-width: 50%;
+}
+
+.client--register .image image {
+  width: 100%;
+}
