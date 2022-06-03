@@ -4,28 +4,28 @@
 
     <div class="container">
 
-        <form action="../auth">
+        <form action="" method="post">
             <h1>Greetings!</h1>
             <div>
                 <h5>Already Have Account?</h5>
-                <a href="http://">
+                <a href="http://localhost/the-Estore/client/login.php">
                     <h5>Sign In</h5>
                 </a>
             </div>
             <div class="form-group">
-                <input type="text" name="email" id="email" placeholder="Email">
+                <input type="text" name="email" id="email" placeholder="Email" required>
                 <i class="ri-mail-fill"></i>
             </div>
             <div class="form-group">
-                <input type="text" name="username" id="username" placeholder="Username">
+                <input type="text" name="username" id="username" placeholder="Username" required>
                 <i class="ri-file-user-fill"></i>
             </div>
             <div class="form-group">
-                <input type="text" name="password" id="password" placeholder="Password">
+                <input type="text" name="password" id="password" placeholder="Password" required>
                 <i class="ri-lock-password-fill"></i>
             </div>
             <div>
-                <button class="btn btn-secondary bordered" type="submit">Sign Up</button>
+                <button class="btn btn-secondary bordered" name="register" value="register" type="submit">Sign Up</button>
             </div>
         </form>
     </div>
@@ -33,5 +33,26 @@
         <img src="../assets/static_images/registeruser.jpg" alt="Register">
     </div>
 </section>
+
+<?php
+include "../config/connect.php";
+
+if (isset($_POST['register'])) {
+    $email = $_POST['email'];
+    $username = $_POST['username'];
+    $password = md5($_POST['password']);
+    $query = "INSERT INTO customer SET email = '$email', username = '$username', password = '$password'";
+    if ($mysqli->query($query)) {
+        header("location: index.php");
+    } else {
+?>
+        <script>
+            alert("Gagal registrasi");
+        </script>
+<?php
+    }
+}
+
+?>
 
 <?php include_once "../template/footer.php" ?>

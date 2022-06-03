@@ -11,17 +11,17 @@
                 <h5>Sign Up</h5>
             </a>
         </div>
-        <form action="../auth">
+        <form action="<?php echo $address ?>/auth/" method="post">
             <div class="form-group">
-                <input type="text" name="username" id="username" placeholder="Username">
+                <input type="text" name="username" id="username" placeholder="Username" required>
                 <i class="ri-file-user-fill"></i>
             </div>
             <div class="form-group">
-                <input type="text" name="password" id="password" placeholder="Password">
+                <input type="text" name="password" id="password" placeholder="Password" required>
                 <i class="ri-lock-password-fill"></i>
             </div>
             <div>
-                <button class="btn btn-secondary bordered" type="submit">Sign In</button>
+                <button class="btn btn-secondary bordered" name="client__login" value="submit" type="submit">Sign In</button>
                 <a href="http://">Forgot Password</a>
             </div>
         </form>

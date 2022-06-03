@@ -11,3 +11,4 @@
 </head>
 
 <body>
+    <?php include_once "../config/config.php"; ?>
