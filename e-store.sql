@@ -22,13 +22,12 @@ CREATE TABLE `detail_penjualan` (
   `id_penjualan` int(11) NOT NULL,
   `id_barang` int(11) NOT NULL,
   `jumlah` int(11) NOT NULL,
-  `total` decimal(20, 2) NOT NULL
+  `total` decimal(20, 2) DEFAULT NULL
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
 CREATE TABLE `penjualan` (
   `id_penjualan` int(11) NOT NULL,
   `id_customer` int(11) NOT NULL,
-  `id_petugas` int(11) NOT NULL,
-  `total` decimal(20, 2) NOT NULL
+  `id_petugas` int(11) DEFAULT NULL
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
 CREATE TABLE `petugas` (
   `id_petugas` int(11) NOT NULL,
@@ -70,21 +69,28 @@ ADD CONSTRAINT `penjualan_ibfk_1` FOREIGN KEY (`id_petugas`) REFERENCES `petugas
   ADD CONSTRAINT `penjualan_ibfk_2` FOREIGN KEY (`id_customer`) REFERENCES `customer` (`id_customer`);
 
 INSERT INTO barang VALUES
-(null, "Fanta", null, "commodi nesciunt enim quae eligendi", 12000, 10), 
-(null, "Sprite", null, "commodi nesciunt enim quae eligendi", 11000, 10), 
-(null, "Coca-cola", null, "commodi nesciunt enim quae eligendi", 11000, 10);
+(NULL, "Fanta", NULL, "commodi nesciunt enim quae eligendi", 12000, 10), 
+(NULL, "Sprite", NULL, "commodi nesciunt enim quae eligendi", 11000, 10), 
+(NULL, "Coca-cola", NULL, "commodi nesciunt enim quae eligendi", 11000, 10);
 
 INSERT INTO customer VALUES
-(null, "wahyudi@gmail.com", "wahyudiok", MD5("wahyudi23"), "Malang", "1953-05-27"),
-(null, "agus@gmail.com", "agusok", MD5("agus2345"), "Singosari", "1983-08-21"),
-(null, "roqib@gmail.com", "roqibroqib", MD5("roqib23@"), "Blitar", "1988-09-13");
+(NULL, "wahyudi@gmail.com", "wahyudiok", MD5("wahyudi23"), "Malang", "1953-05-27"),
+(NULL, "agus@gmail.com", "agusok", MD5("agus2345"), "Singosari", "1983-08-21"),
+(NULL, "roqib@gmail.com", "roqibroqib", MD5("roqib23@"), "Blitar", "1988-09-13");
 
 INSERT INTO petugas VALUES
-(null, "aryanto@gmail.com", "aryanto", MD5("aryanto666"), "Pakis", "1943-05-27"),
-(null, "yuli@gmail.com", "yuliii", MD5("yulilestari"), "Singosari", "1933-08-21"),
-(null, "aman@gmail.com", "aman", MD5("aman"), "Sawojajar", "1952-09-13");
+(NULL, "aryanto@gmail.com", "aryanto", MD5("aryanto666"), "Pakis", "1943-05-27"),
+(NULL, "yuli@gmail.com", "yuliii", MD5("yulilestari"), "Singosari", "1933-08-21"),
+(NULL, "aman@gmail.com", "aman", MD5("aman"), "Sawojajar", "1952-09-13");
 
-INSERT INTO penjualan VALUES (null, 1, 1, 20000);
 
-INSERT INTO detail_penjualan VALUES (null, 1, 1, 2, 10000);
+INSERT INTO penjualan VALUES (NULL, 1, NULL);
+
+INSERT INTO detail_penjualan VALUES (NULL, 1, 1, 2, NULL);
+
+/*Update total harga*/
+UPDATE detail_penjualan 
+INNER JOIN barang ON detail_penjualan.id_barang = barang.id_barang 
+SET detail_penjualan.total = detail_penjualan.jumlah*barang.harga;
+
 COMMIT;
