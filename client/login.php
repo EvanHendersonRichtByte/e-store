@@ -1,13 +1,13 @@
 <?php include_once "../template/header.php"  ?>
 
 <section class="client--login">
-    <?php include_once "../components/user_auth_navbar.php" ?>
+    <?php include_once "../components/client_auth_navbar.php" ?>
 
     <div class="container">
         <h1>Welcome Back!</h1>
         <div>
             <h5>Dont' Have Account?</h5>
-            <a href="http://">
+            <a href="<?php echo $address ?>/client/register.php">
                 <h5>Sign Up</h5>
             </a>
         </div>

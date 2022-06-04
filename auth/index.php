@@ -1,6 +1,5 @@
 <?php
 
-var_dump($_POST);
 if (isset($_POST['client__login'])) {
     $username = $_POST['username'];
     $password = md5($_POST['password']);
@@ -9,7 +8,8 @@ if (isset($_POST['client__login'])) {
     if ($query) {
         echo "Data ditemukan";
         session_start();
-        $_SESSION['loggedUser'] = [$username, $password];
+        $_SESSION['logged'] = ['username' => $username, 'password' => $password];
+        var_dump($_SESSION);
         session_abort();
     } else {
         echo "Data tidak ditemukan";

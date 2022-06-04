@@ -43,6 +43,7 @@ select {
 
 button {
   border: none;
+  cursor: pointer;
 }
 
 .btn {
@@ -52,6 +53,11 @@ button {
 
 .btn.btn-secondary {
   background-color: var(--secondary);
+  color: var(--light-1);
+}
+
+.btn.btn-light {
+  background-color: var(--gray-2);
   color: var(--light-1);
 }
 
@@ -67,6 +73,12 @@ button {
 
 .bordered {
   border-radius: 0.3rem;
+}
+
+.form-group input {
+  padding: 1rem 0.5rem;
+  border: 1px solid var(--gray-1);
+  border-radius: 0.5rem;
 }
 
 input:focus {
@@ -98,8 +110,6 @@ nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: var(--overlay-dark);
-  color: var(--light-1);
   padding: 1rem 6rem;
 }
 
@@ -111,6 +121,34 @@ nav div {
 nav div > * {
   margin-right: 2rem;
 }
+
+/* NAVBAR */
+
+.client_auth {
+  background: var(--overlay-dark);
+  color: var(--light-1);
+}
+
+.client_dashboard {
+  box-shadow: 0 0.4rem 0.4rem 0 var(--gray-2);
+}
+
+.client_dashboard div .cart {
+  transform: scale(1.3);
+}
+
+.client_dashboard div .image {
+  width: 3rem;
+  height: 3rem;
+}
+
+.client_dashboard div .image img {
+  border-radius: 50%;
+  width: 100%;
+  height: 100%;
+}
+
+/* PAGES */
 
 .client--login {
   background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
@@ -258,4 +296,137 @@ nav div > * {
 
 .client--register .image image {
   width: 100%;
+}
+
+.client--dashboard {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 7.5rem;
+}
+
+.client--dashboard .card {
+  margin: 2rem 3rem;
+  width: 25%;
+  box-shadow: 0.3rem 0.3rem 2.2rem 0.2rem var(--gray-2);
+  height: 100%;
+}
+
+.client--dashboard .card .image {
+  height: 12rem;
+  width: 100%;
+}
+
+.client--dashboard .card .image img {
+  width: 100%;
+  height: 100%;
+}
+
+.client--dashboard .card .details {
+  display: flex;
+  flex-direction: column;
+  padding: 2rem;
+  color: var(--primary-dark);
+}
+
+.client--dashboard .card .details > * {
+  margin-top: 2rem;
+}
+
+.client--dashboard .card button {
+  cursor: pointer;
+  width: 100%;
+  padding: 1rem 1rem;
+  background-color: var(--secondary);
+  color: var(--light-1);
+}
+
+.client--item-details {
+  display: flex;
+  padding: 3rem;
+  flex-wrap: wrap;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.client--item-details .image {
+  width: 50%;
+}
+
+.client--item-details .image img {
+  width: 100%;
+}
+
+.client--item-details .detail {
+  width: 40%;
+  display: flex;
+  flex-direction: column;
+  padding: 4rem;
+}
+
+.client--item-details .detail > * {
+  margin-top: 3rem;
+}
+
+.client--item-details .detail .quantity {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.client--cart {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 6rem;
+  justify-content: space-between;
+}
+
+.client--cart form {
+  flex-basis: 40%;
+  display: flex;
+  flex-direction: column;
+}
+
+.client--cart form > * {
+  margin-top: 2rem;
+}
+
+.client--cart form .form-group {
+  display: flex;
+  justify-content: space-between;
+}
+
+.client--cart form label {
+  font-size: 2rem;
+}
+
+.client--cart .items {
+  display: flex;
+  flex-basis: 30%;
+  flex-direction: column;
+}
+
+.client--cart .items > * {
+  margin-bottom: 2rem;
+}
+
+.client--cart .items .item {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.client--cart .items .item .image {
+  width: 4rem;
+  height: 4rem;
+}
+
+.client--cart .items .item .image img {
+  width: 100%;
+}
+
+.client--cart .items hr {
+  background-color: var(--gray-1);
 }

@@ -35,17 +35,15 @@
 </section>
 
 <?php
-include "../config/connect.php";
-
 if (isset($_POST['register'])) {
     $email = $_POST['email'];
     $username = $_POST['username'];
     $password = md5($_POST['password']);
     $query = "INSERT INTO customer SET email = '$email', username = '$username', password = '$password'";
+    echo $query;
     if ($mysqli->query($query)) {
-        header("location: index.php");
-    } else {
-?>
+        header("location: " . $address . "/client/login.php");
+    } else { ?>
         <script>
             alert("Gagal registrasi");
         </script>
