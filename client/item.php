@@ -2,7 +2,7 @@
 
 <?php include "../components/client_dashboard_navbar.php" ?>
 
-<?php include_once "../db/connect.php" ?>
+<?php include_once "../config/connect.php" ?>
 
 <section class="client--item-details">
     <div class="image">

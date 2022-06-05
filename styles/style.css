@@ -10,6 +10,16 @@
   --overlay-dark: rgba(28, 28, 28, 0.5);
 }
 
+/* ANIMATION */
+@keyframes fadeIn {
+  from {
+    opacity: 0%;
+  }
+  to {
+    opacity: 100%;
+  }
+}
+
 *,
 *::before,
 *::after {
@@ -51,6 +61,11 @@ button {
   cursor: pointer;
 }
 
+.btn.btn-primary {
+  background-color: var(--primary);
+  color: var(--light-1);
+}
+
 .btn.btn-secondary {
   background-color: var(--secondary);
   color: var(--light-1);
@@ -75,7 +90,7 @@ button {
   border-radius: 0.3rem;
 }
 
-.form-group input {
+.form-group input:not([type="file"]) {
   padding: 1rem 0.5rem;
   border: 1px solid var(--gray-1);
   border-radius: 0.5rem;
@@ -146,6 +161,47 @@ nav div > * {
   border-radius: 50%;
   width: 100%;
   height: 100%;
+}
+
+.client_dashboard .popup_menu {
+  position: relative;
+}
+
+.client_dashboard .popup_menu .menu {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: translate(-50%, 20%);
+  list-style: none;
+  color: var(--gray-1);
+  background-color: var(--light-1);
+  padding: 2rem;
+  width: 18rem;
+  display: none;
+  flex-direction: column;
+  box-shadow: 0.3rem 0.3rem 2.2rem 0.2rem var(--gray-2);
+  animation-name: fadeIn;
+  animation-duration: 0.4s;
+}
+
+.client_dashboard .popup_menu .menu li:not(:last-child) {
+  margin-bottom: 1rem;
+}
+
+.client_dashboard .popup_menu .menu li a {
+  color: inherit;
+}
+
+.client_dashboard .popup_menu label {
+  cursor: pointer;
+}
+
+.client_dashboard .popup_menu input {
+  display: none;
+}
+
+.client_dashboard .popup_menu input:checked ~ .menu {
+  display: flex;
 }
 
 /* PAGES */
@@ -333,6 +389,10 @@ nav div > * {
   margin-top: 2rem;
 }
 
+.client--dashboard .card .details a {
+  font-weight: bold;
+}
+
 .client--dashboard .card button {
   cursor: pointer;
   width: 100%;
@@ -429,4 +489,153 @@ nav div > * {
 
 .client--cart .items hr {
   background-color: var(--gray-1);
+}
+
+.client--profile {
+  padding: 0 6rem;
+}
+
+.client--profile > * {
+  margin-top: 4rem;
+}
+
+.client--profile h1 {
+  font-size: 2.5rem;
+  font-weight: lighter;
+}
+
+.client--profile .container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.client--profile .container .sidebar {
+  display: flex;
+  flex-direction: column;
+  list-style: none;
+  padding: 0;
+}
+
+.client--profile .container .sidebar > * {
+  margin-bottom: 2rem;
+  font-size: 1.7rem;
+}
+
+.client--profile .container .sidebar li a {
+  font-size: inherit;
+}
+
+.client--profile .container .form {
+  width: 75%;
+}
+
+.client--profile .container .form form {
+  display: flex;
+  flex-direction: column;
+}
+
+.client--profile .container .form form .header {
+  position: relative;
+}
+
+.client--profile .container .form form .header .header__background {
+  min-height: 15rem;
+  background: var(--gray-2);
+  border-top-left-radius: 8rem;
+}
+
+.client--profile .container .form form .header .header__content {
+  width: 90%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: absolute;
+  top: 120%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.client--profile .container .form form .header .header__content .header__image {
+  width: 13rem;
+  height: 13rem;
+  border: 3px solid var(--light-2);
+  border-radius: 15rem;
+}
+
+.client--profile
+  .container
+  .form
+  form
+  .header
+  .header__content
+  .header__image
+  img {
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+}
+
+.client--profile .container .form form .header .header__content .header__title {
+  display: flex;
+  border-radius: 50px;
+  flex-direction: column;
+}
+
+.client--profile
+  .container
+  .form
+  form
+  .header
+  .header__content
+  .header__title
+  > * {
+  margin-top: 2rem;
+  font-size: 1.7rem;
+}
+
+.client--profile .container .form .content {
+  margin: 0 auto;
+  width: 90%;
+  margin-top: 12rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.client--profile .container .form .content .form-group {
+  margin-bottom: 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.client--profile
+  .container
+  .form
+  .content
+  .form-group
+  div
+  > *:not(:last-child) {
+  margin-left: 2rem;
+}
+
+.client--profile .container .form .content .form-group input {
+  min-width: 50%;
+}
+
+.client--profile .container .form .content .form-group div {
+  display: flex;
+  align-items: center;
+}
+
+.client--profile .container .form .content .form-group div label {
+  width: 5rem;
+  height: 5rem;
+  border-radius: 50%;
+  margin: 0 4rem;
+}
+
+.client--profile .container .form .content .form-group div label img {
+  width: inherit;
+  height: inherit;
+  border-radius: inherit;
 }
