@@ -17,7 +17,7 @@
                 <i class="ri-file-user-fill"></i>
             </div>
             <div class="form-group">
-                <input type="text" name="password" id="password" placeholder="Password" required>
+                <input type="password" name="password" id="password" placeholder="Password" required>
                 <i class="ri-lock-password-fill"></i>
             </div>
             <div>

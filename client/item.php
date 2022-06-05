@@ -1,4 +1,8 @@
-<?php include_once "../template/header.php"  ?>
+<?php include_once "../template/header.php";
+include_once "../auth/index.php";
+pageAuth($address);
+?>
+
 
 <?php include "../components/client_dashboard_navbar.php" ?>
 

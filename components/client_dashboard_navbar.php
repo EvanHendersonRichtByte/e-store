@@ -19,7 +19,7 @@
                 <li><a href="<?php echo $address ?>/client/settings_profile.php">Settings Profile</a></li>
                 <li><a href="<?php echo $address ?>/client/settings_password.php">Settings Password</a></li>
                 <li><a href="<?php echo $address ?>/client/settings_email.php">Settings Email</a></li>
-                <li><a href="<?php echo $address ?>/logout.php">Logout</a></li>
+                <li><a href="<?php echo $address ?>/auth/logout.php">Logout</a></li>
             </ul>
         </div>
     </div>

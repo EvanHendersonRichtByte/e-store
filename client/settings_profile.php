@@ -1,4 +1,7 @@
 <?php include "../template/client_settings_header.php" ?>
+<?php include_once "../auth/index.php";
+pageAuth($address);
+?>
 
 <div class="form">
     <form action="">
@@ -16,7 +19,7 @@
         <div class="content">
             <div class="form-group">
                 <label for="username">Username</label>
-                <input id="username" type="text" name="username">
+                <input id="username" type="text" name="username" value="<?php echo $_SESSION['logged']['username'] ?>">
             </div>
             <div class="form-group">
                 <label for="image">Your Photo</label>
@@ -28,11 +31,11 @@
             </div>
             <div class="form-group">
                 <label for="alamat">Alamat</label>
-                <input id="alamat" type="text" name="alamat">
+                <input id="alamat" type="text" name="alamat" value="<?php echo $_SESSION['logged']['alamat'] ?>">
             </div>
             <div class="form-group">
                 <label for="tanggal_lahir">Tanggal Lahir</label>
-                <input id="tanggal_lahir" type="text" name="tanggal_lahir">
+                <input id="tanggal_lahir" type="date" name="tanggal_lahir" value="<?php echo $_SESSION['logged']['tgl_lahir'] ?>">
             </div>
         </div>
     </form>

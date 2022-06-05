@@ -5,6 +5,11 @@
     <?php
 
     include_once "../config/connect.php";
+
+    include_once "../auth/index.php";
+
+    pageAuth($address);
+
     $query = "SELECT * FROM barang";
     $data = $mysqli->query($query);
     if ($data) {
