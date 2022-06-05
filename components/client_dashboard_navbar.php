@@ -7,7 +7,7 @@
     </div>
     <div>
         <a class="cart" href="<?php echo $address ?>/client/cart.php">
-            <i class="ri-shopping-cart-fill"></i>
+            <i class="ri-shopping-cart-line"></i>
         </a>
         <div class="image">
             <img src="../assets/static_images/dummy.png" alt="dummy">
