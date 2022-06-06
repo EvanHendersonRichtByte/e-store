@@ -475,10 +475,18 @@ nav div > * {
 .client--cart .items .item {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   width: 100%;
 }
 
+.client--cart .items .item a {
+  background: none;
+  color: var(--tertiary);
+}
+
 .client--cart .items .item .image {
+  display: flex;
+  align-items: center;
   width: 4rem;
   height: 4rem;
 }

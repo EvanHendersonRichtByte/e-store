@@ -33,7 +33,7 @@ pageAuth($address);
                     <h3><?php echo $key['nama_barang'] ?></h3>
                     <h3>x<?php echo $key['jumlah'] ?></h3>
                     <h3><?php echo $key['total'] ?></h3>
-                    <button>X</button>
+                    <a href="<?php echo $address ?>/client/cart.php?deleteItem=<?php echo $key['id_detail_penjualan'] ?>"><i class="ri-delete-bin-line"></i></a>
                 </div>
         <?php
             }
@@ -41,7 +41,14 @@ pageAuth($address);
         ?>
         <hr>
         <?php
-        $query = "SELECT SUM(total) AS total FROM penjualan p JOIN detail_penjualan dp ON p.id_penjualan = dp.id_penjualan WHERE id_customer = $id_customer";
+        if (isset($_GET['deleteItem'])) {
+            $itemId = $_GET['deleteItem'];
+            $query = "DELETE FROM detail_penjualan WHERE id_detail_penjualan = $itemId";
+            $mysqli->query($query);
+            header("location: " . $address . "/client/cart.php");
+        }
+
+        $query = "SELECT SUM(dp.total) AS total FROM penjualan p JOIN detail_penjualan dp ON p.id_penjualan = dp.id_penjualan WHERE id_customer = $id_customer";
         $data = $mysqli->query($query);
         if ($data->num_rows > 0) {
             $total = $data->fetch_assoc()['total'];
