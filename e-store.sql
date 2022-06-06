@@ -19,6 +19,7 @@ CREATE TABLE `customer` (
   `email` varchar(50) NOT NULL,
   `username` varchar(50) NOT NULL,
   `password` text NOT NULL,
+  `image` varchar(255) NOT NULL,
   `alamat` varchar(90) NOT NULL,
   `tgl_lahir` date NOT NULL
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
@@ -149,7 +150,9 @@ VALUES (
     "Sawojajar",
     "1952-09-13"
   );
-INSERT INTO penjualan (id_customer) VALUES (1), (2);
+INSERT INTO penjualan (id_customer)
+VALUES (1),
+  (2);
 INSERT INTO detail_penjualan
 VALUES (NULL, 1, 1, 2, NULL);
 /*Update total harga*/

@@ -1,6 +1,6 @@
 <?php include_once "../template/header.php";
 include_once "../auth/index.php";
-pageAuth($address);
+// pageAuth($address);
 ?>
 
 <section class="client--register">

@@ -18,11 +18,8 @@
         $data = $mysqli->query($query);
         if ($data->num_rows > 0) {
             $id_penjualan = $data->fetch_array()["id_penjualan"];
-            var_dump($data->fetch_all());
-            echo "Anda memiliki pemesanan yang belum terselesaikan";
             $query = "INSERT INTO detail_penjualan SET id_penjualan = $id_penjualan, id_barang = $id_barang, jumlah = 1, total = $harga";
             if ($mysqli->query($query)) {
-                echo "Added";
             } else {
                 echo "Failed";
             }
@@ -33,7 +30,6 @@
                 $id_penjualan = $mysqli->query($query)->fetch_array()["id_penjualan"];
                 $query = "INSERT INTO detail_penjualan SET id_penjualan = $id_penjualan, id_barang = $id_barang, jumlah = 1, total = $harga";
                 if ($mysqli->query($query)) {
-                    echo "Added";
                 } else {
                     echo "Failed";
                 }
