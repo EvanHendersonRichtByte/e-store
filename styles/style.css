@@ -140,6 +140,7 @@ nav div > * {
 /* NAVBAR */
 
 .client_auth {
+  padding: 2rem 6rem;
   background: var(--overlay-dark);
   color: var(--light-1);
 }
@@ -217,6 +218,7 @@ nav div > * {
   display: flex;
   flex-direction: column;
   margin: 9rem 6rem;
+  width: 30%;
 }
 
 .client--login .container h1,
@@ -238,7 +240,7 @@ nav div > * {
   margin-top: 2rem;
   display: flex;
   flex-direction: column;
-  max-width: 25%;
+  max-width: 100%;
 }
 
 .client--login .container form .form-group {
@@ -269,6 +271,7 @@ nav div > * {
 .client--login .container h5 ~ a {
   margin-left: 0.5rem;
   color: var(--secondary);
+  font-size: 2rem;
 }
 
 .client--login .container form div:last-child {
@@ -276,6 +279,58 @@ nav div > * {
   justify-content: space-between;
   align-items: center;
   margin-top: 2rem;
+}
+
+.client--login .container .forgot-password {
+  background: transparent;
+  color: var(--light-1);
+}
+
+.client--login .overlay {
+  display: none;
+  top: 0;
+  left: 0;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background: var(--overlay-dark);
+}
+
+.client--login .popup {
+  display: none;
+  background-color: var(--light-1);
+  color: var(--gray-1);
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  /* display: flex; */
+  flex-direction: column;
+  width: 30%;
+  padding: 2rem;
+  border-radius: 0.5rem;
+  animation-name: fadeIn;
+  animation-duration: 0.4s;
+}
+.client--login .popup .popup-close {
+  position: absolute;
+  top: 5%;
+  right: 5%;
+  background: none;
+  /* transform: translate(-50%, -50%); */
+  height: 2rem;
+  width: 2rem;
+}
+
+.client--login .popup .popup-close i {
+  color: var(--gray-1);
+}
+.client--login .popup form input {
+  width: 100%;
+}
+
+.client--login .popup form > * {
+  margin-top: 1.5rem;
 }
 
 .client--register {
@@ -307,11 +362,13 @@ nav div > * {
 
 .client--register .container h1 ~ div {
   display: flex;
+  align-items: center;
 }
 
 .client--register .container h1 ~ div a {
-  margin-left: 1rem;
+  margin: 1.5rem 0 1rem 1rem;
   color: var(--secondary);
+  font-size: 2rem;
 }
 
 .client--register .container form {

@@ -8,6 +8,7 @@
     <title>The E-Store</title>
     <link rel="stylesheet" href="../styles/style.css">
     <link rel="stylesheet" href="../assets/fonts/remixicon.css">
+    <link rel="stylesheet" href="../styles/responsive.css">
 </head>
 
 <body>

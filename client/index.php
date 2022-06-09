@@ -5,9 +5,6 @@
     <?php
     include_once "../config/connect.php";
 
-    include_once "../auth/index.php";
-
-    pageAuth($address);
     // Add Item
     if (isset($_POST['addToCart'])) {
         $id_penjualan = null;
@@ -59,30 +56,31 @@
                 <form action="" method="POST">
                     <input type="hidden" name="harga" value="<?php echo $key['harga'] ?>">
                     <?php
-                        $id_customer = $_SESSION['logged']['id'];
-                        $query = "SELECT id_barang FROM detail_penjualan WHERE id_penjualan = (SELECT id_penjualan FROM penjualan WHERE id_customer = ".$id_customer.") ORDER BY id_barang";
-                        $data_idBarang = $mysqli->query($query);
-                        $array_idBarang = array();
-                        while ($rowID = mysqli_fetch_assoc($data_idBarang)) {
-                            $array_idBarang[] = $rowID['id_barang'];
+                    $id_customer = $_SESSION['logged']['id'];
+                    $query = "SELECT id_barang FROM detail_penjualan WHERE id_penjualan = (SELECT id_penjualan FROM penjualan WHERE id_customer = " . $id_customer . ") ORDER BY id_barang";
+                    $data_idBarang = $mysqli->query($query);
+                    $array_idBarang = array();
+                    while ($rowID = mysqli_fetch_assoc($data_idBarang)) {
+                        $array_idBarang[] = $rowID['id_barang'];
+                    }
+                    if ($data_idBarang->num_rows > 0) {
+                        $bool = false;
+                        for ($i = 1; $i <= $data_idBarang->num_rows; $i++) {
+                            if ($array_idBarang[$i - 1] == $key['id_barang']) {
+                                $bool = true;
+                            }
                         }
-                        if ($data_idBarang->num_rows > 0) {
-                            $bool = false;
-                            for ($i=1; $i <= $data_idBarang->num_rows; $i++) { 
-                                if($array_idBarang[$i-1] == $key['id_barang']){
-                                    $bool = true;
-                                }
-                            }
-                            if($bool == true){
-                                echo "<button class="."btn-secondary"." name="."addToCart".">Terpilih</button>";
-                            } else {
-                                echo "<button class="."btn-secondary"." name="."addToCart"." value=".$key['id_barang']." type="."submit".">Add</button>";
-                            }
+                        if ($bool == true) {
+                            echo "<button class=" . "btn-secondary" . " name=" . "addToCart" . ">Terpilih</button>";
                         } else {
-                            echo "<button class="."btn-secondary"." name="."addToCart"." value=".$key['id_barang']." type="."submit".">Add</button>";
+                            echo "<button class=" . "btn-secondary" . " name=" . "addToCart" . " value=" . $key['id_barang'] . " type=" . "submit" . ">Add</button>";
                         }
+                    } else {
+                        echo "<button class=" . "btn-secondary" . " name=" . "addToCart" . " value=" . $key['id_barang'] . " type=" . "submit" . ">Add</button>";
+                    }
                     ?>
-                    <!-- <button class="btn-secondary" name="addToCart" value="<?php //echo $key['id_barang'] ?>" type="submit">Add</button> -->
+                    <!-- <button class="btn-secondary" name="addToCart" value="<?php //echo $key['id_barang'] 
+                                                                                ?>" type="submit">Add</button> -->
                 </form>
 
             </div>

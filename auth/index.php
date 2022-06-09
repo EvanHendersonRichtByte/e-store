@@ -18,12 +18,12 @@ if (isset($_POST['client__login'])) {
     $password = md5($_POST['password']);
     $query = "SELECT * FROM customer WHERE username = '$username' AND password = '$password'";
     $data = $mysqli->query($query);
-    if ($data) {
+    if ($data->num_rows > 0) {
         $data = $data->fetch_assoc();
         session_start();
-        $_SESSION['logged'] = ['id' => $data['id_customer'], 'username' => $data['username'], 'password' => $data['password'], 'email' => $data['email'], 'alamat' => $data['alamat'], 'tgl_lahir' => $data['tgl_lahir']];
+        $_SESSION['logged'] = ['id' => $data['id_customer'], 'email' => $data['email'], 'username' => $data['username'], 'password' => $data['password'], 'image' => $data['image'], 'alamat' => $data['alamat'], 'tgl_lahir' => $data['tgl_lahir']];
         header("location: " . $address . "/client");
     } else {
-        echo "Data tidak ditemukan";
+        header("location: " . $address . "/client/login.php?msg=404user");
     }
 }

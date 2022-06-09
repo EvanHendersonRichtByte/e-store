@@ -11,9 +11,7 @@ include_once "../auth/index.php";
             <h1>Greetings!</h1>
             <div>
                 <h5>Already Have Account?</h5>
-                <a href="http://localhost/the-Estore/client/login.php">
-                    <h5>Sign In</h5>
-                </a>
+                <a href="<?php echo $address ?>/client/login.php">Sign In</a>
             </div>
             <div class="form-group">
                 <input type="text" name="email" id="email" placeholder="Email" required>
@@ -24,7 +22,7 @@ include_once "../auth/index.php";
                 <i class="ri-file-user-fill"></i>
             </div>
             <div class="form-group">
-                <input type="text" name="password" id="password" placeholder="Password" required>
+                <input type="password" name="password" id="password" placeholder="Password" required>
                 <i class="ri-lock-password-fill"></i>
             </div>
             <div>

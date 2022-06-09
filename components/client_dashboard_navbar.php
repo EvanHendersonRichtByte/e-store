@@ -1,4 +1,7 @@
-<?php include_once "../config/config.php" ?>
+<?php include_once "../config/config.php";
+include_once '../auth/index.php';
+pageAuth($address);
+?>
 <nav class="client_dashboard">
     <div>
         <a href="<?php echo $address ?>/" class="brand">The E-Store</a>
@@ -10,7 +13,7 @@
             <i class="ri-shopping-cart-line"></i>
         </a>
         <div class="image">
-            <img src="../assets/static_images/dummy.png" alt="dummy">
+            <img src="<?php echo $_SESSION['logged']['image'] ? $address . '/assets/images/' . $_SESSION['logged']['image'] : '../assets/static_images/dummy.png' ?>" alt="image">
         </div>
         <div class="popup_menu">
             <input id="toggle_popup" type="checkbox">
