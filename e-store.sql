@@ -1,11 +1,12 @@
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
-DROP TABLE IF EXISTS barang;
-DROP TABLE IF EXISTS customer;
-DROP TABLE IF EXISTS petugas;
-DROP TABLE IF EXISTS penjualan;
-DROP TABLE IF EXISTS detail_penjualan;
+--
+-- buat database e-store beserta tabelnya
+--
+DROP DATABASE IF EXISTS `e-store`;
+CREATE DATABASE IF NOT EXISTS `e-store` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+USE `e-store`;
 CREATE TABLE `barang` (
   `id_barang` int(11) NOT NULL,
   `nama_barang` varchar(50) NOT NULL,
@@ -75,6 +76,9 @@ ADD CONSTRAINT `detail_penjualan_ibfk_1` FOREIGN KEY (`id_barang`) REFERENCES `b
 ALTER TABLE `penjualan`
 ADD CONSTRAINT `penjualan_ibfk_1` FOREIGN KEY (`id_petugas`) REFERENCES `petugas` (`id_petugas`),
   ADD CONSTRAINT `penjualan_ibfk_2` FOREIGN KEY (`id_customer`) REFERENCES `customer` (`id_customer`);
+--
+-- tambah data setiap tabel
+--
 INSERT INTO barang
 VALUES (
     NULL,
@@ -106,6 +110,7 @@ VALUES (
     "wahyudi@gmail.com",
     "wahyudiok",
     MD5("wahyudi23"),
+    NULL,
     "Malang",
     "1953-05-27"
   ),
@@ -114,6 +119,7 @@ VALUES (
     "agus@gmail.com",
     "agusok",
     MD5("agus2345"),
+    NULL,
     "Singosari",
     "1983-08-21"
   ),
@@ -122,6 +128,7 @@ VALUES (
     "roqib@gmail.com",
     "roqibroqib",
     MD5("roqib23@"),
+    NULL,
     "Blitar",
     "1988-09-13"
   );
@@ -155,7 +162,9 @@ VALUES (1),
   (2);
 INSERT INTO detail_penjualan
 VALUES (NULL, 1, 1, 2, NULL);
-/*Update total harga*/
+--
+-- Update total harga
+--
 UPDATE detail_penjualan
   INNER JOIN barang ON detail_penjualan.id_barang = barang.id_barang
 SET detail_penjualan.total = detail_penjualan.jumlah * barang.harga;

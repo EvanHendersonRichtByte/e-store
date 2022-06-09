@@ -1,5 +1,5 @@
 <?php
-$address = 'http://localhost/the-Estore';
+$address = 'http://'.$_SERVER['SERVER_NAME'].'/e-store';
 
 
 define('SECRET_KEY', 'azwpdkdal2-120');
