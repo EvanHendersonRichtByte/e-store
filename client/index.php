@@ -35,9 +35,25 @@
             }
         }
     }
+    if (isset($_POST['editJumlah'])) {
+        if (($_POST['stokBrg'] > $_POST['jmlBrg'] && $_POST['jmlBrg'] > 0) || ($_POST['jmlBrg'] == 10 && $_POST['editJumlah'] == "-")) {
+            $id_customer = $_SESSION['logged']['id'];
+            $id_barang = $_POST['idBrg'];
+            $opr = $_POST['editJumlah'];
+            if ($_POST['jmlBrg'] == 1 && $_POST['editJumlah'] == "-") {
+                $query = "DELETE FROM detail_penjualan WHERE id_barang = $id_barang AND id_penjualan = (SELECT id_penjualan FROM penjualan WHERE id_customer = $id_customer)";
+                $mysqli->query($query);
+            } else {
+                $query = "UPDATE detail_penjualan SET jumlah = jumlah $opr 1 WHERE id_barang = $id_barang AND id_penjualan = (SELECT id_penjualan FROM penjualan WHERE id_customer = $id_customer)";
+                $mysqli->query($query);
+            }
+        } else {
+            echo "<script type='text/javascript'>alert('Stok tidak mencukupi');</script>";
+        }
+    }
 
     // Load Page
-    $query = "SELECT * FROM barang";
+    $query = "SELECT * FROM barang ORDER BY nama_barang";
     $data = $mysqli->query($query);
     if ($data->num_rows > 0) {
         $data->fetch_assoc();
