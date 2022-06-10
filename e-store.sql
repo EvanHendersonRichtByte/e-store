@@ -20,7 +20,7 @@ CREATE TABLE `customer` (
   `email` varchar(50) NOT NULL,
   `username` varchar(50) NOT NULL,
   `password` text NOT NULL,
-  `image` varchar(255) NOT NULL,
+  `image` varchar(255),
   `alamat` varchar(90) NOT NULL,
   `tgl_lahir` date NOT NULL
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
@@ -43,6 +43,7 @@ CREATE TABLE `petugas` (
   `email` varchar(50) NOT NULL,
   `username` varchar(50) NOT NULL,
   `password` text NOT NULL,
+  `image` varchar(255),
   `alamat` varchar(90) NOT NULL,
   `tgl_lahir` date NOT NULL
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
@@ -138,6 +139,7 @@ VALUES (
     "aryanto@gmail.com",
     "aryanto",
     MD5("aryanto666"),
+    NULL,
     "Pakis",
     "1943-05-27"
   ),
@@ -146,6 +148,7 @@ VALUES (
     "yuli@gmail.com",
     "yuliii",
     MD5("yulilestari"),
+    NULL,
     "Singosari",
     "1933-08-21"
   ),
@@ -154,6 +157,7 @@ VALUES (
     "aman@gmail.com",
     "aman",
     MD5("aman"),
+    NULL,
     "Sawojajar",
     "1952-09-13"
   );

@@ -5,6 +5,7 @@
   --tertiary: #eb5757;
   --gray-1: #3e3e3e;
   --gray-2: #b3b3b3;
+  --gray-3: #989eb4;
   --light-1: #fefefe;
   --light-2: #f2f1f6;
   --overlay-dark: rgba(28, 28, 28, 0.5);
@@ -89,6 +90,86 @@ table.rounded-top-corner thead tr th:last-child {
 .client-dashboard-navbar .cart span {
   top: 30%;
   left: 80%;
+}
+.admin nav a {
+  color: var(--gray-3);
+}
+
+.admin nav a.active {
+  position: relative;
+  color: var(--bs-red);
+}
+
+.admin nav a.active::after {
+  position: absolute;
+  height: 100%;
+  width: 5px;
+  background-color: var(--bs-red);
+  top: 0;
+  left: 0;
+  border-top-right-radius: 5rem;
+  border-bottom-right-radius: 5rem;
+  content: "";
+}
+
+.admin .sidebar img {
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+}
+
+.admin .sidebar img {
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+}
+
+.admin .nav-tabs .nav-item a {
+  color: var(--bs-secondary);
+  font-weight: 500;
+}
+
+.admin .nav-tabs .nav-item a.active {
+  border-bottom: 2px solid var(--bs-red) !important;
+  color: var(--bs-red);
+}
+
+.admin .task p {
+  color: var(--bs-secondary);
+}
+
+.admin .task .task__thumbnail {
+  width: 4.3rem;
+  height: 4.3rem;
+  border-radius: 1rem;
+}
+
+.admin .task .task__creator {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 20rem;
+}
+
+.admin .stats i {
+  font-size: 2rem;
+}
+
+.admin .stats .box-1 {
+  background: #36d1dc;
+  background: -webkit-linear-gradient(to right, #5b86e5, #36d1dc);
+  background: linear-gradient(to right, #5b86e5, #36d1dc);
+}
+
+.admin .stats .box-2 {
+  background: #ee0979;
+  background: -webkit-linear-gradient(to right, #ff6a00, #ee0979);
+  background: linear-gradient(to right, #ff6a00, #ee0979);
+}
+
+.admin .stats .box-3 {
+  background: #11998e;
+  background: -webkit-linear-gradient(to right, #38ef7d, #11998e);
+  background: linear-gradient(to right, #38ef7d, #11998e);
 }
 
 /* 
