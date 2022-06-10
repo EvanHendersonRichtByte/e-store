@@ -450,6 +450,39 @@ nav div > * {
   font-weight: bold;
 }
 
+.client--dashboard .card form .jumlah {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  justify-content: center;
+}
+
+.client--dashboard .card form .jumlah button {
+  cursor: pointer;
+  width: 100%;
+  padding: 1rem 1rem;
+  background-color: var(--gray-2);
+  color: var(--light-1);
+}
+
+.client--dashboard .card form .jumlah h2 {
+  margin-left: 20px;
+  margin-right: 20px;
+  justify-content: center;
+  display: flex;
+  align-items: center;
+}
+
+.client--dashboard .card form .add {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+}
+
 .client--dashboard .card button {
   cursor: pointer;
   width: 100%;

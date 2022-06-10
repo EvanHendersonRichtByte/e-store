@@ -35,9 +35,25 @@
             }
         }
     }
+    if (isset($_POST['editJumlah'])) {
+        if($_POST['stokBrg'] > $_POST['jmlBrg'] && $_POST['jmlBrg'] > 0){
+            $id_customer = $_SESSION['logged']['id'];
+            $id_barang = $_POST['idBrg'];
+            $opr = $_POST['editJumlah'];
+            if($_POST['jmlBrg'] == 1 && $_POST['editJumlah'] == "-"){
+                $query = "DELETE FROM detail_penjualan WHERE id_barang = $id_barang AND id_penjualan = (SELECT id_penjualan FROM penjualan WHERE id_customer = $id_customer)";
+                $mysqli->query($query);
+            } else {
+                $query = "UPDATE detail_penjualan SET jumlah = jumlah $opr 1 WHERE id_barang = $id_barang AND id_penjualan = (SELECT id_penjualan FROM penjualan WHERE id_customer = $id_customer)";
+                $mysqli->query($query);
+            }
+        } else {
+            echo "<script type='text/javascript'>alert('Stok tidak mencukupi');</script>";
+        }
+    } 
 
     // Load Page
-    $query = "SELECT * FROM barang";
+    $query = "SELECT * FROM barang ORDER BY nama_barang";
     $data = $mysqli->query($query);
     if ($data->num_rows > 0) {
         $data->fetch_assoc();
@@ -57,21 +73,35 @@
                     <input type="hidden" name="harga" value="<?php echo $key['harga'] ?>">
                     <?php
                     $id_customer = $_SESSION['logged']['id'];
-                    $query = "SELECT id_barang FROM detail_penjualan WHERE id_penjualan = (SELECT id_penjualan FROM penjualan WHERE id_customer = " . $id_customer . ") ORDER BY id_barang";
-                    $data_idBarang = $mysqli->query($query);
-                    $array_idBarang = array();
-                    while ($rowID = mysqli_fetch_assoc($data_idBarang)) {
-                        $array_idBarang[] = $rowID['id_barang'];
+                    $query = "SELECT id_barang,jumlah FROM detail_penjualan WHERE id_penjualan = (SELECT id_penjualan FROM penjualan WHERE id_customer = " . $id_customer . ") ORDER BY id_barang";
+                    $dataDP = $mysqli->query($query);
+                    $arrayDP_id = array();
+                    $arrayDP_jml = array();
+                    while ($rowID = mysqli_fetch_assoc($dataDP)) {
+                        $arrayDP_id[] = $rowID['id_barang'];
+                        $arrayDP_jml[] = $rowID['jumlah'];
                     }
-                    if ($data_idBarang->num_rows > 0) {
+                    if ($dataDP->num_rows > 0) {
                         $bool = false;
-                        for ($i = 1; $i <= $data_idBarang->num_rows; $i++) {
-                            if ($array_idBarang[$i - 1] == $key['id_barang']) {
+                        for ($i = 1; $i <= $dataDP->num_rows; $i++) {
+                            if ($arrayDP_id[$i - 1] == $key['id_barang']) {
+                                $index = $i;
                                 $bool = true;
                             }
                         }
                         if ($bool == true) {
-                            echo "<button class=" . "btn-secondary" . " name=" . "addToCart" . ">Terpilih</button>";
+                            ?>
+                            <div class="jumlah">
+                                <input type="hidden" name="stokBrg" value="<?php echo $key['stok'] ?>">
+                                <input type="hidden" name="idBrg" value="<?php echo $arrayDP_id[$index - 1] ?>">
+                                <input type="hidden" name="jmlBrg" value="<?php echo $arrayDP_jml[$index - 1] ?>">
+                                <button class="btn-jumlah" name="editJumlah" type="submit" value="-">-</button>
+                                <h2><?php echo $arrayDP_jml[$index - 1] ?></h2>
+                                <button class="btn-jumlah" name="editJumlah" type="submit" value="+">+</button>
+                            </div>
+                            <div class="add">
+                                <button class="btn-secondary">Terpilih</button>
+                            <?php
                         } else {
                             echo "<button class=" . "btn-secondary" . " name=" . "addToCart" . " value=" . $key['id_barang'] . " type=" . "submit" . ">Add</button>";
                         }
@@ -81,6 +111,7 @@
                     ?>
                     <!-- <button class="btn-secondary" name="addToCart" value="<?php //echo $key['id_barang'] 
                                                                                 ?>" type="submit">Add</button> -->
+                            </div>
                 </form>
 
             </div>
