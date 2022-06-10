@@ -36,7 +36,7 @@
         }
     }
     if (isset($_POST['editJumlah'])) {
-        if($_POST['stokBrg'] > $_POST['jmlBrg'] && $_POST['jmlBrg'] > 0){
+        if(($_POST['stokBrg'] > $_POST['jmlBrg'] && $_POST['jmlBrg'] > 0) || ($_POST['jmlBrg'] == 10 && $_POST['editJumlah'] == "-")){
             $id_customer = $_SESSION['logged']['id'];
             $id_barang = $_POST['idBrg'];
             $opr = $_POST['editJumlah'];
