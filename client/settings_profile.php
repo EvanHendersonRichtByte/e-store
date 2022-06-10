@@ -1,38 +1,39 @@
 <?php include "../template/client_settings_header.php" ?>
 
-<div class="form">
+<div class="client-settings--profile col-md-8">
+    <hr class="d-sm-block d-md-none">
     <form action="" method="POST" enctype="multipart/form-data">
-        <div class="header">
+        <div class="header position-relative">
             <div class="header__background">&nbsp;</div>
-            <div class="header__content">
+            <div class="header__content d-flex justify-content-around align-items-end w-100">
                 <div class="header__image"><img src="<?php echo $_SESSION['logged']['image'] ? $address . '/assets/images/' . $_SESSION['logged']['image'] : '../assets/static_images/dummy.png' ?>" alt="image"></div>
                 <div class="header__title">
-                    <h3>Profile</h3>
-                    <p>Update your photo and personal details</p>
+                    <h4>Profile</h4>
+                    <p class="mb-0">Update your photo and personal details</p>
                 </div>
                 <button class="btn bordered btn-primary" type="submit" name="changeData">Save</button>
             </div>
         </div>
         <div class="content">
-            <div class="form-group">
-                <label for="username">Username</label>
-                <input id="username" type="text" name="username" value="<?php echo $_SESSION['logged']['username'] ?>">
+            <div class="form-group mt-3">
+                <label class="form-label" for="username">Username</label>
+                <input class="form-control" id="username" type="text" name="username" value="<?php echo $_SESSION['logged']['username'] ?>">
             </div>
-            <div class="form-group">
+            <div class="form-group mt-3 d-flex justify-content-between align-items-center">
                 <label for="image">Your Photo</label>
-                <div>
-                    <label for="image"><img src="<?php echo $_SESSION['logged']['image'] ? $address . '/assets/images/' . $_SESSION['logged']['image'] : '../assets/static_images/dummy.png' ?>" alt="image"></label>
-                    <input id="image" type="file" name="image" value="<?php echo $_SESSION['logged']['image'] ?>" title=" ">
-                    <button type="submit" name="changeImage" class="btn bordered btn-primary ">Update</button>
+                <label class="form-label" for="image"><img src="<?php echo $_SESSION['logged']['image'] ? $address . '/assets/images/' . $_SESSION['logged']['image'] : '../assets/static_images/dummy.png' ?>" alt="image"></label>
+                <div class="d-flex">
+                    <input class="form-control rounded-0" id="image" type="file" name="image" value="<?php echo $_SESSION['logged']['image'] ?>" title=" ">
+                    <button type="submit" name="changeImage" class="btn bordered btn-primary rounded-0">Update</button>
                 </div>
             </div>
-            <div class="form-group">
-                <label for="alamat">Alamat</label>
-                <input id="alamat" type="text" name="alamat" value="<?php echo $_SESSION['logged']['alamat'] ?>">
+            <div class="form-group mt-3">
+                <label class="form-label" for="alamat">Alamat</label>
+                <input class="form-control" id="alamat" type="text" name="alamat" value="<?php echo $_SESSION['logged']['alamat'] ?>">
             </div>
-            <div class="form-group">
-                <label for="tanggal_lahir">Tanggal Lahir</label>
-                <input id="tanggal_lahir" type="date" name="tanggal_lahir" value="<?php echo $_SESSION['logged']['tgl_lahir'] ?>">
+            <div class="form-group mt-3">
+                <label class="form-label" for="tanggal_lahir">Tanggal Lahir</label>
+                <input class="form-control" id="tanggal_lahir" type="date" name="tanggal_lahir" value="<?php echo $_SESSION['logged']['tgl_lahir'] ?>">
             </div>
         </div>
     </form>

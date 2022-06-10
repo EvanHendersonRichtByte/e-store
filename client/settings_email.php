@@ -1,17 +1,18 @@
 <?php include "../template/client_settings_header.php" ?>
 
-<div class="form">
+<div class="col-md-8">
+    <hr class="d-sm-block d-md-none">
     <form action="" method="POST">
         <div class="content" style="margin: 0;">
-            <div class="form-group">
-                <label>Previous Email</label>
-                <h3><?php echo $_SESSION['logged']['email'] ?></h3>
+            <div class="form-group mb-3">
+                <label class="form-label">Previous Email</label>
+                <h5><?php echo $_SESSION['logged']['email'] ?></h5>
             </div>
-            <div class="form-group">
-                <label for="email">New Email</label>
-                <input id="email" type="email" name="email">
+            <div class="form-group mb-3">
+                <label class="form-label" for="email">New Email</label>
+                <input class="form-control" id="email" type="email" name="email">
             </div>
-            <div class="form-group">
+            <div class="form-group mb-3">
                 <button type="submit" name="changeEmail" class="btn bordered btn-primary">Update</button>
             </div>
         </div>

@@ -13,7 +13,7 @@ function pageAuth($address)
     }
 }
 
-if (isset($_POST['client__login'])) {
+if (isset($_POST['client-login'])) {
     $username = $_POST['username'];
     $password = md5($_POST['password']);
     $query = "SELECT * FROM customer WHERE username = '$username' AND password = '$password'";

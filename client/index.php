@@ -1,7 +1,7 @@
 <?php include_once "../template/header.php"  ?>
 
 <?php include "../components/client_dashboard_navbar.php" ?>
-<section class="client--dashboard">
+<section class="client-dashboard container d-flex flex-wrap pt-5">
     <?php
     include_once "../config/connect.php";
 
@@ -43,46 +43,26 @@
         $data->fetch_assoc();
         foreach ($data as $key) {
     ?>
-            <div class="card">
-                <div class="image">
-                    <img src=<?php echo $key['image'] ? $key['image'] : "../assets/static_images/dummy.png" ?> alt="dummy">
+            <div class="card me-5 mb-5" style="width: 18rem;">
+                <img src=<?php echo $key['image'] ? $key['image'] : "../assets/static_images/dummy.png" ?> class="card-img-top" alt="...">
+                <div class="card-body">
+                    <a class="card-title text-decoration-none" href="<?php echo $address ?>/client/item.php">
+                        <h5><?php echo $key['nama_barang'] ?></h5>
+                    </a>
+                    <p class="card-text"><?php echo $key['deskripsi'] ?></p>
+                    <p class="card-text">Stok : <?php echo $key['stok'] ?></p>
+                    <p class="card-text">Rp. : <?php echo $key['harga'] ?></p>
+                    <div class="row">
+                        <div class="col">
+                            <a href="#" class="btn btn-success"><i class="bi bi-bag-plus"></i></a>
+                        </div>
+                        <div class="input-group w-75">
+                            <button class="input-group-text"><i class="bi bi-dash"></i></button>
+                            <input type="number" name="" id="" class="form-control">
+                            <button class="input-group-text"><i class="bi bi-plus"></i></button>
+                        </div>
+                    </div>
                 </div>
-                <div class="details">
-                    <a href="<?php echo $address ?>/client/item.php" class="title"><?php echo $key['nama_barang'] ?></a>
-                    <p class="description"><?php echo $key['deskripsi'] ?></p>
-                    <p class="stock">Stok: <?php echo $key['stok'] ?></p>
-                    <p class="price">Rp. <?php echo $key['harga'] ?></p>
-                </div>
-                <form action="" method="POST">
-                    <input type="hidden" name="harga" value="<?php echo $key['harga'] ?>">
-                    <?php
-                    $id_customer = $_SESSION['logged']['id'];
-                    $query = "SELECT id_barang FROM detail_penjualan WHERE id_penjualan = (SELECT id_penjualan FROM penjualan WHERE id_customer = " . $id_customer . ") ORDER BY id_barang";
-                    $data_idBarang = $mysqli->query($query);
-                    $array_idBarang = array();
-                    while ($rowID = mysqli_fetch_assoc($data_idBarang)) {
-                        $array_idBarang[] = $rowID['id_barang'];
-                    }
-                    if ($data_idBarang->num_rows > 0) {
-                        $bool = false;
-                        for ($i = 1; $i <= $data_idBarang->num_rows; $i++) {
-                            if ($array_idBarang[$i - 1] == $key['id_barang']) {
-                                $bool = true;
-                            }
-                        }
-                        if ($bool == true) {
-                            echo "<button class=" . "btn-secondary" . " name=" . "addToCart" . ">Terpilih</button>";
-                        } else {
-                            echo "<button class=" . "btn-secondary" . " name=" . "addToCart" . " value=" . $key['id_barang'] . " type=" . "submit" . ">Add</button>";
-                        }
-                    } else {
-                        echo "<button class=" . "btn-secondary" . " name=" . "addToCart" . " value=" . $key['id_barang'] . " type=" . "submit" . ">Add</button>";
-                    }
-                    ?>
-                    <!-- <button class="btn-secondary" name="addToCart" value="<?php //echo $key['id_barang'] 
-                                                                                ?>" type="submit">Add</button> -->
-                </form>
-
             </div>
     <?php
         }
@@ -91,3 +71,36 @@
 </section>
 
 <?php include_once "../template/footer.php"  ?>
+
+<?php /* Tolong gan hehe?>
+
+<form action="" method="POST">
+    <input type="hidden" name="harga" value="<?php echo $key['harga'] ?>">
+    <?php
+    $id_customer = $_SESSION['logged']['id'];
+    $query = "SELECT id_barang FROM detail_penjualan WHERE id_penjualan = (SELECT id_penjualan FROM penjualan WHERE id_customer = " . $id_customer . ") ORDER BY id_barang";
+    $data_idBarang = $mysqli->query($query);
+    $array_idBarang = array();
+    while ($rowID = mysqli_fetch_assoc($data_idBarang)) {
+        $array_idBarang[] = $rowID['id_barang'];
+    }
+    if ($data_idBarang->num_rows > 0) {
+        $bool = false;
+        for ($i = 1; $i <= $data_idBarang->num_rows; $i++) {
+            if ($array_idBarang[$i - 1] == $key['id_barang']) {
+                $bool = true;
+            }
+        }
+        if ($bool == true) {
+            echo "<button class=" . "btn-secondary" . " name=" . "addToCart" . ">Terpilih</button>";
+        } else {
+            echo "<button class=" . "btn-secondary" . " name=" . "addToCart" . " value=" . $key['id_barang'] . " type=" . "submit" . ">Add</button>";
+        }
+    } else {
+        echo "<button class=" . "btn-secondary" . " name=" . "addToCart" . " value=" . $key['id_barang'] . " type=" . "submit" . ">Add</button>";
+    }
+    ?>
+    <!-- <button class="btn-secondary" name="addToCart" value="<?php //echo $key['id_barang'] ?>" type="submit">Add</button> -->
+</form>
+
+<?php // */ ?>

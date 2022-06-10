@@ -3,35 +3,26 @@ include_once "../auth/index.php";
 // pageAuth($address);
 ?>
 
-<section class="client--register">
-
-    <div class="container">
-
-        <form action="" method="post">
-            <h1>Greetings!</h1>
-            <div>
-                <h5>Already Have Account?</h5>
-                <a href="<?php echo $address ?>/client/login.php">Sign In</a>
-            </div>
-            <div class="form-group">
-                <input type="text" name="email" id="email" placeholder="Email" required>
-                <i class="ri-mail-fill"></i>
-            </div>
-            <div class="form-group">
-                <input type="text" name="username" id="username" placeholder="Username" required>
-                <i class="ri-file-user-fill"></i>
-            </div>
-            <div class="form-group">
-                <input type="password" name="password" id="password" placeholder="Password" required>
-                <i class="ri-lock-password-fill"></i>
-            </div>
-            <div>
-                <button class="btn btn-secondary bordered" name="register" value="register" type="submit">Sign Up</button>
-            </div>
-        </form>
-    </div>
-    <div class="image">
-        <img src="../assets/static_images/registeruser.jpg" alt="Register">
+<section class="client-register">
+    <div class="row w-100 justify-content-between m-0">
+        <div class="col-md-6 d-flex p-0 justify-content-center mt-5 pt-5">
+            <form action="" method="post" class="d-block w-50 mt-5">
+                <h1>Greetings!</h1>
+                <div class="d-flex">
+                    <h5>Already Have Account?</h5>
+                    <a class="text-success text-decoration-none ms-2" href="<?php echo $address ?>/client/login.php">
+                        <h5>Sign In</h5>
+                    </a>
+                </div>
+                <input class="form-control mt-3" type="text" name="email" id="email" placeholder="Email" required>
+                <input class="form-control mt-3" type="text" name="username" id="username" placeholder="Username" required>
+                <input class="form-control mt-3" type="password" name="password" id="password" placeholder="Password" required>
+                <button class="mt-3 btn btn-secondary bordered" name="register" value="register" type="submit">Sign Up</button>
+            </form>
+        </div>
+        <div class="col-md-6 image p-0 d-none d-sm-none d-md-block">
+            <img class="img-fluid" src="../assets/static_images/registeruser.jpg" alt="Register">
+        </div>
     </div>
 </section>
 

@@ -1,16 +1,17 @@
 <?php include "../template/client_settings_header.php"; ?>
-<div class="form">
+<div class="col-md-8">
+    <hr class="d-sm-block d-md-none">
     <form action="" method="POST">
         <div class="content" style="margin: 0;">
-            <div class="form-group">
-                <label for="password">Password</label>
-                <input id="password" type="password" name="password">
+            <div class="form-group mb-3">
+                <label class="form-label" for="password">Password</label>
+                <input class="form-control" id="password" type="password" name="password">
             </div>
-            <div class="form-group">
-                <label for="confirmPassword">Confirm Password</label>
-                <input id="confirmPassword" type="password" name="confirmPassword">
+            <div class="form-group mb-3">
+                <label class="form-label" for="confirmPassword">Confirm Password</label>
+                <input class="form-control" id="confirmPassword" type="password" name="confirmPassword">
             </div>
-            <div class="form-group">
+            <div class="form-group mb-3">
                 <button type="submit" name="changePassword" class="btn bordered btn-primary">Update</button>
             </div>
         </div>

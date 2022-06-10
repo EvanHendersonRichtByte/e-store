@@ -39,34 +39,53 @@ if (isset($_GET['msg'])) {
 <?php
     }
 }
-
 ?>
-
-<section class="client--login">
+<section class="client-login min-vh-100">
     <?php include_once "../components/client_auth_navbar.php" ?>
 
     <div class="container">
-        <h1>Welcome Back!</h1>
-        <div>
-            <h5>Dont' Have Account?</h5>
-            <a href="<?php echo $address ?>/client/register.php">Sign Up</a>
+        <div class="col-md-3 mt-5">
+            <h1>Welcome Back!</h1>
+            <div class="d-flex align-items-center">
+                <h5 class="fw-light">Dont' Have Account?</h5>
+                <a class="ms-2 link-success text-decoration-none" href="<?php echo $address ?>/client/register.php">
+                    <h5 class="fw-light">Sign Up</h5>
+                </a>
+            </div>
+            <form action="<?php echo $address ?>/auth/" method="post">
+                <input class="form-control mt-3 bg-transparent text-light" type="text" name="username" id="username" placeholder="Username" required>
+                <input class="form-control mt-3 bg-transparent text-light" type="password" name="password" id="password" placeholder="Password" required>
+                <div class="d-flex mt-3">
+                    <button class="btn btn-success" name="client-login" value="submit" type="submit">Sign In</button>
+                    <button type="button" class="ms-auto btn btn-transparent text-light" data-bs-toggle="modal" data-bs-target="#forgotPassword">
+                        Forgot Password
+                    </button>
+                </div>
+            </form>
+            <div class="modal fade" id="forgotPassword" tabindex="-1" aria-hidden="true">
+                <form action="" method="POST">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title text-dark">Forgot Password</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <input class="form-control bg-transparent text-light" type="text" name="changeUsername" id="username" placeholder="Username" required>
+                                <input class="form-control mt-3 bg-transparent text-light" type="email" name="changeEmail" id="email" placeholder="Email" required>
+                                <input class="form-control mt-3 bg-transparent text-light" type="password" name="changePassword" id="password" placeholder="Password" required>
+                                <input class="form-control mt-3 bg-transparent text-light" type="password" name="changeConfirmPassword" id="password" placeholder="Confirm Password" required>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-primary" name="changePassword">Update</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
         </div>
-        <form action="<?php echo $address ?>/auth/" method="post">
-            <div class="form-group">
-                <input type="text" name="username" id="username" placeholder="Username" required>
-                <i class="ri-file-user-fill"></i>
-            </div>
-            <div class="form-group">
-                <input type="password" name="password" id="password" placeholder="Password" required>
-                <i class="ri-lock-password-fill"></i>
-            </div>
-            <div>
-                <button class="btn btn-secondary bordered" name="client__login" value="submit" type="submit">Sign In</button>
-                <button type="button" id="togglePopup" class="forgot-password">Forgot Password</button>
-            </div>
-        </form>
     </div>
-    <div class="overlay"></div>
+    <!-- <div class="overlay"></div>
     <div class="popup">
         <button class="popup-close"><i class="ri-close-line"></i></button>
         <h1>Forgot Password?</h1>
@@ -87,8 +106,9 @@ if (isset($_GET['msg'])) {
                 <button type="submit" class="btn btn-primary bordered" name="changePassword">Submit</button>
             </div>
         </form>
-    </div>
-    <script>
+    </div> -->
+
+    <!-- <script>
         const togglePopup = (popupStatus) => {
             if (popupStatus) {
                 document.querySelector('.client--login .overlay').style.display = 'block';
@@ -102,7 +122,7 @@ if (isset($_GET['msg'])) {
         document.querySelector('.overlay').addEventListener('click', () => togglePopup(false))
         document.querySelector('.client--login .popup .popup-close').addEventListener('click', () => togglePopup(false))
         document.addEventListener('keydown', e => e.key === "Escape" && togglePopup(false))
-    </script>
+    </script> -->
 </section>
 
 <?php include_once "../template/footer.php";  ?>

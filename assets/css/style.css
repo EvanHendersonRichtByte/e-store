@@ -10,6 +10,8 @@
   --overlay-dark: rgba(28, 28, 28, 0.5);
 }
 
+/* OVERRIDES */
+
 /* ANIMATION */
 @keyframes fadeIn {
   from {
@@ -20,6 +22,76 @@
   }
 }
 
+/* NAVBAR */
+.client-dashboard-navbar li.nav-item.dropdown img {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 40rem;
+}
+
+/* COMPONENTS */
+table.rounded-top-corner thead tr th:first-child {
+  border-top-left-radius: 1rem;
+}
+
+table.rounded-top-corner thead tr th:last-child {
+  border-top-right-radius: 1rem;
+}
+
+/* PAGES */
+
+.client-login {
+  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+    url("../static_images/loginuser.jpg");
+  background-size: cover;
+  color: var(--light-1);
+}
+
+.client-settings .client-settings--profile .header__background {
+  height: 8rem;
+  background-color: var(--gray-2);
+  border-top-left-radius: 5rem;
+}
+
+.client-settings .client-settings--profile .header__content {
+  position: absolute;
+  left: 50%;
+  top: 100%;
+  transform: translate(-50%, -50%);
+}
+
+.client-settings .client-settings--profile .header__image {
+  width: 8rem;
+  height: 8rem;
+  border-radius: 20rem;
+}
+.client-settings .client-settings--profile .header__image img {
+  width: inherit;
+  height: inherit;
+  border-radius: 20rem;
+  border: 3px solid var(--light-1);
+}
+
+.client-settings .client-settings--profile .content {
+  margin-top: 5rem;
+}
+
+.client-settings .client-settings--profile .content img {
+  width: 4rem;
+  height: 4rem;
+  border-radius: 20rem;
+}
+
+.client-dashboard-navbar .cart i {
+  font-size: 1.5rem;
+}
+
+.client-dashboard-navbar .cart span {
+  top: 30%;
+  left: 80%;
+}
+
+/* 
 *,
 *::before,
 *::after {
@@ -101,12 +173,10 @@ input:focus {
 }
 
 ::-webkit-input-placeholder {
-  /* Edge */
   color: inherit;
 }
 
 :-ms-input-placeholder {
-  /* Internet Explorer 10-11 */
   color: inherit;
 }
 
@@ -135,11 +205,11 @@ nav div {
 
 nav div > * {
   margin-right: 2rem;
-}
+} */
 
 /* NAVBAR */
 
-.client_auth {
+/* .client_auth {
   padding: 2rem 6rem;
   background: var(--overlay-dark);
   color: var(--light-1);
@@ -203,11 +273,11 @@ nav div > * {
 
 .client_dashboard .popup_menu input:checked ~ .menu {
   display: flex;
-}
+} */
 
 /* PAGES */
 
-.client--login {
+/* .client--login {
   background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
     url("../assets/static_images/loginuser.jpg");
   background-size: cover;
@@ -304,7 +374,6 @@ nav div > * {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  /* display: flex; */
   flex-direction: column;
   width: 30%;
   padding: 2rem;
@@ -317,7 +386,6 @@ nav div > * {
   top: 5%;
   right: 5%;
   background: none;
-  /* transform: translate(-50%, -50%); */
   height: 2rem;
   width: 2rem;
 }
@@ -703,4 +771,4 @@ nav div > * {
   width: inherit;
   height: inherit;
   border-radius: inherit;
-}
+} */
