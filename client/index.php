@@ -10,15 +10,14 @@
         $id_penjualan = null;
         $id_barang = $_POST['addToCart'];
         $id_customer = $_SESSION['logged']['id'];
-        $harga = $_POST['harga'];
         $query = "SELECT id_penjualan FROM penjualan WHERE id_customer = $id_customer AND id_petugas IS NULL LIMIT 1";
         $data = $mysqli->query($query);
         if ($data->num_rows > 0) {
             $id_penjualan = $data->fetch_array()["id_penjualan"];
-            $query = "INSERT INTO detail_penjualan SET id_penjualan = $id_penjualan, id_barang = $id_barang, jumlah = 1, total = $harga";
+            $query = "INSERT INTO detail_penjualan SET id_penjualan = $id_penjualan, id_barang = $id_barang, jumlah = 1, total = NULL";
             if ($mysqli->query($query)) {
             } else {
-                echo "Failed";
+                echo "Failed!";
             }
         } else {
             $query = "INSERT INTO penjualan SET id_customer = $id_customer, id_petugas = NULL";
@@ -35,7 +34,7 @@
             }
         }
     }
-    if (isset($_POST['editJumlah'])) {
+    elseif (isset($_POST['editJumlah'])) {
         if (($_POST['stokBrg'] > $_POST['jmlBrg'] && $_POST['jmlBrg'] > 0) || ($_POST['jmlBrg'] == 10 && $_POST['editJumlah'] == "-")) {
             $id_customer = $_SESSION['logged']['id'];
             $id_barang = $_POST['idBrg'];
@@ -50,6 +49,12 @@
         } else {
             echo "<script type='text/javascript'>alert('Stok tidak mencukupi');</script>";
         }
+    }
+    elseif(isset($_POST['hapusCart'])){
+        $id_customer = $_SESSION['logged']['id'];
+        $id_barang = $_POST['idBrg'];
+        $query = "DELETE FROM detail_penjualan WHERE id_barang = $id_barang AND id_penjualan = (SELECT id_penjualan FROM penjualan WHERE id_customer = $id_customer)";
+        $mysqli->query($query);
     }
 
     // Load Page
@@ -68,16 +73,52 @@
                     <p class="card-text"><?php echo $key['deskripsi'] ?></p>
                     <p class="card-text">Stok : <?php echo $key['stok'] ?></p>
                     <p class="card-text">Rp. : <?php echo $key['harga'] ?></p>
-                    <div class="row">
-                        <div class="col">
-                            <a href="#" class="btn btn-success"><i class="bi bi-bag-plus"></i></a>
+                    <form method="POST" id="formAdd">
+                        <div class="row">
+                            <?php
+                                $id_customer = $_SESSION['logged']['id'];
+                                $query = "SELECT id_barang,jumlah FROM detail_penjualan WHERE id_penjualan = (SELECT id_penjualan FROM penjualan WHERE id_customer = " . $id_customer . ") ORDER BY id_barang";
+                                $dataDP = $mysqli->query($query);
+                                $arrayDP_id = array();
+                                $arrayDP_jml = array();
+                                while ($rowID = mysqli_fetch_assoc($dataDP)) {
+                                    $arrayDP_id[] = $rowID['id_barang'];
+                                    $arrayDP_jml[] = $rowID['jumlah'];
+                                }
+                                $bool = false;
+                                if ($dataDP->num_rows > 0) {
+                                    for ($i = 1; $i <= $dataDP->num_rows; $i++) {
+                                        if ($arrayDP_id[$i - 1] == $key['id_barang']) {
+                                            $index = $i;
+                                            $bool = true;
+                                        }
+                                    }
+                                }
+                                if ($bool == true) {
+                            ?>
+                            <div class="col">
+                                <button class="btn btn-danger" name="hapusCart" type="submit" value="<?php echo $key['id_barang'] ?>"><i class="bi bi-bag-x"></i></button>
+                                <!-- <a href="#" class="form-control btn btn-danger"><i class="bi bi-bag-x"></i></a> -->
+                            </div>
+                            <div class="input-group w-75">
+                                <input type="hidden" name="stokBrg" value="<?php echo $key['stok'] ?>">
+                                <input type="hidden" name="idBrg" value="<?php echo $arrayDP_id[$index - 1] ?>">
+                                <input type="hidden" name="jmlBrg" value="<?php echo $arrayDP_jml[$index - 1] ?>">
+                                <button class="input-group-text" name="editJumlah" type="submit" value="-"><i class="bi bi-dash"></i></button>
+                                <input type="number" name="inpDewe" id="" class="form-control" value=<?php echo $arrayDP_jml[$index - 1] ?> onclick="document.getElementById('myform').submit()">
+                                <button class="input-group-text" name="editJumlah" type="submit" value="+"><i class="bi bi-plus"></i></button>
+                            </div>
+                            <?php
+                                    } else {
+                            ?>
+                            <div class="col">
+                                <button class="form-control btn btn-success" name="addToCart" type="submit" value="<?php echo $key['id_barang'] ?>"><i class="bi bi-bag-plus"></i></button>
+                            </div>
+                            <?php
+                        }
+                        ?>
                         </div>
-                        <div class="input-group w-75">
-                            <button class="input-group-text"><i class="bi bi-dash"></i></button>
-                            <input type="number" name="" id="" class="form-control">
-                            <button class="input-group-text"><i class="bi bi-plus"></i></button>
-                        </div>
-                    </div>
+                    </form>
                 </div>
             </div>
     <?php
@@ -87,36 +128,3 @@
 </section>
 
 <?php include_once "../template/footer.php"  ?>
-
-<?php /* Tolong gan hehe?>
-
-<form action="" method="POST">
-    <input type="hidden" name="harga" value="<?php echo $key['harga'] ?>">
-    <?php
-    $id_customer = $_SESSION['logged']['id'];
-    $query = "SELECT id_barang FROM detail_penjualan WHERE id_penjualan = (SELECT id_penjualan FROM penjualan WHERE id_customer = " . $id_customer . ") ORDER BY id_barang";
-    $data_idBarang = $mysqli->query($query);
-    $array_idBarang = array();
-    while ($rowID = mysqli_fetch_assoc($data_idBarang)) {
-        $array_idBarang[] = $rowID['id_barang'];
-    }
-    if ($data_idBarang->num_rows > 0) {
-        $bool = false;
-        for ($i = 1; $i <= $data_idBarang->num_rows; $i++) {
-            if ($array_idBarang[$i - 1] == $key['id_barang']) {
-                $bool = true;
-            }
-        }
-        if ($bool == true) {
-            echo "<button class=" . "btn-secondary" . " name=" . "addToCart" . ">Terpilih</button>";
-        } else {
-            echo "<button class=" . "btn-secondary" . " name=" . "addToCart" . " value=" . $key['id_barang'] . " type=" . "submit" . ">Add</button>";
-        }
-    } else {
-        echo "<button class=" . "btn-secondary" . " name=" . "addToCart" . " value=" . $key['id_barang'] . " type=" . "submit" . ">Add</button>";
-    }
-    ?>
-    <!-- <button class="btn-secondary" name="addToCart" value="<?php //echo $key['id_barang'] ?>" type="submit">Add</button> -->
-</form>
-
-<?php // */ ?>
