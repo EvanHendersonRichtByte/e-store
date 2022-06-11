@@ -20,6 +20,8 @@
                 <?php
                 include_once "../config/connect.php";
                 $id_customer = $_SESSION['logged']['id'];
+                $query = "UPDATE detail_penjualan INNER JOIN barang ON detail_penjualan.id_barang = barang.id_barang SET detail_penjualan.total = detail_penjualan.jumlah * barang.harga";
+                $mysqli->query($query);
                 $query = "SELECT * FROM penjualan p JOIN detail_penjualan dp ON p.id_penjualan = dp.id_penjualan JOIN barang b ON b.id_barang = dp.id_barang WHERE id_customer = $id_customer";
                 $data = $mysqli->query($query);
                 $image = null;
