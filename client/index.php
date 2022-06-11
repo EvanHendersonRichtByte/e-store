@@ -67,7 +67,7 @@
             <div class="card me-5 mb-5" style="width: 18rem;">
                 <img src=<?php echo $key['image'] ? $key['image'] : "../assets/static_images/dummy.png" ?> class="card-img-top" alt="...">
                 <div class="card-body">
-                    <a class="card-title text-decoration-none" href="<?php echo $address ?>/client/item.php">
+                    <a class="card-title text-decoration-none" href="<?php echo $address ?>/client/item.php?id=<?php echo $key['id_barang'] ?>">
                         <h5><?php echo $key['nama_barang'] ?></h5>
                     </a>
                     <p class="card-text"><?php echo $key['deskripsi'] ?></p>
