@@ -1,4 +1,6 @@
-<?php include "../template/client_settings_header.php" ?>
+<?php include "../template/client_settings_header.php";
+$idCustomer = $_SESSION['logged']['id'];
+?>
 
 <div class="client-settings--profile col-md-8">
     <hr class="d-sm-block d-md-none">
@@ -6,7 +8,7 @@
         <div class="header position-relative">
             <div class="header__background">&nbsp;</div>
             <div class="header__content d-flex justify-content-around align-items-end w-100">
-                <div class="header__image"><img src="<?php echo $_SESSION['logged']['image'] ? $address . '/assets/images/' . $_SESSION['logged']['image'] : '../assets/static_images/dummy.png' ?>" alt="image"></div>
+                <div class="header__image"><img src="../components/view_image.php?id_customer=<?php echo $idCustomer ?>" alt="image"></div>
                 <div class="header__title">
                     <h4>Profile</h4>
                     <p class="mb-0">Update your photo and personal details</p>
@@ -21,9 +23,9 @@
             </div>
             <div class="form-group mt-3 d-flex justify-content-between align-items-center">
                 <label for="image">Your Photo</label>
-                <label class="form-label" for="image"><img src="<?php echo $_SESSION['logged']['image'] ? $address . '/assets/images/' . $_SESSION['logged']['image'] : '../assets/static_images/dummy.png' ?>" alt="image"></label>
+                <label class="form-label" for="image"><img src="<?php echo $address ?>/components/view_image.php?id_customer=<?php echo $idCustomer ?>" alt="image"></label>
                 <div class="d-flex">
-                    <input class="form-control rounded-0" id="image" type="file" name="image" value="<?php echo $_SESSION['logged']['image'] ?>" title=" ">
+                    <input class="form-control rounded-0" id="image" type="file" name="image" title=" ">
                     <button type="submit" name="changeImage" class="btn bordered btn-primary rounded-0">Update</button>
                 </div>
             </div>
@@ -39,23 +41,17 @@
     </form>
 </div>
 <?php
-
 if (isset($_POST['changeImage'])) {
-    $idCustomer = $_SESSION['logged']['id'];
-    // var_dump($_FILES['image']);
-    // $dest = $address . '/assets/images/' . 'customer' . $_SESSION['logged']['id'];
-    $dest = '../assets/images/';
-    $filename = 'customer' . $_SESSION['logged']['id'] . substr($_FILES['image']['name'], -4);
-    $file = $_FILES['image']['tmp_name'];
-    move_uploaded_file($file, $dest . $filename);
-    $query = "UPDATE customer SET image = '$filename' WHERE id_customer = $idCustomer";
+    $imgData = addslashes(file_get_contents($_FILES['image']['tmp_name']));
+    $imgType = getimageSize($_FILES['image']['tmp_name']);
+    $query = "UPDATE customer SET imageType = '{$imgType['mime']}', imageData = '$imgData' WHERE id_customer = $idCustomer";
     if ($mysqli->query($query)) {
-        $_SESSION['logged']['image'] = $filename; ?>
+        $_SESSION['logged']['image'] = $imgData; ?>
         <script>
             alert("Foto profil telah diubah");
+            window.location.assign('<?php echo $address ?>/client/settings_profile.php');
         </script>
     <?php
-        header("location: " . $address . '/client/settings_profile.php');
     }
 } else if (isset($_POST['changeData'])) {
     $username = $_POST['username'];

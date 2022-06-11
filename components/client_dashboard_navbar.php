@@ -31,7 +31,7 @@ pageAuth($address);
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <img src="<?php echo $_SESSION['logged']['image'] ? $address . '/assets/images/' . $_SESSION['logged']['image'] : '../assets/static_images/dummy.png' ?>" class="mx-auto d-block" alt="...">
+                        <img src="<?php echo $address ?>/components/view_image.php?id_customer=<?php echo $_SESSION['logged']['id'] ?>" alt="image">
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <li><a class="dropdown-item" href="<?php echo $address ?>/client/settings_profile.php">Change Profile</a></li>

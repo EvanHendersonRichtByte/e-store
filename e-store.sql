@@ -20,7 +20,8 @@ CREATE TABLE `customer` (
   `email` varchar(50) NOT NULL,
   `username` varchar(50) NOT NULL,
   `password` text NOT NULL,
-  `image` varchar(255),
+  `imageType` varchar(25),
+  `imageData` longblob,
   `alamat` varchar(90) NOT NULL,
   `tgl_lahir` date NOT NULL
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
@@ -43,7 +44,8 @@ CREATE TABLE `petugas` (
   `email` varchar(50) NOT NULL,
   `username` varchar(50) NOT NULL,
   `password` text NOT NULL,
-  `image` varchar(255),
+  `imageType` varchar(25),
+  `imageData` longblob,
   `alamat` varchar(90) NOT NULL,
   `tgl_lahir` date NOT NULL
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
@@ -112,6 +114,7 @@ VALUES (
     "wahyudiok",
     MD5("wahyudi23"),
     NULL,
+    NULL,
     "Malang",
     "1953-05-27"
   ),
@@ -121,6 +124,7 @@ VALUES (
     "agusok",
     MD5("agus2345"),
     NULL,
+    NULL,
     "Singosari",
     "1983-08-21"
   ),
@@ -129,6 +133,7 @@ VALUES (
     "roqib@gmail.com",
     "roqibroqib",
     MD5("roqib23@"),
+    NULL,
     NULL,
     "Blitar",
     "1988-09-13"
@@ -140,6 +145,7 @@ VALUES (
     "aryanto",
     MD5("aryanto666"),
     NULL,
+    NULL,
     "Pakis",
     "1943-05-27"
   ),
@@ -149,6 +155,7 @@ VALUES (
     "yuliii",
     MD5("yulilestari"),
     NULL,
+    NULL,
     "Singosari",
     "1933-08-21"
   ),
@@ -157,6 +164,7 @@ VALUES (
     "aman@gmail.com",
     "aman",
     MD5("aman"),
+    NULL,
     NULL,
     "Sawojajar",
     "1952-09-13"

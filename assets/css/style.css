@@ -23,6 +23,18 @@
   }
 }
 
+@keyframes scale {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
 /* NAVBAR */
 .client-dashboard-navbar li.nav-item.dropdown img {
   width: 2rem;
@@ -91,6 +103,23 @@ table.rounded-top-corner thead tr th:last-child {
   top: 30%;
   left: 80%;
 }
+
+.admin-login::before {
+  content: "";
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  background: url("../static_images/loginadmin.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  z-index: -1;
+  animation: scale;
+  animation-duration: 5s;
+  animation-iteration-count: infinite;
+}
+
 .admin nav a {
   color: var(--gray-3);
 }
@@ -151,7 +180,7 @@ table.rounded-top-corner thead tr th:last-child {
 }
 
 .admin .stats i {
-  font-size: 2rem;
+  font-size: 1.8rem;
 }
 
 .admin .stats .box-1 {
