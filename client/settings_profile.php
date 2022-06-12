@@ -57,7 +57,7 @@ if (isset($_POST['changeImage'])) {
     $username = $_POST['username'];
     $alamat = $_POST['alamat'];
     $tanggal_lahir = $_POST['tanggal_lahir'];
-    $query = "UPDATE customer SET username = '$username', alamat = '$alamat', tgl_lahir = '$tanggal_lahir'";
+    $query = "UPDATE customer SET username = '$username', alamat = '$alamat', tgl_lahir = '$tanggal_lahir' WHERE id_customer = $idCustomer";
     if ($mysqli->query($query)) {
         $_SESSION['logged']['username'] = $username;
         $_SESSION['logged']['alamat'] = $alamat;

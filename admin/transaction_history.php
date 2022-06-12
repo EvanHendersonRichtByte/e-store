@@ -1,10 +1,10 @@
-<?php include_once "../template/header.php"   ?>
+<?php include_once "../template/header.php" ?>
 
 <div class="admin container-fluid p-3 min-vh-100">
     <div class="row">
         <?php include_once "../components/admin_sidebar.php" ?>
         <div class="col-8 ms-4 mt-2">
-            <h4 class="fw-bold">List Order</h4>
+            <h4 class="fw-bold">List Transaction</h4>
             <table class="table">
                 <thead>
                     <tr>
@@ -13,12 +13,39 @@
                         <th>Customer</th>
                         <th>Items</th>
                         <th>Total</th>
-                        <th>Opsi</th>
+                        <th>Status</th>
                     </tr>
                 </thead>
                 <tbody>
+
+                    <!-- <tr>
+                        <td class="col">1</td>
+                        <td class="col">tgl</td>
+                        <td class="col">Aria</td>
+                        <td class="col-6">
+                            <div class="d-flex">
+                                <div class="d-flex flex-column">
+                                    <h6>Title <span class="text-danger">x2</span></h6>
+                                    <p>Rp. 50.000</p>
+                                </div>
+                            </div>
+                            <div class="d-flex">
+                                <div class="d-flex flex-column">
+                                    <h6>Title <span class="text-danger">x2</span></h6>
+                                    <p>Rp. 50.000</p>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="col">Rp.200.000</td>
+                        <td class="col">
+                            <button class="btn btn-success border-0 disabled">
+                                <i class="bi bi-truck"></i> In Delivery
+                            </button>
+                        </td>
+                    </tr> -->
+
                     <?php
-                    $query = "SELECT p.id_penjualan, p.tanggal, c.username, p.total FROM penjualan p JOIN customer c ON p.id_customer = c.id_customer WHERE id_petugas IS NULL AND p.total > 0 ORDER BY tanggal";
+                    $query = "SELECT p.id_penjualan, p.tanggal, c.username, p.total FROM penjualan p JOIN customer c ON p.id_customer = c.id_customer WHERE id_petugas IS NOT NULL AND p.total > 0 ORDER BY tanggal";
                     $penjualan_terbaru = $mysqli->query($query) or die($mysqli->error);
                     foreach ($penjualan_terbaru as $key) {
                     ?>
@@ -49,15 +76,14 @@
                             </td>
                             <td class="col">Rp. <?php echo $key['total'] ?></td>
                             <td class="col">
-                                <a href="<?php echo $address ?>/admin/active_order_details.php?id=<?php echo $key['id_penjualan'] ?>" class="btn btn-secondary border-0">
-                                    <i class="bi bi-search"></i>
-                                </a>
+                                <button class="btn btn-success border-0 disabled">
+                                    <i class="bi bi-truck"></i> In Delivery
+                                </button>
                             </td>
                         </tr>
                     <?php
                     }
                     ?>
-
                 </tbody>
             </table>
         </div>
@@ -66,4 +92,4 @@
 
 <?php
 $mysqli->close();
-include_once "../template/footer.php";  ?>
+include_once "../template/footer.php"; ?>

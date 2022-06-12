@@ -35,8 +35,8 @@ if (isset($_POST['client-login'])) {
         $data = $data->fetch_assoc();
         session_start();
         $_SESSION['logged'] = ['id' => $data['id_petugas'], 'email' => $data['email'], 'username' => $data['username'], 'password' => $data['password'], 'image' => $data['imageData'], 'alamat' => $data['alamat'], 'tgl_lahir' => $data['tgl_lahir']];
-        header("location: " . $address . "/client");
+        header("location: " . $address . "/admin");
     } else {
-        header("location: " . $address . "/client/login.php?msg=404user");
+        header("location: " . $address . "/admin/login.php?msg=404user");
     }
 }

@@ -17,12 +17,32 @@
                         <input class="form-control" id="confirmPassword" type="password" name="confirmPassword">
                     </div>
                     <div class="form-group mb-3">
-                        <button class="btn btn-primary">Update</button>
+                        <button class="btn btn-primary" name="changePassword" type="submit">Update</button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
 </div>
-
-<?php include_once "../template/footer.php"  ?>
+<?php
+if (isset($_POST['changePassword'])) {
+    $password = $_POST['password'];
+    $confirmPassword = $_POST['confirmPassword'];
+    $idPetugas = $_SESSION['logged']['id'];
+    if ($password === $confirmPassword) {
+        $password = md5($password);
+        $query = "UPDATE Petugas SET password = '$password' WHERE id_petugas = $idPetugas";
+        if ($mysqli->query($query)) {
+            $_SESSION['logged']['password'] = $password; ?>
+            <script>
+                alert("Password berhasil diubah");
+            </script>
+        <?php }
+    } else { ?>
+        <script>
+            alert("Pastikan data yang telah dimasukkan benar");
+        </script>
+<?php }
+}
+$mysqli->close();
+include_once "../template/footer.php"; ?>

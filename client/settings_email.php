@@ -29,6 +29,7 @@ if (isset($_POST['changeEmail'])) {
 ?>
         <script>
             alert("Email berhasil diubah");
+            window.location.assign("<?php echo $address ?>/client/settings_email.php");
         </script>
 <?php }
 }

@@ -201,6 +201,22 @@ table.rounded-top-corner thead tr th:last-child {
   background: linear-gradient(to right, #38ef7d, #11998e);
 }
 
+.admin .header__image {
+  border-radius: 20rem;
+}
+
+.admin .header__image img {
+  border-radius: 20rem;
+  width: 8rem;
+  height: 8rem;
+}
+
+.admin .content img {
+  border-radius: 20rem;
+  width: 4rem;
+  height: 4rem;
+}
+
 /* 
 *,
 *::before,

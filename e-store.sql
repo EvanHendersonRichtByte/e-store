@@ -10,7 +10,8 @@ USE `e-store`;
 CREATE TABLE `barang` (
   `id_barang` int(11) NOT NULL,
   `nama_barang` varchar(50) NOT NULL,
-  `image` text NULL,
+  `imageType` varchar(25),
+  `imageData` longblob,
   `deskripsi` text NOT NULL,
   `harga` decimal(20, 2) NOT NULL,
   `stok` int(11) NOT NULL
@@ -37,7 +38,8 @@ CREATE TABLE `penjualan` (
   `id_customer` int(11) NOT NULL,
   `id_petugas` int(11) DEFAULT NULL,
   `total` int(11) DEFAULT NULL,
-  `tanggal` date DEFAULT NULL
+  `status` varchar(25) DEFAULT 'Proses',
+  `tanggal` date DEFAULT now()
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
 CREATE TABLE `petugas` (
   `id_petugas` int(11) NOT NULL,
@@ -87,6 +89,7 @@ VALUES (
     NULL,
     "Fanta",
     NULL,
+    NULL,
     "commodi nesciunt enim quae eligendi",
     12000,
     10
@@ -95,6 +98,7 @@ VALUES (
     NULL,
     "Sprite",
     NULL,
+    NULL,
     "commodi nesciunt enim quae eligendi",
     11000,
     10
@@ -102,6 +106,7 @@ VALUES (
   (
     NULL,
     "Coca-cola",
+    NULL,
     NULL,
     "commodi nesciunt enim quae eligendi",
     11000,
@@ -173,7 +178,8 @@ INSERT INTO penjualan (id_customer)
 VALUES (1),
   (2);
 INSERT INTO detail_penjualan
-VALUES (NULL, 1, 1, 2, NULL);
+VALUES (NULL, 1, 1, 2, NULL),
+  (NULL, 2, 2, 5, NULL);
 --
 -- Update total harga
 --

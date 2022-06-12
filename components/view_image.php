@@ -6,6 +6,8 @@ if (isset($_GET['id_customer'])) {
     $sql = "SELECT imageType,imageData FROM customer WHERE id_customer = " . $_SESSION['logged']['id'] . " LIMIT 1";
 } else if (isset($_GET['id_petugas'])) {
     $sql = "SELECT imageType,imageData FROM petugas WHERE id_petugas =" . $_SESSION['logged']['id'] . " LIMIT 1";
+} else if (isset($_GET['id_barang'])) {
+    $sql = "SELECT imageType,imageData FROM barang WHERE id_barang =" . $_GET['id_barang'] . " LIMIT 1";
 }
 $result = $mysqli->query($sql);
 $row = $result->fetch_array();

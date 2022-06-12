@@ -21,29 +21,54 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>12 April 2022</td>
-                            <td>Agus Mulyanto</td>
-                            <td>
-                                <div class="d-flex">
-                                    <img class="" src="../assets/static_images/dummy.png" style="width: 10rem;">
-                                    <div class="col-md-8 d-flex flex-column ms-3">
-                                        <h5>Buku Siksa Kubur</h5>
-                                        <div class="d-flex">
-                                            <p>Rp.6000</p>
-                                            <p>=</p>
-                                            <p>x2</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </td>
-                            <td>
-                                <h5>Rp. 24000</h5>
-                            </td>
-                            <td><button class="btn rounded-0 btn-dark">Pending</button></td>
-                        </tr>
+                        <?php
+                        $number = 1;
+                        $id_customer = $_SESSION['logged']['id'];
+                        $query = "SELECT p.*, pt.username FROM penjualan p JOIN petugas pt ON p.id_petugas = pt.id_petugas WHERE id_customer = $id_customer AND p.id_petugas IS NOT NULL";
+                        $penjualan = $mysqli->query($query) or die($mysqli->error);
+                        foreach ($penjualan as $key) {
+                        ?>
+                            <tr>
+                                <th scope="row" class="col"><?php echo $number ?></th>
+                                <td class="col"><?php echo $key['tanggal'] ?></td>
+                                <td class="col text-capitalize"><?php echo $key['username'] ?></td>
+                                <td class="col-5">
+                                    <?php
+                                    $query = "SELECT * FROM barang b JOIN detail_penjualan dp ON b.id_barang = dp.id_barang WHERE dp.id_penjualan = " . $key['id_penjualan'];
+                                    $list_barang = $mysqli->query($query);
 
+                                    if ($list_barang) {
+                                        foreach ($list_barang as $data) {
+                                    ?>
+                                            <div class="row mb-2 d-flex w-100">
+                                                <img class="w-25" src="../assets/static_images/dummy.png">
+                                                <div class="col-md-8 d-flex flex-column ms-3">
+                                                    <h5><?php echo $data['nama_barang'] ?> <span>x<?php echo $data['jumlah'] ?></span></h5>
+                                                    <div class="d-flex">
+                                                        <p>Subtotal: <?php echo $data['harga'] ?></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                    <?php
+                                        }
+                                    }
+                                    ?>
+                                </td>
+                                <td class="col">
+                                    <h5>Rp.<?php echo $key['total'] ?></h5>
+                                </td>
+                                <td class="col">
+                                    <?php
+                                    echo $key['status'] === 'In Delivery' ?
+                                        '<button class="btn rounded-0 btn-success">In Delivery</button>' :
+                                        '<button class="btn rounded-0 btn-danger">Ditolak</button>'
+                                    ?>
+                                </td>
+                            </tr>
+                        <?php
+                        }
+                        $number++;
+                        ?>
                     </tbody>
                 </table>
             </div>

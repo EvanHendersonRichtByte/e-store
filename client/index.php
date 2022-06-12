@@ -33,8 +33,7 @@
                 echo "Failed";
             }
         }
-    }
-    elseif (isset($_POST['editJumlah'])) {
+    } elseif (isset($_POST['editJumlah'])) {
         if (($_POST['stokBrg'] > $_POST['jmlBrg'] && $_POST['jmlBrg'] > 0) || ($_POST['jmlBrg'] == 10 && $_POST['editJumlah'] == "-")) {
             $id_customer = $_SESSION['logged']['id'];
             $id_barang = $_POST['idBrg'];
@@ -49,8 +48,7 @@
         } else {
             echo "<script type='text/javascript'>alert('Stok tidak mencukupi');</script>";
         }
-    }
-    elseif(isset($_POST['hapusCart'])){
+    } elseif (isset($_POST['hapusCart'])) {
         $id_customer = $_SESSION['logged']['id'];
         $id_barang = $_POST['idBrg'];
         $query = "DELETE FROM detail_penjualan WHERE id_barang = $id_barang AND id_penjualan = (SELECT id_penjualan FROM penjualan WHERE id_customer = $id_customer)";
@@ -64,8 +62,8 @@
         $data->fetch_assoc();
         foreach ($data as $key) {
     ?>
-            <div class="card me-5 mb-5" style="width: 18rem;">
-                <img src=<?php echo $key['image'] ? $key['image'] : "../assets/static_images/dummy.png" ?> class="card-img-top" alt="...">
+            <div class="card me-5 mb-5 h-100" style="width: 18rem;">
+                <img class="card-img-top" src="<?php echo $address ?>/components/view_image.php?id_barang=<?php echo $key['id_barang'] ?>">
                 <div class="card-body">
                     <a class="card-title text-decoration-none" href="<?php echo $address ?>/client/item.php?id=<?php echo $key['id_barang'] ?>">
                         <h5><?php echo $key['nama_barang'] ?></h5>
@@ -76,47 +74,47 @@
                     <form method="POST" id="formAdd">
                         <div class="row">
                             <?php
-                                $id_customer = $_SESSION['logged']['id'];
-                                $query = "SELECT id_barang,jumlah FROM detail_penjualan WHERE id_penjualan = (SELECT id_penjualan FROM penjualan WHERE id_customer = " . $id_customer . ") ORDER BY id_barang";
-                                $dataDP = $mysqli->query($query);
-                                $arrayDP_id = array();
-                                $arrayDP_jml = array();
-                                while ($rowID = mysqli_fetch_assoc($dataDP)) {
-                                    $arrayDP_id[] = $rowID['id_barang'];
-                                    $arrayDP_jml[] = $rowID['jumlah'];
-                                }
-                                $bool = false;
-                                if ($dataDP->num_rows > 0) {
-                                    for ($i = 1; $i <= $dataDP->num_rows; $i++) {
-                                        if ($arrayDP_id[$i - 1] == $key['id_barang']) {
-                                            $index = $i;
-                                            $bool = true;
-                                        }
+                            $id_customer = $_SESSION['logged']['id'];
+                            $query = "SELECT id_barang,jumlah FROM detail_penjualan WHERE id_penjualan = (SELECT id_penjualan FROM penjualan WHERE id_customer = " . $id_customer . ") ORDER BY id_barang";
+                            $dataDP = $mysqli->query($query);
+                            $arrayDP_id = array();
+                            $arrayDP_jml = array();
+                            while ($rowID = mysqli_fetch_assoc($dataDP)) {
+                                $arrayDP_id[] = $rowID['id_barang'];
+                                $arrayDP_jml[] = $rowID['jumlah'];
+                            }
+                            $bool = false;
+                            if ($dataDP->num_rows > 0) {
+                                for ($i = 1; $i <= $dataDP->num_rows; $i++) {
+                                    if ($arrayDP_id[$i - 1] == $key['id_barang']) {
+                                        $index = $i;
+                                        $bool = true;
                                     }
                                 }
-                                if ($bool == true) {
+                            }
+                            if ($bool == true) {
                             ?>
-                            <div class="col">
-                                <button class="btn btn-danger" name="hapusCart" type="submit" value="<?php echo $key['id_barang'] ?>"><i class="bi bi-bag-x"></i></button>
-                                <!-- <a href="#" class="form-control btn btn-danger"><i class="bi bi-bag-x"></i></a> -->
-                            </div>
-                            <div class="input-group w-75">
-                                <input type="hidden" name="stokBrg" value="<?php echo $key['stok'] ?>">
-                                <input type="hidden" name="idBrg" value="<?php echo $arrayDP_id[$index - 1] ?>">
-                                <input type="hidden" name="jmlBrg" value="<?php echo $arrayDP_jml[$index - 1] ?>">
-                                <button class="input-group-text" name="editJumlah" type="submit" value="-"><i class="bi bi-dash"></i></button>
-                                <input type="number" name="inpDewe" id="" class="form-control" value=<?php echo $arrayDP_jml[$index - 1] ?> onclick="document.getElementById('myform').submit()">
-                                <button class="input-group-text" name="editJumlah" type="submit" value="+"><i class="bi bi-plus"></i></button>
-                            </div>
+                                <div class="col">
+                                    <button class="btn btn-danger" name="hapusCart" type="submit" value="<?php echo $key['id_barang'] ?>"><i class="bi bi-bag-x"></i></button>
+                                    <!-- <a href="#" class="form-control btn btn-danger"><i class="bi bi-bag-x"></i></a> -->
+                                </div>
+                                <div class="input-group w-75">
+                                    <input type="hidden" name="stokBrg" value="<?php echo $key['stok'] ?>">
+                                    <input type="hidden" name="idBrg" value="<?php echo $arrayDP_id[$index - 1] ?>">
+                                    <input type="hidden" name="jmlBrg" value="<?php echo $arrayDP_jml[$index - 1] ?>">
+                                    <button class="input-group-text" name="editJumlah" type="submit" value="-"><i class="bi bi-dash"></i></button>
+                                    <input type="number" max="<?php echo  $key['stok'] ?>" name="inpDewe" id="" class="form-control" value=<?php echo $arrayDP_jml[$index - 1] ?> onclick="document.getElementById('myform').submit()">
+                                    <button class="input-group-text" name="editJumlah" type="submit" value="+"><i class="bi bi-plus"></i></button>
+                                </div>
                             <?php
-                                    } else {
+                            } else {
                             ?>
-                            <div class="col">
-                                <button class="form-control btn btn-success" name="addToCart" type="submit" value="<?php echo $key['id_barang'] ?>"><i class="bi bi-bag-plus"></i></button>
-                            </div>
+                                <div class="col">
+                                    <button class="form-control btn btn-success" name="addToCart" type="submit" value="<?php echo $key['id_barang'] ?>"><i class="bi bi-bag-plus"></i></button>
+                                </div>
                             <?php
-                        }
-                        ?>
+                            }
+                            ?>
                         </div>
                     </form>
                 </div>
