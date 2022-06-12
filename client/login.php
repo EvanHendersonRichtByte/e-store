@@ -53,8 +53,8 @@ if (isset($_GET['msg'])) {
                 </a>
             </div>
             <form action="<?php echo $address ?>/auth/" method="post">
-                <input class="form-control mt-3 bg-transparent text-light" type="text" name="username" id="username" placeholder="Username" required>
-                <input class="form-control mt-3 bg-transparent text-light" type="password" name="password" id="password" placeholder="Password" required>
+                <input class="form-control mt-3 bg-transparent placeholder-light text-light" type="text" name="username" id="username" placeholder="Username" required>
+                <input class="form-control mt-3 bg-transparent placeholder-light text-light" type="password" name="password" id="password" placeholder="Password" required>
                 <div class="d-flex mt-3">
                     <button class="btn btn-success" name="client-login" value="submit" type="submit">Sign In</button>
                     <button type="button" class="ms-auto btn btn-transparent text-light" data-bs-toggle="modal" data-bs-target="#forgotPassword">

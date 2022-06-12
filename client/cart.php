@@ -25,13 +25,15 @@
                 $query = "SELECT * FROM penjualan p JOIN detail_penjualan dp ON p.id_penjualan = dp.id_penjualan JOIN barang b ON b.id_barang = dp.id_barang WHERE id_customer = $id_customer";
                 $data = $mysqli->query($query);
                 $image = null;
+                $total = 0;
                 if ($data->num_rows > 0) {
                     $data->fetch_assoc();
                     foreach ($data as $key) {
+                        $total += $key['total'];
                 ?>
                         <div class="item d-flex">
-                            <div class="row">
-                                <div class="col-md-6 image"><img class="w-25 h-100" src="<?php $key['image'] ? print $key['image'] : print '../assets/static_images/dummy.png' ?>" alt="dummy"></div>
+                            <div class="row w-100">
+                                <div class="col-md-6 image"><img class="w-25 h-100" src="<?php echo $address ?>/components/view_image.php?id_barang=<?php echo $key['id_barang'] ?>" alt="image"></div>
                                 <div class="col-md-6 d-flex justify-content-around align-items-center">
                                     <h6 class="m-0"><?php echo $key['nama_barang'] ?></h6>
                                     <h6 class="m-0">x<?php echo $key['jumlah'] ?></h6>
@@ -61,11 +63,29 @@
                     echo "<input type='hidden' name='total' value='$total'>";
                 }
                 ?>
-
-                <button class="btn btn-secondary" type="submit" name="placeOrder">Place Order</button>
+                <form action="" method="post">
+                    <input type="hidden" name="total" value="<?php echo $total ?>">
+                    <button class="btn btn-secondary" type="submit" name="placeOrder" value="<?php echo $key['id_penjualan'] ?>">Place Order</button>
+                </form>
             </div>
         </div>
     </div>
 </section>
+
+<?php
+if (isset($_POST['placeOrder'])) {
+    $id_penjualan = $_POST["placeOrder"];
+    $total = $_POST["total"];
+    $query = "UPDATE penjualan SET total = $total WHERE id_penjualan = $id_penjualan";
+    $mysqli->query($query) or die($mysqli->error);
+    $query = "DELETE FROM detail_penjualan WHERE id_penjualan = $id_penjualan";
+    $mysqli->query($query) or die($mysqli->error);
+?>
+    <script>
+        window.location.assign("<?php echo $address . '/client' ?>")
+    </script>
+<?php
+}
+?>
 
 <?php include_once "../template/footer.php"  ?>

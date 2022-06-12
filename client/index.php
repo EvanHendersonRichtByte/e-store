@@ -24,7 +24,7 @@
             if ($mysqli->query($query)) {
                 $query = "SELECT id_penjualan FROM penjualan WHERE id_customer = $id_customer AND id_petugas IS NULL LIMIT 1";
                 $id_penjualan = $mysqli->query($query)->fetch_array()["id_penjualan"];
-                $query = "INSERT INTO detail_penjualan SET id_penjualan = $id_penjualan, id_barang = $id_barang, jumlah = 1, total = $harga";
+                $query = "INSERT INTO detail_penjualan SET id_penjualan = $id_penjualan, id_barang = $id_barang, jumlah = 1, total = " . $_POST['harga'];
                 if ($mysqli->query($query)) {
                 } else {
                     echo "Failed";
@@ -110,6 +110,7 @@
                             } else {
                             ?>
                                 <div class="col">
+                                    <input type="hidden" name="harga" value="<?php echo $key['harga'] ?>">
                                     <button class="form-control btn btn-success" name="addToCart" type="submit" value="<?php echo $key['id_barang'] ?>"><i class="bi bi-bag-plus"></i></button>
                                 </div>
                             <?php

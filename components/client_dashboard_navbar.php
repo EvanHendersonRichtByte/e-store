@@ -1,6 +1,10 @@
 <?php include_once "../config/config.php";
 include_once '../auth/index.php';
 pageAuth($address);
+
+$query = "SELECT COUNT(*) 'total_cart' FROM detail_penjualan dp JOIN penjualan p ON dp.id_penjualan = p.id_penjualan WHERE p.id_customer = " . $_SESSION['logged']['id'];
+$total_cart = $mysqli->query($query)->fetch_assoc() or die($mysqli->error);
+$total_cart = $total_cart['total_cart'] > 0 ? ($total_cart['total_cart'] > 9 ? '9+' : $total_cart['total_cart']) : null;
 ?>
 <nav class="client-dashboard-navbar navbar navbar-light navbar-expand-lg shadow">
     <div class="container">
@@ -24,9 +28,14 @@ pageAuth($address);
                 <li class="nav-item">
                     <a class="cart nav-link position-relative" href="<?php echo $address ?>/client/cart.php">
                         <i class="bi bi-cart2"></i>
-                        <span class="position-absolute translate-middle badge rounded-pill bg-danger">
-                            9
-                        </span>
+                        <?php
+                        if ($total_cart) {
+                        ?>
+                            <span class="position-absolute translate-middle badge rounded-pill bg-danger"><?php echo $total_cart ?></span>
+                        <?php
+                        }
+                        ?>
+
                     </a>
                 </li>
                 <li class="nav-item dropdown">

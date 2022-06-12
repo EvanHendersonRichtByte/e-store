@@ -12,6 +12,9 @@
 }
 
 /* OVERRIDES */
+input.form-control.placeholder-light::placeholder {
+  color: var(--bs-light) !important;
+}
 
 /* ANIMATION */
 @keyframes fadeIn {
