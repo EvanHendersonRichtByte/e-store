@@ -83,7 +83,7 @@ if (isset($_POST['deny'])) {
     </script>
 <?php
 } else if (isset($_POST['accept'])) {
-    $query = "UPDATE penjualan SET id_petugas =  $id_petugas, status = 'In Delivery' WHERE id_penjualan = $id_penjualan ";
+    $query = "UPDATE penjualan SET id_petugas =  $id_petugas, status = 'Diterima' WHERE id_penjualan = $id_penjualan ";
     $mysqli->query($query) or die($mysqli->error);
 ?>
     <script>
