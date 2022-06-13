@@ -5,6 +5,8 @@ $(document).ready(() => {
   });
 });
 
+$('.client-dashboard-navbar').fadeIn()
+
 Filevalidation = (target) => {
   // alert($("#changeImage")[0].files[0].fileSize);
   // const fi = document.getElementById("changeImage");
