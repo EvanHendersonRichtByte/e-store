@@ -19,6 +19,11 @@
             } else {
                 echo "Failed!";
             }
+    ?>
+            <script>
+                window.location.assign("<?php echo $address ?>/client/")
+            </script>
+        <?php
         } else {
             $query = "INSERT INTO penjualan SET id_customer = $id_customer, id_petugas = NULL";
             if ($mysqli->query($query)) {
@@ -32,6 +37,11 @@
             } else {
                 echo "Failed";
             }
+        ?>
+            <script>
+                window.location.assign("<?php echo $address ?>/client/")
+            </script>
+        <?php
         }
     } elseif (isset($_POST['editJumlah'])) {
         if (($_POST['stokBrg'] > $_POST['jmlBrg'] && $_POST['jmlBrg'] > 0) || ($_POST['jmlBrg'] == 10 && $_POST['editJumlah'] == "-")) {
@@ -53,6 +63,11 @@
         $id_barang = $_POST['idBrg'];
         $query = "DELETE FROM detail_penjualan WHERE id_barang = $id_barang AND id_penjualan = (SELECT id_penjualan FROM penjualan WHERE id_customer = $id_customer)";
         $mysqli->query($query);
+        ?>
+        <script>
+            window.location.assign("<?php echo $address ?>/client/")
+        </script>
+        <?php
     }
 
     // Load Page
@@ -61,7 +76,7 @@
     if ($data->num_rows > 0) {
         $data->fetch_assoc();
         foreach ($data as $key) {
-    ?>
+        ?>
             <div class="card me-5 mb-5" style="width: 18rem;">
                 <img class="card-img-top h-auto w-auto mx-auto" src="<?php echo $address ?>/components/view_image.php?id_barang=<?php echo $key['id_barang'] ?>" style="max-width: 10rem ; max-height: 10rem; ">
                 <div class="card-body">

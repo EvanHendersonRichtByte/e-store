@@ -106,6 +106,11 @@
                         $itemId = $_GET['deleteItem'];
                         $query = "DELETE FROM detail_penjualan WHERE id_detail_penjualan = $itemId";
                         $mysqli->query($query);
+                    ?>
+                        <script>
+                            window.location.assign('<?php echo $address ?>/client/cart.php')
+                        </script>
+                    <?php
                         header("location: " . $address . "/client/cart.php");
                     }
 
