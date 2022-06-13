@@ -24,7 +24,8 @@ CREATE TABLE `customer` (
   `imageType` varchar(25),
   `imageData` longblob,
   `alamat` varchar(90) NOT NULL,
-  `tgl_lahir` date NOT NULL
+  `tgl_lahir` date NOT NULL,
+  `no_telp` varchar(20) DEFAULT NULL
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
 CREATE TABLE `detail_penjualan` (
   `id_detail_penjualan` int(11) NOT NULL,
@@ -38,8 +39,14 @@ CREATE TABLE `penjualan` (
   `id_customer` int(11) NOT NULL,
   `id_petugas` int(11) DEFAULT NULL,
   `total` int(11) DEFAULT NULL,
-  `status` varchar(25) DEFAULT 'Proses',
-  `tanggal` date DEFAULT now()
+  `status` enum('Listed','Proses','Diterima','Ditolak') DEFAULT 'Listed',
+  `tanggal` date DEFAULT current_timestamp(),
+  `tujuan` varchar(255) DEFAULT NULL,
+  `metode_pembayaran` enum('COD','E-Pay','QR') DEFAULT 'COD',
+  `kartu_nama` varchar(50) DEFAULT NULL,
+  `kartu_no` varchar(50) DEFAULT NULL,
+  `kartu_pin` int(50) DEFAULT NULL,
+  `kartu_exp` date DEFAULT NULL
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
 CREATE TABLE `petugas` (
   `id_petugas` int(11) NOT NULL,
@@ -49,7 +56,8 @@ CREATE TABLE `petugas` (
   `imageType` varchar(25),
   `imageData` longblob,
   `alamat` varchar(90) NOT NULL,
-  `tgl_lahir` date NOT NULL
+  `tgl_lahir` date NOT NULL,
+  `no_telp` varchar(20) DEFAULT NULL
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
 ALTER TABLE `barang`
 ADD PRIMARY KEY (`id_barang`);
@@ -121,7 +129,8 @@ VALUES (
     NULL,
     NULL,
     "Malang",
-    "1953-05-27"
+    "1953-05-27",
+    "085837342267"
   ),
   (
     NULL,
@@ -131,7 +140,8 @@ VALUES (
     NULL,
     NULL,
     "Singosari",
-    "1983-08-21"
+    "1983-08-21",
+    "085837345267"
   ),
   (
     NULL,
@@ -141,7 +151,8 @@ VALUES (
     NULL,
     NULL,
     "Blitar",
-    "1988-09-13"
+    "1988-09-13",
+    "085837341267"
   );
 INSERT INTO petugas
 VALUES (
@@ -152,7 +163,8 @@ VALUES (
     NULL,
     NULL,
     "Pakis",
-    "1943-05-27"
+    "1943-05-27",
+    "083837345267"
   ),
   (
     NULL,
@@ -162,7 +174,8 @@ VALUES (
     NULL,
     NULL,
     "Singosari",
-    "1933-08-21"
+    "1933-08-21",
+    "085837345967"
   ),
   (
     NULL,
@@ -172,14 +185,10 @@ VALUES (
     NULL,
     NULL,
     "Sawojajar",
-    "1952-09-13"
+    "1952-09-13",
+    "085837345207"
   );
-INSERT INTO penjualan (id_customer)
-VALUES (1),
-  (2);
-INSERT INTO detail_penjualan
-VALUES (NULL, 1, 1, 2, NULL),
-  (NULL, 2, 2, 5, NULL);
+
 --
 -- Update total harga
 --

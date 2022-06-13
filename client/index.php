@@ -10,7 +10,7 @@
         $id_penjualan = null;
         $id_barang = $_POST['addToCart'];
         $id_customer = $_SESSION['logged']['id'];
-        $query = "SELECT id_penjualan FROM penjualan WHERE id_customer = $id_customer AND id_petugas IS NULL LIMIT status = 'Proses' 1";
+        $query = "SELECT id_penjualan FROM penjualan WHERE id_customer = $id_customer AND status = 'Listed' AND id_petugas IS NULL LIMIT 1";
         $data = $mysqli->query($query);
         if ($data->num_rows > 0) {
             $id_penjualan = $data->fetch_array()["id_penjualan"];
@@ -22,7 +22,7 @@
         } else {
             $query = "INSERT INTO penjualan SET id_customer = $id_customer, id_petugas = NULL";
             if ($mysqli->query($query)) {
-                $query = "SELECT id_penjualan FROM penjualan WHERE id_customer = $id_customer AND id_petugas IS NULL LIMIT 1";
+                $query = "SELECT id_penjualan FROM penjualan WHERE id_customer = $id_customer AND status = 'Listed' AND id_petugas IS NULL LIMIT 1";
                 $id_penjualan = $mysqli->query($query)->fetch_array()["id_penjualan"];
                 $query = "INSERT INTO detail_penjualan SET id_penjualan = $id_penjualan, id_barang = $id_barang, jumlah = 1, total = " . $_POST['harga'];
                 if ($mysqli->query($query) or die($mysqli->error)) {
@@ -42,7 +42,7 @@
                 $query = "DELETE FROM detail_penjualan WHERE id_barang = $id_barang AND id_penjualan = (SELECT id_penjualan FROM penjualan WHERE id_customer = $id_customer)";
                 $mysqli->query($query);
             } else {
-                $query = "UPDATE detail_penjualan SET jumlah = jumlah $opr 1 WHERE id_barang = $id_barang AND id_penjualan = (SELECT id_penjualan FROM penjualan WHERE id_customer = $id_customer)";
+                $query = "UPDATE detail_penjualan SET jumlah = jumlah $opr 1 WHERE id_barang = $id_barang AND id_penjualan = (SELECT id_penjualan FROM penjualan WHERE id_customer = $id_customer AND status = 'Listed')";
                 $mysqli->query($query);
             }
         } else {
