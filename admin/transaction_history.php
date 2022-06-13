@@ -77,8 +77,8 @@
                             <td class="col">Rp. <?php echo $key['total'] ?></td>
                             <td class="col">
                                 <?php
-                                echo $key['status'] === 'In Delivery' ?
-                                    '<button class="btn rounded-0 btn-success">In Delivery</button>' :
+                                echo $key['status'] === 'Diterima' ?
+                                    '<button class="btn rounded-0 btn-success">Diterima</button>' :
                                     '<button class="btn rounded-0 btn-danger">Ditolak</button>'
                                 ?>
                             </td>
