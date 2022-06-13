@@ -1,5 +1,5 @@
 <?php include_once "../auth/index.php";
-pageAuth($address);
+checkAdmin();
 ?>
 
 <nav class="col-3 nav flex-column justify-content-around border-end  min-vh-100">

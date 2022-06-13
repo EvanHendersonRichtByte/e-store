@@ -1,6 +1,6 @@
 <?php include_once "../config/config.php";
 include_once '../auth/index.php';
-pageAuth($address);
+checkUser();
 
 $query = "SELECT COUNT(*) 'total_cart' FROM detail_penjualan dp JOIN penjualan p ON dp.id_penjualan = p.id_penjualan WHERE p.status = 'Listed' AND p.id_customer = " . $_SESSION['logged']['id'];
 $total_cart = $mysqli->query($query)->fetch_assoc() or die($mysqli->error);
