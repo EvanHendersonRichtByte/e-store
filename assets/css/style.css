@@ -65,15 +65,15 @@ table.rounded-top-corner thead tr th:last-child {
 }
 
 .fadeInTop {
-  animation: fadeInTop .5s;
+  animation: fadeInTop 0.5s;
   animation-fill-mode: both;
 }
 
 .delay {
-  animation-delay: .5s;
+  animation-delay: 0.5s;
 }
 .delay-1 {
-  animation-delay: .8s;
+  animation-delay: 0.8s;
 }
 .delay-2 {
   animation-delay: 1s;
@@ -83,6 +83,10 @@ table.rounded-top-corner thead tr th:last-child {
 }
 .delay-4 {
   animation-delay: 1.4s;
+}
+
+.disable-btn-hover:hover {
+  border: 1px solid transparent;
 }
 
 /* PAGES */
