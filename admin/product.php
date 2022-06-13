@@ -23,7 +23,7 @@
                                 </div>
                                 <div class="form-group mb-3">
                                     <label for="image" class="form-label">Thumbnail</label>
-                                    <input type="file" class="form-control" name="image">
+                                    <input type="file" onchange="Filevalidation(this)" class="form-control" name="image">
                                 </div>
                                 <div class="form-group mb-3">
                                     <label for="deskripsi" class="form-label">Deskripsi</label>
@@ -63,7 +63,7 @@
                 </thead>
                 <tbody>
                     <?php
-                    $query = "SELECT b.*, dp.id_barang 'dependensi' FROM barang b LEFT JOIN detail_penjualan dp ON b.id_barang = dp.id_barang";
+                    $query = "SELECT DISTINCT b.*, dp.id_barang 'dependensi' FROM barang b LEFT JOIN detail_penjualan dp ON b.id_barang = dp.id_barang";
                     $data = $mysqli->query($query);
                     foreach ($data as $key) { ?>
                         <tr>
@@ -95,7 +95,7 @@
                                                     </div>
                                                     <div class="form-group mb-3">
                                                         <label for="image" class="form-label">Thumbnail</label>
-                                                        <input type="file" class="form-control" name="updateImage">
+                                                        <input onchange="Filevalidation(this)" type="file" class="form-control" name="updateImage">
                                                     </div>
                                                     <div class="form-group mb-3">
                                                         <label for="deskripsi" class="form-label">Deskripsi</label>
@@ -149,14 +149,21 @@ if (isset($_POST['create'])) {
     <?php }
 }
 if (isset($_POST['update'])) {
-    $imgData = addslashes(file_get_contents($_FILES['updateImage']['tmp_name']));
-    $imgType = getimageSize($_FILES['updateImage']['tmp_name']);
+
     $id_barang = $_POST['updateIdBarang'];
     $nama_barang = $_POST['updateNama_barang'];
     $deskripsi = $_POST['updateDeskripsi'];
     $harga = $_POST['updateHarga'];
     $stok = $_POST['updateStok'];
-    $query = "UPDATE barang SET nama_barang = '$nama_barang', imageType = '{$imgType['mime']}', imageData = '$imgData', deskripsi = '$deskripsi', harga = $harga, stok = $stok WHERE id_barang = '$id_barang'";
+    $query;
+    var_dump($_FILES);
+    if ($_FILES['updateImage']['size'] > 0) {
+        $imgData = addslashes(file_get_contents($_FILES['updateImage']['tmp_name']));
+        $imgType = getimageSize($_FILES['updateImage']['tmp_name']);
+        $query = "UPDATE barang SET nama_barang = '$nama_barang', imageType = '{$imgType['mime']}', imageData = '$imgData', deskripsi = '$deskripsi', harga = $harga, stok = $stok WHERE id_barang = '$id_barang'";
+    } else {
+        $query = "UPDATE barang SET nama_barang = '$nama_barang', deskripsi = '$deskripsi', harga = $harga, stok = $stok WHERE id_barang = '$id_barang'";
+    }
     if ($mysqli->query($query) or die($mysqli->error)) { ?>
         <script>
             alert("Data berhasil diubah");

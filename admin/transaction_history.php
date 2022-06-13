@@ -45,7 +45,7 @@
                     </tr> -->
 
                     <?php
-                    $query = "SELECT p.id_penjualan, p.tanggal, c.username, p.total FROM penjualan p JOIN customer c ON p.id_customer = c.id_customer WHERE id_petugas IS NOT NULL AND p.total > 0 ORDER BY tanggal";
+                    $query = "SELECT p.id_penjualan, p.tanggal, c.username, p.total, p.status FROM penjualan p JOIN customer c ON p.id_customer = c.id_customer WHERE id_petugas IS NOT NULL AND p.total > 0 ORDER BY tanggal";
                     $penjualan_terbaru = $mysqli->query($query) or die($mysqli->error);
                     foreach ($penjualan_terbaru as $key) {
                     ?>
@@ -76,9 +76,11 @@
                             </td>
                             <td class="col">Rp. <?php echo $key['total'] ?></td>
                             <td class="col">
-                                <button class="btn btn-success border-0 disabled">
-                                    <i class="bi bi-truck"></i> In Delivery
-                                </button>
+                                <?php
+                                echo $key['status'] === 'In Delivery' ?
+                                    '<button class="btn rounded-0 btn-success">In Delivery</button>' :
+                                    '<button class="btn rounded-0 btn-danger">Ditolak</button>'
+                                ?>
                             </td>
                         </tr>
                     <?php

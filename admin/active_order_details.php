@@ -24,7 +24,7 @@ if (isset($_GET['id'])) {
             <div class="row">
                 <div class="col-3">
                     <h5>Customer</h5>
-                    <img class="w-100 mt-3" src="<?php echo $address ?>/components/view_image.php?id_customer=<?php echo $userData['id_customer'] ?>">
+                    <img class="w-100 mt-3" src="<?php echo $address ?>/components/view_image.php?id_customer=<?php echo $userData['id_customer'] ?>" alt="gambar">
                     <div class="d-flex mt-3 flex-column justify-content-center align-items-start">
                         <h6>Name: <?php echo $userData['username'] ?></h6>
                         <h6>Alamat: <?php echo $userData['alamat'] ?></h6>

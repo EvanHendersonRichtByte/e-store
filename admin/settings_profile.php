@@ -29,7 +29,7 @@
                             <label for="image">Your Photo</label>
                             <div class="d-flex align-items-center">
                                 <label class="form-label" for="image"><img class="me-5" src="<?php echo $address ?>/components/view_image.php?id_petugas=<?php echo $idPetugas ?>" alt="image"></label>
-                                <input class="form-control rounded-0" id="image" type="file" name="image" title=" ">
+                                <input id="changeImage" onchange="Filevalidation(this)" class="form-control rounded-0" id="image" type="file" name="image" title=" ">
                                 <button type="submit" name="changeImage" class="btn bordered btn-primary rounded-0">Update</button>
                             </div>
                         </div>
@@ -50,7 +50,7 @@
                 $imgData = addslashes(file_get_contents($_FILES['image']['tmp_name']));
                 $imgType = getimageSize($_FILES['image']['tmp_name']);
                 $query = "UPDATE petugas SET imageType = '{$imgType['mime']}', imageData = '$imgData' WHERE id_petugas = $idPetugas";
-                if ($mysqli->query($query)) {
+                if ($mysqli->query($query) or die($mysqli->error)) {
                     $_SESSION['logged']['image'] = $imgData; ?>
                     <script>
                         alert("Foto profil telah diubah");

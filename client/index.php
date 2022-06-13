@@ -62,8 +62,8 @@
         $data->fetch_assoc();
         foreach ($data as $key) {
     ?>
-            <div class="card me-5 mb-5 h-100" style="width: 18rem;">
-                <img class="card-img-top" src="<?php echo $address ?>/components/view_image.php?id_barang=<?php echo $key['id_barang'] ?>">
+            <div class="card me-5 mb-5" style="width: 18rem;">
+                    <img class="card-img-top h-auto w-auto mx-auto" src="<?php echo $address ?>/components/view_image.php?id_barang=<?php echo $key['id_barang'] ?>" style="max-width: 10rem ; max-height: 10rem; ">
                 <div class="card-body">
                     <a class="card-title text-decoration-none" href="<?php echo $address ?>/client/item.php?id=<?php echo $key['id_barang'] ?>">
                         <h5><?php echo $key['nama_barang'] ?></h5>

@@ -25,9 +25,12 @@ $idCustomer = $_SESSION['logged']['id'];
                 <label for="image">Your Photo</label>
                 <label class="form-label" for="image"><img src="<?php echo $address ?>/components/view_image.php?id_customer=<?php echo $idCustomer ?>" alt="image"></label>
                 <div class="d-flex">
-                    <input class="form-control rounded-0" id="image" type="file" name="image" title=" ">
+                    <input id="changeImage" class="form-control rounded-0" id="image" onchange="Filevalidation(this)" type="file" name="image" title=" ">
                     <button type="submit" name="changeImage" class="btn bordered btn-primary rounded-0">Update</button>
                 </div>
+                <!-- <div class="alert alert-danger" role="alert">
+                    Data terlalu besar
+                </div> -->
             </div>
             <div class="form-group mt-3">
                 <label class="form-label" for="alamat">Alamat</label>
@@ -40,6 +43,7 @@ $idCustomer = $_SESSION['logged']['id'];
         </div>
     </form>
 </div>
+
 <?php
 if (isset($_POST['changeImage'])) {
     $imgData = addslashes(file_get_contents($_FILES['image']['tmp_name']));
