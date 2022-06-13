@@ -2,7 +2,7 @@
 include_once '../auth/index.php';
 pageAuth($address);
 
-$query = "SELECT COUNT(*) 'total_cart' FROM detail_penjualan dp JOIN penjualan p ON dp.id_penjualan = p.id_penjualan WHERE p.id_customer = " . $_SESSION['logged']['id'];
+$query = "SELECT COUNT(*) 'total_cart' FROM detail_penjualan dp JOIN penjualan p ON dp.id_penjualan = p.id_penjualan WHERE p.status = 'Listed' AND p.id_customer = " . $_SESSION['logged']['id'];
 $total_cart = $mysqli->query($query)->fetch_assoc() or die($mysqli->error);
 $total_cart = $total_cart['total_cart'] > 0 ? ($total_cart['total_cart'] > 9 ? '9+' : $total_cart['total_cart']) : null;
 ?>

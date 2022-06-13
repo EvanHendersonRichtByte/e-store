@@ -5,8 +5,6 @@ $(document).ready(() => {
   });
 });
 
-$("#changeImage").bind("change", () => {});
-
 Filevalidation = (target) => {
   // alert($("#changeImage")[0].files[0].fileSize);
   // const fi = document.getElementById("changeImage");
@@ -20,5 +18,39 @@ Filevalidation = (target) => {
     } else {
       document.getElementById("size").innerHTML = "<b>" + file + "</b> KB";
     }
+  }
+};
+
+// Reset Payment Form
+resetPaymentSelection();
+
+$("#payment-select").on("change", (e) => {
+  let selectVal = e.target.value;
+  handlePaymentSelection(selectVal);
+});
+
+function resetPaymentSelection() {
+  $("#payment-form > *").each((i, e) => {
+    $(e).css("display", "none");
+    $("#payment-form img").css("display", "none");
+    $("#payment-form-e-pay .form-group input").each((i, e) => {
+      $(e).removeAttr("required");
+    });
+  });
+}
+
+const handlePaymentSelection = (selectVal) => {
+  if (selectVal === "COD") {
+    resetPaymentSelection();
+  } else if (selectVal === "E-Pay") {
+    resetPaymentSelection();
+    $("#payment-form-e-pay").css("display", "block");
+    $("#payment-form-e-pay .form-group input").each((i, e) => {
+      $(e).attr("required", true);
+    });
+  } else if (selectVal === "QR") {
+    resetPaymentSelection();
+    $("#payment-form-qr").css("display", "block");
+    $("#payment-form-qr img").css("display", "block");
   }
 };

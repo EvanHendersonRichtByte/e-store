@@ -10,12 +10,12 @@
         $id_penjualan = null;
         $id_barang = $_POST['addToCart'];
         $id_customer = $_SESSION['logged']['id'];
-        $query = "SELECT id_penjualan FROM penjualan WHERE id_customer = $id_customer AND id_petugas IS NULL LIMIT 1";
+        $query = "SELECT id_penjualan FROM penjualan WHERE id_customer = $id_customer AND id_petugas IS NULL LIMIT status = 'Proses' 1";
         $data = $mysqli->query($query);
         if ($data->num_rows > 0) {
             $id_penjualan = $data->fetch_array()["id_penjualan"];
             $query = "INSERT INTO detail_penjualan SET id_penjualan = $id_penjualan, id_barang = $id_barang, jumlah = 1, total = NULL";
-            if ($mysqli->query($query)) {
+            if ($mysqli->query($query) or die($mysqli->error)) {
             } else {
                 echo "Failed!";
             }
@@ -25,7 +25,7 @@
                 $query = "SELECT id_penjualan FROM penjualan WHERE id_customer = $id_customer AND id_petugas IS NULL LIMIT 1";
                 $id_penjualan = $mysqli->query($query)->fetch_array()["id_penjualan"];
                 $query = "INSERT INTO detail_penjualan SET id_penjualan = $id_penjualan, id_barang = $id_barang, jumlah = 1, total = " . $_POST['harga'];
-                if ($mysqli->query($query)) {
+                if ($mysqli->query($query) or die($mysqli->error)) {
                 } else {
                     echo "Failed";
                 }
@@ -63,7 +63,7 @@
         foreach ($data as $key) {
     ?>
             <div class="card me-5 mb-5" style="width: 18rem;">
-                    <img class="card-img-top h-auto w-auto mx-auto" src="<?php echo $address ?>/components/view_image.php?id_barang=<?php echo $key['id_barang'] ?>" style="max-width: 10rem ; max-height: 10rem; ">
+                <img class="card-img-top h-auto w-auto mx-auto" src="<?php echo $address ?>/components/view_image.php?id_barang=<?php echo $key['id_barang'] ?>" style="max-width: 10rem ; max-height: 10rem; ">
                 <div class="card-body">
                     <a class="card-title text-decoration-none" href="<?php echo $address ?>/client/item.php?id=<?php echo $key['id_barang'] ?>">
                         <h5><?php echo $key['nama_barang'] ?></h5>
@@ -75,7 +75,7 @@
                         <div class="row">
                             <?php
                             $id_customer = $_SESSION['logged']['id'];
-                            $query = "SELECT id_barang,jumlah FROM detail_penjualan WHERE id_penjualan = (SELECT id_penjualan FROM penjualan WHERE id_customer = " . $id_customer . ") ORDER BY id_barang";
+                            $query = "SELECT id_barang,jumlah FROM detail_penjualan WHERE id_penjualan = (SELECT id_penjualan FROM penjualan WHERE id_customer = " . $id_customer . " AND penjualan.status = 'Listed')  ORDER BY id_barang";
                             $dataDP = $mysqli->query($query);
                             $arrayDP_id = array();
                             $arrayDP_jml = array();
