@@ -3,8 +3,8 @@
 <div class="admin container-fluid p-3 min-vh-100">
     <div class="row">
         <?php include_once "../components/admin_sidebar.php" ?>
-        <div class="col-8 ms-4 mt-2">
-            <div class="col-md-8 w-100">
+        <div class="col-md-8 mt-2 ms-md-0 ms-md-3">
+            <div class="col-sm-12 col-md-8 w-100">
                 <h4 class="mb-3">Change Email</h4>
                 <hr class="d-sm-block d-md-none">
                 <form action="" method="POST">

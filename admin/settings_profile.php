@@ -5,14 +5,14 @@
         <?php include_once "../components/admin_sidebar.php";
         $idPetugas = $_SESSION['logged']['id'];
         ?>
-        <div class="col-8 ms-4 mt-2">
-            <div class="col-md-8 w-100">
+        <div class="col-sm-12 col-md-8 ms-md-0 ms-md-3 mt-2">
+            <div class="col-sm-12 col-md-8 w-100">
                 <hr class="d-sm-block d-md-none">
                 <form action="" method="POST" enctype="multipart/form-data">
                     <div class="header position-relative">
                         <div class="header__background">&nbsp;</div>
                         <div class="header__content d-flex justify-content-between align-items-center w-100">
-                            <div class="header__image col-3"><img src="../components/view_image.php?id_petugas=<?php echo $idPetugas ?>" alt="image"></div>
+                            <div class="header__image d-none d-md-block col-md-3"><img class="d-none d-md-block" src="../components/view_image.php?id_petugas=<?php echo $idPetugas ?>" alt="image"></div>
                             <div class="header__title col">
                                 <h4>Profile</h4>
                                 <p class="mb-0">Update your photo and personal details</p>

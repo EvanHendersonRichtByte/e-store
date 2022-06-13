@@ -15,22 +15,25 @@ $penjualan_terbaru = $mysqli->query($query) or die($mysqli->error);
 <div class="admin container-fluid p-3 min-vh-100">
     <div class="row">
         <?php include_once "../components/admin_sidebar.php" ?>
-        <div class="col-8 ms-4 mt-2">
+        <div class="col-md-8 col-sm-12">
             <h4 class="fw-bold text-capitalize">Hello <?php echo $_SESSION['logged']['username'] ?>!</h4>
             <div class="stats mt-4">
                 <div class="row align-items-center">
+                    <div class="spacer d-sm-block d-md-none">&nbsp;</div>
                     <div class="col-md-4">
                         <div class="box-1 col-md-12 p-4 text-light rounded shadow d-flex flex-column align-items-center">
                             <i class="mb-3 bi bi-box"></i>
                             <h5>Total Products: <?php echo $total_barang ?></h5>
                         </div>
                     </div>
+                    <div class="spacer d-sm-block d-md-none">&nbsp;</div>
                     <div class="col-md-4">
                         <div class="box-2 col-md-12 p-4 text-light rounded shadow d-flex flex-column align-items-center">
                             <i class="mb-3 bi bi-exclamation-square"></i>
                             <h5>Uncompleted Task: <?php echo $total_order ?></h5>
                         </div>
                     </div>
+                    <div class="spacer d-sm-block d-md-none">&nbsp;</div>
                     <div class="col-md-4">
                         <div class="box-3 col-md-12 p-4 text-light rounded shadow d-flex flex-column align-items-center">
                             <i class="mb-3 bi bi-check2-all"></i>

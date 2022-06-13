@@ -2,12 +2,12 @@
 checkAdmin();
 ?>
 
-<nav class="col-3 nav flex-column justify-content-around border-end  min-vh-100">
+<nav class=" col-sm-12 col-md-3 nav flex-column justify-content-around border-end  min-vh-100">
     <div class="sidebar row align-items-center">
         <div class="col-md-4 d-flex justify-content-center">
             <img src="<?php echo $address ?>/components/view_image.php?id_petugas=<?php echo $_SESSION['logged']['id'] ?>" alt="image">
         </div>
-        <div class="col">
+        <div class="col text-center text-md-start">
             <h4 class="text-capitalize"><?php echo $_SESSION['logged']['username'] ?></h4>
             <h6>Officer</h6>
         </div>
