@@ -49,7 +49,7 @@
             $id_barang = $_POST['idBrg'];
             $opr = $_POST['editJumlah'];
             if ($_POST['jmlBrg'] == 1 && $_POST['editJumlah'] == "-") {
-                $query = "DELETE FROM detail_penjualan WHERE id_barang = $id_barang AND id_penjualan = (SELECT id_penjualan FROM penjualan WHERE id_customer = $id_customer)";
+                $query = "DELETE FROM detail_penjualan WHERE id_barang = $id_barang AND id_penjualan = (SELECT id_penjualan FROM penjualan WHERE id_customer = $id_customer AND status = 'Listed')";
                 $mysqli->query($query);
             } else {
                 $query = "UPDATE detail_penjualan SET jumlah = jumlah $opr 1 WHERE id_barang = $id_barang AND id_penjualan = (SELECT id_penjualan FROM penjualan WHERE id_customer = $id_customer AND status = 'Listed')";
@@ -61,7 +61,7 @@
     } elseif (isset($_POST['hapusCart'])) {
         $id_customer = $_SESSION['logged']['id'];
         $id_barang = $_POST['idBrg'];
-        $query = "DELETE FROM detail_penjualan WHERE id_barang = $id_barang AND id_penjualan = (SELECT id_penjualan FROM penjualan WHERE id_customer = $id_customer)";
+        $query = "DELETE FROM detail_penjualan WHERE id_barang = $id_barang AND id_penjualan = (SELECT id_penjualan FROM penjualan WHERE id_customer = $id_customer AND status = 'Listed')";
         $mysqli->query($query);
         ?>
         <script>

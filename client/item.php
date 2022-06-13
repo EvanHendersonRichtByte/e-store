@@ -13,28 +13,38 @@ if (isset($_POST['addToCart'])) {
     $id_penjualan = null;
     $id_barang = $_POST['addToCart'];
     $id_customer = $_SESSION['logged']['id'];
-    $query = "SELECT id_penjualan FROM penjualan WHERE id_customer = $id_customer AND id_petugas IS NULL LIMIT 1";
+    $query = "SELECT id_penjualan FROM penjualan WHERE id_customer = $id_customer AND status = 'Listed' AND id_petugas IS NULL LIMIT 1";
     $data = $mysqli->query($query);
     if ($data->num_rows > 0) {
         $id_penjualan = $data->fetch_array()["id_penjualan"];
         $query = "INSERT INTO detail_penjualan SET id_penjualan = $id_penjualan, id_barang = $id_barang, jumlah = 1, total = NULL";
-        if ($mysqli->query($query)) {
+        if ($mysqli->query($query) or die($mysqli->error)) {
         } else {
             echo "Failed!";
         }
+?>
+        <script>
+            window.location.assign("<?php echo $address ?>/client/item.php?id=<?php echo $id_barang ?>")
+        </script>
+    <?php
     } else {
         $query = "INSERT INTO penjualan SET id_customer = $id_customer, id_petugas = NULL";
         if ($mysqli->query($query)) {
-            $query = "SELECT id_penjualan FROM penjualan WHERE id_customer = $id_customer AND id_petugas IS NULL LIMIT 1";
+            $query = "SELECT id_penjualan FROM penjualan WHERE id_customer = $id_customer AND status = 'Listed' AND id_petugas IS NULL LIMIT 1";
             $id_penjualan = $mysqli->query($query)->fetch_array()["id_penjualan"];
-            $query = "INSERT INTO detail_penjualan SET id_penjualan = $id_penjualan, id_barang = $id_barang, jumlah = 1, total = $harga";
-            if ($mysqli->query($query)) {
+            $query = "INSERT INTO detail_penjualan SET id_penjualan = $id_penjualan, id_barang = $id_barang, jumlah = 1, total = " . $_POST['harga'];
+            if ($mysqli->query($query) or die($mysqli->error)) {
             } else {
                 echo "Failed";
             }
         } else {
             echo "Failed";
         }
+    ?>
+        <script>
+            window.location.assign("<?php echo $address ?>/client/item.php?id=<?php echo $id_barang ?>")
+        </script>
+    <?php
     }
 }
 elseif (isset($_POST['editJumlah'])) {
@@ -43,10 +53,10 @@ elseif (isset($_POST['editJumlah'])) {
         $id_barang = $_POST['idBrg'];
         $opr = $_POST['editJumlah'];
         if ($_POST['jmlBrg'] == 1 && $_POST['editJumlah'] == "-") {
-            $query = "DELETE FROM detail_penjualan WHERE id_barang = $id_barang AND id_penjualan = (SELECT id_penjualan FROM penjualan WHERE id_customer = $id_customer)";
+            $query = "DELETE FROM detail_penjualan WHERE id_barang = $id_barang AND id_penjualan = (SELECT id_penjualan FROM penjualan WHERE id_customer = $id_customer AND status = 'Listed')";
             $mysqli->query($query);
         } else {
-            $query = "UPDATE detail_penjualan SET jumlah = jumlah $opr 1 WHERE id_barang = $id_barang AND id_penjualan = (SELECT id_penjualan FROM penjualan WHERE id_customer = $id_customer)";
+            $query = "UPDATE detail_penjualan SET jumlah = jumlah $opr 1 WHERE id_barang = $id_barang AND id_penjualan = (SELECT id_penjualan FROM penjualan WHERE id_customer = $id_customer AND status = 'Listed')";
             $mysqli->query($query);
         }
     } else {
@@ -56,8 +66,13 @@ elseif (isset($_POST['editJumlah'])) {
 elseif(isset($_POST['hapusCart'])){
     $id_customer = $_SESSION['logged']['id'];
     $id_barang = $_POST['idBrg'];
-    $query = "DELETE FROM detail_penjualan WHERE id_barang = $id_barang AND id_penjualan = (SELECT id_penjualan FROM penjualan WHERE id_customer = $id_customer)";
+    $query = "DELETE FROM detail_penjualan WHERE id_barang = $id_barang AND id_penjualan = (SELECT id_penjualan FROM penjualan WHERE id_customer = $id_customer AND status = 'Listed')";
     $mysqli->query($query);
+    ?>
+    <script>
+        window.location.assign("<?php echo $address ?>/client/item.php?id=<?php echo $id_barang ?>")
+    </script>
+    <?php
 }
 
 if(isset($_GET['id'])){
@@ -71,7 +86,7 @@ if(isset($_GET['id'])){
     <div class="container pt-5">
         <div class="row">
             <div class="col-md-4 image">
-                <img class="w-100" <?php echo $key['image'] ? $key['image'] : "../assets/static_images/dummy.png" ?> alt="...">
+                <img class="w-100" src="<?php echo $address ?>/components/view_image.php?id_barang=<?php echo $key['id_barang'] ?>" alt="...">
             </div>
             <div class="col-md-8 detail">
                 <h3><?php echo $key['nama_barang'] ?></h3>
@@ -82,7 +97,7 @@ if(isset($_GET['id'])){
                         <div class="row">
                             <?php
                                 $id_customer = $_SESSION['logged']['id'];
-                                $query = "SELECT id_barang,jumlah FROM detail_penjualan WHERE id_penjualan = (SELECT id_penjualan FROM penjualan WHERE id_customer = " . $id_customer . ") ORDER BY id_barang";
+                                $query = "SELECT id_barang,jumlah FROM detail_penjualan WHERE id_penjualan = (SELECT id_penjualan FROM penjualan WHERE id_customer = " . $id_customer . " AND penjualan.status = 'Listed')  ORDER BY id_barang";
                                 $dataDP = $mysqli->query($query);
                                 $arrayDP_id = array();
                                 $arrayDP_jml = array();
