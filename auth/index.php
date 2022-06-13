@@ -2,12 +2,29 @@
 
 include_once "../config/connect.php";
 
-
+// global $mysqli2;
+// $mysqli2 = $mysqli;
 function pageAuth($address)
 {
-    include_once "../config/config.php";
+    include_once "../config/connect.php";
     session_start();
     if (isset($_SESSION['logged'])) {
+        $username = $_SESSION['logged']['username'];
+        $password = $_SESSION['logged']['password'];
+        $email = $_SESSION['logged']['email'];
+        $query = "SELECT * FROM customer WHERE username = '$username' AND password = '$password' AND email = '$email'";
+        $data = $GLOBALS['mysqli']->query($query);
+        if($data->num_rows > 0){
+            echo "<script>alert('session milik user')</script>";
+            // header("location: " . $address . "/client/index.php");
+        } else {
+            $query = "SELECT * FROM petugas WHERE username = '$username' AND password = '$password' AND email = '$email'";
+            $data = $GLOBALS['mysqli']->query($query);
+            if($data->num_rows > 0){
+                echo "<script>alert('session milik admin')</script>";
+                // header("location: " . $address . "/admin/index.php");
+            }
+        }
     } else {
         header("location: " . $address . "/client/login.php");
     }
