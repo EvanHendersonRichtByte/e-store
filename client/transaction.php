@@ -41,7 +41,7 @@
                                         foreach ($list_barang as $data) {
                                     ?>
                                             <div class="row mb-2 d-flex w-100">
-                                                <img class="w-25" src="../assets/static_images/dummy.png">
+                                                <img class="w-25" src="<?php echo $address ?>/components/view_image.php?id_barang=<?php echo $data['id_barang'] ?>">
                                                 <div class="col-md-8 d-flex flex-column ms-3">
                                                     <h5><?php echo $data['nama_barang'] ?> <span>x<?php echo $data['jumlah'] ?></span></h5>
                                                     <div class="d-flex">
@@ -59,7 +59,7 @@
                                 </td>
                                 <td class="col">
                                     <?php
-                                    echo $key['status'] === 'In Delivery' ?
+                                    echo $key['status'] === 'Diterima' ?
                                         '<button class="btn rounded-0 btn-success">In Delivery</button>' :
                                         '<button class="btn rounded-0 btn-danger">Ditolak</button>'
                                     ?>

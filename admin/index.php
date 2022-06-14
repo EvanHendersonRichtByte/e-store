@@ -8,7 +8,8 @@ $query = "SELECT COUNT(*) total_order FROM penjualan WHERE id_petugas IS NULL AN
 $total_order = $mysqli->query($query)->fetch_assoc()['total_order'];
 $query = "SELECT COUNT(*) total_order_selesai FROM penjualan WHERE id_petugas IS NOT NULL";
 $total_order_selesai = $mysqli->query($query)->fetch_assoc()['total_order_selesai'];
-$query = "SELECT p.id_customer, username, dp.total, c.imageType ,c.imageData , status FROM penjualan p JOIN customer c ON p.id_customer = c.id_customer JOIN detail_penjualan dp ON p.id_penjualan = dp.id_penjualan  WHERE id_petugas IS NULL ORDER BY tanggal LIMIT 3";
+$query = "SELECT p.id_customer, c.username, p.total, c.imageType ,c.imageData , p.status FROM penjualan p JOIN customer c ON p.id_customer = c.id_customer WHERE p.id_petugas IS NULL ORDER BY tanggal LIMIT 3";
+// $query = "SELECT p.id_customer, username, dp.total, c.imageType ,c.imageData , status FROM penjualan p JOIN customer c ON p.id_customer = c.id_customer JOIN detail_penjualan dp ON p.id_penjualan = dp.id_penjualan  WHERE id_petugas IS NULL ORDER BY tanggal LIMIT 3";
 $penjualan_terbaru = $mysqli->query($query) or die($mysqli->error);
 ?>
 
@@ -63,7 +64,7 @@ $penjualan_terbaru = $mysqli->query($query) or die($mysqli->error);
                     ?>
                         <div class="row align-items-center mb-4">
                             <div class="col-md-2">
-                                <img class="w-100 rounded-4" src="data:<?php echo $key['imageType'] ?>;base64,<?php echo base64_encode($key['imageData']) ?>" alt="image">
+                                <img class="w-100 rounded-4" src="<?php echo $address ?>/components/view_image.php?id_customer=<?php echo $id_customer ?>" alt="image">
                             </div>
                             <div class="col d-flex flex-column">
                                 <h5 class="text-capitalize"><?php echo $key['username'] ?></h5>
