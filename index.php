@@ -58,7 +58,7 @@
                 <a href="<?php echo $address ?>/client/login.php" class="btn btn-primary rounded-0">Get Started</a>
             </div>
             <div class="col-md-5">
-                <img src="./assets/static_images/truck.png" alt="Truck" class="w-100">
+                <img src="./assets/static_images/es.png" alt="Truck" class="w-100">
             </div>
         </div>
     </div>
