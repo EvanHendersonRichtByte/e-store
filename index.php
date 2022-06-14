@@ -40,10 +40,10 @@
                 <div class="collapse navbar-collapse" id="handleResponsiveButton">
                     <ul class="navbar-nav mb-2 mb-lg-0 ms-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="<?php echo $address ?>/client/login.php"><button class="btn btn-transparent text-danger disable-btn-hover">Login as Admin</button></a>
+                            <a class="nav-link" href="<?php echo $address ?>/admin/login.php"><button class="btn btn-transparent text-danger disable-btn-hover">Login as Admin</button></a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="<?php echo $address ?>/admin/login.php"><button class="btn btn-primary">Login as User</button></a>
+                            <a class="nav-link" href="<?php echo $address ?>/client/login.php"><button class="btn btn-primary">Login as Customer</button></a>
                         </li>
                     </ul>
                 </div>
