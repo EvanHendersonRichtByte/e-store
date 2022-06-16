@@ -40,7 +40,7 @@ CREATE TABLE `penjualan` (
   `id_petugas` int(11) DEFAULT NULL,
   `total` int(11) DEFAULT NULL,
   `status` enum('Listed','Proses','Diterima','Ditolak') DEFAULT 'Listed',
-  `tanggal` date DEFAULT current_timestamp(),
+  `tanggal` timestamp DEFAULT current_timestamp(),
   `tujuan` varchar(255) DEFAULT NULL,
   `metode_pembayaran` enum('COD','E-Pay','QR') DEFAULT 'COD',
   `kartu_nama` varchar(50) DEFAULT NULL,

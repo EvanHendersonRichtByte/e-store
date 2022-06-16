@@ -156,7 +156,7 @@ if (isset($_POST['placeOrder'])) {
     </script>
     <?php
 
-    $query = "UPDATE penjualan SET total = $total, status = 'Proses' ,metode_pembayaran = '$metode_pembayaran', tujuan = '$tujuan', kartu_nama = '$kartu_nama', kartu_no = '$kartu_no', kartu_pin = '$kartu_pin', kartu_exp = '$kartu_exp' WHERE id_penjualan = $id_penjualan";
+    $query = "UPDATE penjualan SET total = $total, status = 'Proses', tanggal = CURRENT_TIMESTAMP, metode_pembayaran = '$metode_pembayaran', tujuan = '$tujuan', kartu_nama = '$kartu_nama', kartu_no = '$kartu_no', kartu_pin = '$kartu_pin', kartu_exp = '$kartu_exp' WHERE id_penjualan = $id_penjualan";
     $mysqli->query($query) or die($mysqli->error);
     // $query = "DELETE FROM detail_penjualan WHERE id_penjualan = $id_penjualan";
     // $mysqli->query($query) or die($mysqli->error);
