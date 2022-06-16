@@ -85,6 +85,12 @@ if (isset($_POST['deny'])) {
 } else if (isset($_POST['accept'])) {
     $query = "UPDATE penjualan SET id_petugas =  $id_petugas, status = 'Diterima' WHERE id_penjualan = $id_penjualan ";
     $mysqli->query($query) or die($mysqli->error);
+    foreach ($orderData as $key) {
+        $id = $key['id_barang'];
+        $jumlah = $key['jumlah'];
+        $query = "UPDATE barang SET stok = stok - $jumlah WHERE id_barang = $id";
+        $mysqli->query($query) or die($mysqli->error);
+    }
 ?>
     <script>
         window.location.assign("<?php echo $address ?>/admin/active_order.php")
