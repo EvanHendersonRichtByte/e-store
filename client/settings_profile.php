@@ -36,12 +36,13 @@ $idCustomer = $_SESSION['logged']['id'];
                 <label class="form-label" for="alamat">Alamat</label>
                 <input class="form-control" id="alamat" type="text" name="alamat" value="<?php echo $_SESSION['logged']['alamat'] ?>">
             </div>
-            <div class="form-group mt-3">
+            <div class="form-group mt-3 mb-5">
                 <label class="form-label" for="tanggal_lahir">Tanggal Lahir</label>
                 <input class="form-control" id="tanggal_lahir" type="date" name="tanggal_lahir" value="<?php echo $_SESSION['logged']['tgl_lahir'] ?>">
             </div>
         </div>
     </form>
+
 </div>
 
 <?php
@@ -53,7 +54,7 @@ if (isset($_POST['changeImage'])) {
         $_SESSION['logged']['image'] = $imgData; ?>
         <script>
             alert("Foto profil telah diubah");
-            window.location.assign('<?php echo $address ?>/client/settings_profile.php');
+            window.location.assign('<?php echo $address . "/client/settings_profile.php" ?>');
         </script>
     <?php
     }
@@ -69,9 +70,9 @@ if (isset($_POST['changeImage'])) {
     ?>
         <script>
             alert("Data diri telah diubah");
+            window.location.assign('<?php $address . "/client/settings_profile.php" ?>')
         </script>
 <?php
-        header("location: " . $address . '/client/settings_profile.php');
     }
 }
 
