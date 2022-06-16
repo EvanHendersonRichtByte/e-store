@@ -118,15 +118,20 @@
                                     <input type="hidden" name="idBrg" value="<?php echo $arrayDP_id[$index - 1] ?>">
                                     <input type="hidden" name="jmlBrg" value="<?php echo $arrayDP_jml[$index - 1] ?>">
                                     <button class="input-group-text" name="editJumlah" type="submit" value="-"><i class="bi bi-dash"></i></button>
-                                    <input type="number" max="<?php echo  $key['stok'] ?>" name="inpDewe" id="" class="form-control" value=<?php echo $arrayDP_jml[$index - 1] ?> onclick="document.getElementById('myform').submit()">
+                                    <input type="number" max="<?php echo $key['stok'] ?>" name="inpDewe" id="" class="form-control" value=<?php echo $arrayDP_jml[$index - 1] ?>>
                                     <button class="input-group-text" name="editJumlah" type="submit" value="+"><i class="bi bi-plus"></i></button>
                                 </div>
                             <?php
                             } else {
                             ?>
                                 <div class="col">
+                                    <?php if($key['stok'] != 0){ ?>
+                                    <input type="hidden" name="stokBrg" value="<?php echo $key['stok'] ?>">
                                     <input type="hidden" name="harga" value="<?php echo $key['harga'] ?>">
                                     <button class="form-control btn btn-success" name="addToCart" type="submit" value="<?php echo $key['id_barang'] ?>"><i class="bi bi-bag-plus"></i></button>
+                                    <?php } else { ?>
+                                    <button class="form-control btn btn-outline-dark" onclick="alert('Stok tidak mencukupi')" type=""><i class="bi bi-bag-fill"></i></button>
+                                    <?php } ?>
                                 </div>
                             <?php
                             }

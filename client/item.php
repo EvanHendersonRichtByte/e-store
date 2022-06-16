@@ -132,7 +132,13 @@ if(isset($_GET['id'])){
                                     } else {
                             ?>
                             <div class="col-5">
-                                <button class="form-control btn btn-success" name="addToCart" type="submit" value="<?php echo $key['id_barang'] ?>"><i class="bi bi-bag-plus"></i> | Add To Cart</i></button>
+                                <?php if($key['stok'] != 0){ ?>
+                                <input type="hidden" name="stokBrg" value="<?php echo $key['stok'] ?>">
+                                <input type="hidden" name="harga" value="<?php echo $key['harga'] ?>">
+                                <button class="form-control btn btn-success" name="addToCart" type="submit" value="<?php echo $key['id_barang'] ?>"><i class="bi bi-bag-plus"></i> | Add To Cart</button>
+                                <?php } else { ?>
+                                <button class="form-control btn btn-outline-dark" onclick="alert('Stok tidak mencukupi')" type=""><i class="bi bi-bag-fill"></i> | Stok Habis</button>
+                                <?php } ?>
                             </div>
                             <?php
                         }
