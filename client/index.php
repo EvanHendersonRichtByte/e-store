@@ -68,6 +68,12 @@
             window.location.assign("<?php echo $address ?>/client/")
         </script>
         <?php
+    } elseif(isset($_POST['editInput'])){
+        $jumlah = $_POST['editInput'];
+        $id_customer = $_SESSION['logged']['id'];
+        $id_barang = $_POST['idBrg'];
+        $query = "UPDATE detail_penjualan SET jumlah = $jumlah WHERE id_barang = $id_barang AND id_penjualan = (SELECT id_penjualan FROM penjualan WHERE id_customer = $id_customer AND status = 'Listed')";
+        $mysqli->query($query);
     }
 
     // Load Page
@@ -117,8 +123,9 @@
                                     <input type="hidden" name="stokBrg" value="<?php echo $key['stok'] ?>">
                                     <input type="hidden" name="idBrg" value="<?php echo $arrayDP_id[$index - 1] ?>">
                                     <input type="hidden" name="jmlBrg" value="<?php echo $arrayDP_jml[$index - 1] ?>">
+                                    <input type="hidden" id="editInput" name="editInput" value="<?php echo $arrayDP_jml[$index - 1] ?>">
                                     <button class="input-group-text" name="editJumlah" type="submit" value="-"><i class="bi bi-dash"></i></button>
-                                    <input type="number" max="<?php echo $key['stok'] ?>" name="inpDewe" id="" class="form-control" value=<?php echo $arrayDP_jml[$index - 1] ?>>
+                                    <input type="number" max="<?php echo $key['stok'] ?>" name="editInputField" id="editInputField" class="form-control" value="<?php echo $arrayDP_jml[$index - 1] ?>" onchange="editInputDewe(this.value,<?php echo $key['stok'] ?>)">
                                     <button class="input-group-text" name="editJumlah" type="submit" value="+"><i class="bi bi-plus"></i></button>
                                 </div>
                             <?php

@@ -74,6 +74,13 @@ elseif(isset($_POST['hapusCart'])){
     </script>
     <?php
 }
+elseif(isset($_POST['editInput'])){
+    $jumlah = $_POST['editInput'];
+    $id_customer = $_SESSION['logged']['id'];
+    $id_barang = $_POST['idBrg'];
+    $query = "UPDATE detail_penjualan SET jumlah = $jumlah WHERE id_barang = $id_barang AND id_penjualan = (SELECT id_penjualan FROM penjualan WHERE id_customer = $id_customer AND status = 'Listed')";
+    $mysqli->query($query);
+}
 
 if(isset($_GET['id'])){
     $id_Brg = $_GET['id'];
@@ -120,8 +127,9 @@ if(isset($_GET['id'])){
                                 <input type="hidden" name="stokBrg" value="<?php echo $key['stok'] ?>">
                                 <input type="hidden" name="idBrg" value="<?php echo $arrayDP_id[$index - 1] ?>">
                                 <input type="hidden" name="jmlBrg" value="<?php echo $arrayDP_jml[$index - 1] ?>">
+                                <input type="hidden" id="editInput" name="editInput" value="<?php echo $arrayDP_jml[$index - 1] ?>">
                                 <button class="input-group-text" name="editJumlah" type="submit" value="-"><i class="bi bi-dash"></i></button>
-                                <input type="number" name="inpDewe" id="" class="form-control" value=<?php echo $arrayDP_jml[$index - 1] ?> onclick="document.getElementById('myform').submit()">
+                                <input type="number" name="editInputField" id="editInputField" class="form-control" value="<?php echo $arrayDP_jml[$index - 1] ?>" onchange="editInputDewe(this.value,<?php echo $key['stok'] ?>)">
                                 <button class="input-group-text" name="editJumlah" type="submit" value="+"><i class="bi bi-plus"></i></button>
                             </div>
                             <div class="col">
@@ -159,5 +167,5 @@ if(isset($_GET['id'])){
         </div>
     </div>
 </section>
-
+<script src="./assets/js/script.js"></script>
 <?php include_once "../template/footer.php"  ?>
