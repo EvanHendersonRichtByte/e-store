@@ -5,15 +5,15 @@
 <section class="client-cart">
     <div class="container pt-5">
         <form class="d-flex" action="" method="post">
-            <div class="d-flex justify-content-between w-100">
-                <div class="col-md-4 d-flex flex-column" action="" method="post">
+            <div class="d-flex justify-content-between w-100 flex-column flex-md-row">
+                <div class="col-sm-12 col-md-4 d-flex flex-column" action="" method="post">
                     <div class="form-group mb-3">
                         <label class="form-label" for="username">Atas Nama:</label>
-                        <input class="form-control" type="text" name="username" id="username" value="<?php echo $_SESSION['logged']['username'] ?>">
+                        <input class="form-control" type="text" name="username" id="username" value="<?php echo $_SESSION['logged']['username'] ?>" required>
                     </div>
                     <div class="form-group mb-3">
                         <label class="form-label" for="tujuan">Tujuan:</label>
-                        <input class="form-control" type="text" name="tujuan" id="tujuan" value="<?php echo $_SESSION['logged']['alamat'] ?>">
+                        <input class="form-control" type="text" name="tujuan" id="tujuan" value="<?php echo $_SESSION['logged']['alamat'] ?>" required>
                     </div>
                     <label for="">Sistem Pembayaran:</label>
                     <div class="col">
@@ -70,7 +70,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6 items">
+                <div class="col-sm-12 col-md-6 items">
                     <?php
                     include_once "../config/connect.php";
                     $id_customer = $_SESSION['logged']['id'];

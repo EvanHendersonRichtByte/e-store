@@ -66,8 +66,8 @@
                                 </td>
                             </tr>
                         <?php
-                        }
                         $number++;
+                        }
                         ?>
                     </tbody>
                 </table>
