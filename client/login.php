@@ -48,7 +48,7 @@ if (isset($_GET['msg'])) {
             <h1>Welcome Back!</h1>
             <div class="d-flex align-items-center">
                 <h5 class="fw-light">Dont' Have Account?</h5>
-                <a class="ms-2 link-success text-decoration-none" href="<?php echo $address ?>/client/register.php">
+                <a class="client-signup ms-2 link-success text-decoration-none" href="<?php echo $address ?>/client/register.php">
                     <h5 class="fw-light">Sign Up</h5>
                 </a>
             </div>

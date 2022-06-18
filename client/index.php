@@ -2,6 +2,32 @@
 
 <?php include "../components/client_dashboard_navbar.php" ?>
 <section class="client-dashboard container d-flex flex-wrap pt-5">
+    <div id="carousel-index" class="carousel slide mb-5 w-100" data-bs-ride="true">
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#carousel-index" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#carousel-index" data-bs-slide-to="1" aria-label="Slide 2"></button>
+            <button type="button" data-bs-target="#carousel-index" data-bs-slide-to="2" aria-label="Slide 3"></button>
+        </div>
+        <div class="carousel-inner">
+            <div class="carousel-item  active" data-bs-interval="2000">
+                <img src="../assets/static_images/slide1.jpg" class="d-block" alt="slide1.jpg">
+            </div>
+            <div class="carousel-item " data-bs-interval="2000">
+                <img src="../assets/static_images/slide2.jpg" class="d-block" alt="slide2.jpg">
+            </div>
+            <div class="carousel-item " data-bs-interval="2000">
+                <img src="../assets/static_images/slide3.jpg" class="d-block" alt="slide3.jpg">
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carousel-index" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carousel-index" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
     <?php
     include_once "../config/connect.php";
 
@@ -68,7 +94,7 @@
             window.location.assign("<?php echo $address ?>/client/")
         </script>
         <?php
-    } elseif(isset($_POST['editInput'])){
+    } elseif (isset($_POST['editInput'])) {
         $jumlah = $_POST['editInput'];
         $id_customer = $_SESSION['logged']['id'];
         $id_barang = $_POST['idBrg'];
@@ -133,12 +159,12 @@
                             } else {
                             ?>
                                 <div class="col">
-                                    <?php if($key['stok'] != 0){ ?>
-                                    <input type="hidden" name="stokBrg" value="<?php echo $key['stok'] ?>">
-                                    <input type="hidden" name="harga" value="<?php echo $key['harga'] ?>">
-                                    <button class="form-control btn btn-success" name="addToCart" type="submit" value="<?php echo $key['id_barang'] ?>"><i class="bi bi-bag-plus"></i></button>
+                                    <?php if ($key['stok'] != 0) { ?>
+                                        <input type="hidden" name="stokBrg" value="<?php echo $key['stok'] ?>">
+                                        <input type="hidden" name="harga" value="<?php echo $key['harga'] ?>">
+                                        <button class="form-control btn btn-success" name="addToCart" type="submit" value="<?php echo $key['id_barang'] ?>"><i class="bi bi-bag-plus"></i></button>
                                     <?php } else { ?>
-                                    <button class="form-control btn btn-outline-dark" onclick="alert('Stok tidak mencukupi')" type=""><i class="bi bi-bag-fill"></i></button>
+                                        <button class="form-control btn btn-outline-dark" onclick="alert('Stok tidak mencukupi')" type=""><i class="bi bi-bag-fill"></i></button>
                                     <?php } ?>
                                 </div>
                             <?php
@@ -149,7 +175,7 @@
                 </div>
             </div>
     <?php
-    $j++;
+            $j++;
         }
     }
     ?>
