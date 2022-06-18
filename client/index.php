@@ -81,6 +81,7 @@
     $data = $mysqli->query($query);
     if ($data->num_rows > 0) {
         $data->fetch_assoc();
+        $j = 0;
         foreach ($data as $key) {
         ?>
             <div class="card me-5 mb-5" style="width: 18rem;">
@@ -92,7 +93,7 @@
                     <p class="card-text"><?php echo $key['deskripsi'] ?></p>
                     <p class="card-text">Stok : <?php echo $key['stok'] ?></p>
                     <p class="card-text">Rp. : <?php echo $key['harga'] ?></p>
-                    <form method="POST" id="formAdd">
+                    <form method="POST" id="formAdd<?php echo $j ?>">
                         <div class="row">
                             <?php
                             $id_customer = $_SESSION['logged']['id'];
@@ -123,9 +124,9 @@
                                     <input type="hidden" name="stokBrg" value="<?php echo $key['stok'] ?>">
                                     <input type="hidden" name="idBrg" value="<?php echo $arrayDP_id[$index - 1] ?>">
                                     <input type="hidden" name="jmlBrg" value="<?php echo $arrayDP_jml[$index - 1] ?>">
-                                    <input type="hidden" id="editInput" name="editInput" value="<?php echo $arrayDP_jml[$index - 1] ?>">
+                                    <input type="hidden" id="editInput<?php echo $j ?>" name="editInput" value="<?php echo $arrayDP_jml[$index - 1] ?>">
                                     <button class="input-group-text" name="editJumlah" type="submit" value="-"><i class="bi bi-dash"></i></button>
-                                    <input type="number" max="<?php echo $key['stok'] ?>" name="editInputField" id="editInputField" class="form-control" value="<?php echo $arrayDP_jml[$index - 1] ?>" onchange="editInputDewe(this.value,<?php echo $key['stok'] ?>)">
+                                    <input type="number" max="<?php echo $key['stok'] ?>" name="editInputField" id="editInputField<?php echo $j ?>" class="form-control" value="<?php echo $arrayDP_jml[$index - 1] ?>" onchange="editInputDewe(this.value,<?php echo $key['stok'] ?>,<?php echo $j ?>)">
                                     <button class="input-group-text" name="editJumlah" type="submit" value="+"><i class="bi bi-plus"></i></button>
                                 </div>
                             <?php
@@ -148,6 +149,7 @@
                 </div>
             </div>
     <?php
+    $j++;
         }
     }
     ?>

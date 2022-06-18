@@ -100,7 +100,7 @@ if(isset($_GET['id'])){
                 <p><?php echo $key['deskripsi'] ?></p>
                 <p>Stok : <?php echo $key['stok'] ?></p>
                 <h5>Rp. <?php echo $key['harga'] ?></h5>
-                <form method="POST" id="formAdd">
+                <form method="POST" id="formAdd0">
                         <div class="row">
                             <?php
                                 $id_customer = $_SESSION['logged']['id'];
@@ -127,9 +127,9 @@ if(isset($_GET['id'])){
                                 <input type="hidden" name="stokBrg" value="<?php echo $key['stok'] ?>">
                                 <input type="hidden" name="idBrg" value="<?php echo $arrayDP_id[$index - 1] ?>">
                                 <input type="hidden" name="jmlBrg" value="<?php echo $arrayDP_jml[$index - 1] ?>">
-                                <input type="hidden" id="editInput" name="editInput" value="<?php echo $arrayDP_jml[$index - 1] ?>">
+                                <input type="hidden" id="editInput0" name="editInput" value="<?php echo $arrayDP_jml[$index - 1] ?>">
                                 <button class="input-group-text" name="editJumlah" type="submit" value="-"><i class="bi bi-dash"></i></button>
-                                <input type="number" name="editInputField" id="editInputField" class="form-control" value="<?php echo $arrayDP_jml[$index - 1] ?>" onchange="editInputDewe(this.value,<?php echo $key['stok'] ?>)">
+                                <input type="number" name="editInputField" id="editInputField0" class="form-control" value="<?php echo $arrayDP_jml[$index - 1] ?>" onchange="editInputDewe(this.value,<?php echo $key['stok'] ?>,0)">
                                 <button class="input-group-text" name="editJumlah" type="submit" value="+"><i class="bi bi-plus"></i></button>
                             </div>
                             <div class="col">

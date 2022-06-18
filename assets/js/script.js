@@ -41,18 +41,6 @@ function resetPaymentSelection() {
   });
 }
 
-function editInputDewe(jml,stokbrg) {
-  if (jml<=stokbrg && jml>0) {
-    document.getElementById("editInput").value = jml;
-    document.getElementById("formAdd").submit();
-    location.reload;
-  } else {
-    alert('Pastikan jumlah barang yang ingin dibeli telah benar!');
-    document.getElementById('editInputField').value = document.getElementById("editInput").value;
-    location.reload;
-  }
-}
-
 const handlePaymentSelection = (selectVal) => {
   if (selectVal === "COD") {
     resetPaymentSelection();
@@ -68,3 +56,16 @@ const handlePaymentSelection = (selectVal) => {
     $("#payment-form-qr img").css("display", "block");
   }
 };
+
+//
+function editInputDewe(jml,stokbrg,index) {
+  if (jml<=stokbrg && jml>0) {
+    document.getElementById("editInput"+index).value = jml;
+    document.getElementById("formAdd"+index).submit();
+    location.reload;
+  } else {
+    alert('Pastikan jumlah barang yang ingin dibeli telah benar!');
+    document.getElementById("editInputField"+index).value = document.getElementById("editInput"+index).value;
+    location.reload;
+  }
+}
