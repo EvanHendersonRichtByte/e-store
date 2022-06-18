@@ -104,32 +104,18 @@ if(isset($_GET['id'])){
                         <div class="row">
                             <?php
                                 $id_customer = $_SESSION['logged']['id'];
-                                $query = "SELECT id_barang,jumlah FROM detail_penjualan WHERE id_penjualan = (SELECT id_penjualan FROM penjualan WHERE id_customer = " . $id_customer . " AND penjualan.status = 'Listed')  ORDER BY id_barang";
+                                $query = "SELECT jumlah FROM detail_penjualan WHERE id_penjualan = (SELECT id_penjualan FROM penjualan WHERE id_customer = " . $id_customer . " AND penjualan.status = 'Listed') AND id_barang= ".$key['id_barang']."";
                                 $dataDP = $mysqli->query($query);
-                                $arrayDP_id = array();
-                                $arrayDP_jml = array();
-                                while ($rowID = mysqli_fetch_assoc($dataDP)) {
-                                    $arrayDP_id[] = $rowID['id_barang'];
-                                    $arrayDP_jml[] = $rowID['jumlah'];
-                                }
-                                $bool = false;
                                 if ($dataDP->num_rows > 0) {
-                                    for ($i = 1; $i <= $dataDP->num_rows; $i++) {
-                                        if ($arrayDP_id[$i - 1] == $key['id_barang']) {
-                                            $index = $i;
-                                            $bool = true;
-                                        }
-                                    }
-                                }
-                                if ($bool == true) {
+                                    $keyDP = $dataDP->fetch_assoc();
                             ?>
                             <div class="input-group w-25">
                                 <input type="hidden" name="stokBrg" value="<?php echo $key['stok'] ?>">
-                                <input type="hidden" name="idBrg" value="<?php echo $arrayDP_id[$index - 1] ?>">
-                                <input type="hidden" name="jmlBrg" value="<?php echo $arrayDP_jml[$index - 1] ?>">
-                                <input type="hidden" id="editInput0" name="editInput" value="<?php echo $arrayDP_jml[$index - 1] ?>">
+                                <input type="hidden" name="idBrg" value="<?php echo $key['id_barang'] ?>">
+                                <input type="hidden" name="jmlBrg" value="<?php echo $keyDP['jumlah'] ?>">
+                                <input type="hidden" id="editInput0" name="editInput" value="<?php echo $keyDP['jumlah'] ?>">
                                 <button class="input-group-text" name="editJumlah" type="submit" value="-"><i class="bi bi-dash"></i></button>
-                                <input type="number" name="editInputField" id="editInputField0" class="form-control" value="<?php echo $arrayDP_jml[$index - 1] ?>" onchange="editInputDewe(this.value,<?php echo $key['stok'] ?>,0)">
+                                <input type="number" name="editInputField" id="editInputField0" class="form-control" value="<?php echo $keyDP['jumlah'] ?>" onchange="editInputDewe(this.value,<?php echo $key['stok'] ?>,0)">
                                 <button class="input-group-text" name="editJumlah" type="submit" value="+"><i class="bi bi-plus"></i></button>
                             </div>
                             <div class="col">
