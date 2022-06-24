@@ -27,13 +27,13 @@
                 <div class="collapse navbar-collapse" id="handleResponsiveButton">
                     <ul class="navbar-nav mb-2 mb-lg-0 ms-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="<?php echo $address ?>/client/login.php">Home</a>
+                            <a class="nav-link" href="<?php echo $address ?>/client/">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="<?php echo $address ?>/client/login.php">Catalog</a>
+                            <a class="nav-link" href="<?php echo $address ?>/client/">Catalog</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="<?php echo $address ?>/client/login.php">Products</a>
+                            <a class="nav-link" href="<?php echo $address ?>/client/">Products</a>
                         </li>
                     </ul>
                 </div>
