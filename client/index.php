@@ -11,40 +11,7 @@
     $id_penjualan = null;
     if ($data->num_rows > 0) {
         $id_penjualan = $data->fetch_array()["id_penjualan"];
-        // $query = "INSERT INTO detail_penjualan SET id_penjualan = $id_penjualan, id_barang = $id_barang, jumlah = 1, total = NULL";
-        // if ($mysqli->query($query) or die($mysqli->error)) echo "<script>alert('you have transaction')</script>";
-        // else return "Failed to execute INSERT INTO detail_penjualan";
     }
-    // Add Item
-    if (isset($_POST['addToCart'])) {
-        echo "<script>alert('Add to cart performed')</script>";
-    } elseif (isset($_POST['editJumlah'])) {
-        if (($_POST['stokBrg'] > $_POST['jmlBrg'] && $_POST['jmlBrg'] > 0) || ($_POST['jmlBrg'] == 10 && $_POST['editJumlah'] == "-")) {
-            $id_customer = $_SESSION['logged']['id'];
-            $id_barang = $_POST['idBrg'];
-            $opr = $_POST['editJumlah'];
-            if ($_POST['jmlBrg'] == 1 && $_POST['editJumlah'] == "-") {
-                $query = "DELETE FROM detail_penjualan WHERE id_barang = $id_barang AND id_penjualan = (SELECT id_penjualan FROM penjualan WHERE id_customer = $id_customer AND status = 'Listed')";
-                $mysqli->query($query);
-            } else {
-                $query = "UPDATE detail_penjualan SET jumlah = jumlah $opr 1 WHERE id_barang = $id_barang AND id_penjualan = (SELECT id_penjualan FROM penjualan WHERE id_customer = $id_customer AND status = 'Listed')";
-                $mysqli->query($query);
-            }
-        } else echo "<script type='text/javascript'>alert('Stok tidak mencukupi');</script>";
-    } elseif (isset($_POST['hapusCart'])) {
-        $id_customer = $_SESSION['logged']['id'];
-        $id_barang = $_POST['idBrg'];
-        $query = "DELETE FROM detail_penjualan WHERE id_barang = $id_barang AND id_penjualan = (SELECT id_penjualan FROM penjualan WHERE id_customer = $id_customer AND status = 'Listed')";
-        $mysqli->query($query);
-    } elseif (isset($_POST['editInput'])) {
-        $jumlah = $_POST['editInput'];
-        $id_customer = $_SESSION['logged']['id'];
-        $id_barang = $_POST['idBrg'];
-        $query = "UPDATE detail_penjualan SET jumlah = $jumlah WHERE id_barang = $id_barang AND id_penjualan = (SELECT id_penjualan FROM penjualan WHERE id_customer = $id_customer AND status = 'Listed')";
-        $mysqli->query($query);
-    }
-
-    // Load Page
     // $query = "SELECT * FROM penjualan p LEFT JOIN detail_penjualan dp ON p.id_penjualan = dp.id_penjualan JOIN barang b ON dp.id_barang = b.id_barang WHERE p.status = 'Listed' AND p.id_customer = 4 AND dp.id_barang = 1";
     $query = "SELECT * FROM barang ORDER BY nama_barang";
     $data = $mysqli->query($query);
@@ -109,21 +76,23 @@
     }))
 
     $('button[name=editJumlah]').each((_, e) => e.addEventListener('click', async () => {
-        let operation = $(e).val();
-        let input = $(e).closest('div').find('input');
-        // Handle input limit
-        if (input.val() !== input.attr('max') || operation === '-') input.val(eval(`parseInt(input.val()) ${operation} 1`));
-        input.val() <= input.attr('min') && input.val(0)
-        await $.post(`${defaultUrl}/client/api/transaction.php`, {
-            Type: "ModifyQty",
-            id_customer: input.attr('data-cs-idCustomer'),
-            id_penjualan: input.attr('data-cs-idPenjualan'),
-            id_detail_penjualan: input.attr('data-cs-idDetailPenjualan'),
-            id_barang: input.attr('data-cs-idBarang'),
-            harga: input.attr('data-cs-hargaBarang'),
-            qty: input.val()
-        }, (data, status) => {
-            console.log(data)
-        });
+        await setTimeout(() => {
+            let operation = $(e).val();
+            let input = $(e).closest('div').find('input');
+            // Handle input limit
+            if (input.val() !== input.attr('max') || operation === '-') input.val(eval(`parseInt(input.val()) ${operation} 1`));
+            input.val() <= input.attr('min') && input.val(0)
+            $.post(`${defaultUrl}/client/api/transaction.php`, {
+                Type: "ModifyQty",
+                id_customer: input.attr('data-cs-idCustomer'),
+                id_penjualan: input.attr('data-cs-idPenjualan'),
+                id_detail_penjualan: input.attr('data-cs-idDetailPenjualan'),
+                id_barang: input.attr('data-cs-idBarang'),
+                harga: input.attr('data-cs-hargaBarang'),
+                qty: input.val()
+            }, (data, status) => {
+                if (data === 'New Data Created') window.location.reload()
+            }).done(() => updateNav());
+        }, 500)
     }))
 </script>

@@ -41,7 +41,6 @@ if ($type === 'Create') {
     $harga = $_POST['harga'];
     $qty = $_POST['qty'];
     $hargaTotal = $qty * $harga;
-    echo $id_penjualan;
     // $query = "SELECT * FROM penjualan p JOIN detail_penjualan dp ON p.id_penjualan = dp.id_penjualan WHERE p.id_customer = $id_customer";
     // $mysqli->query($query) or die($mysqli->error);
     if (!$id_penjualan) {
@@ -54,17 +53,18 @@ if ($type === 'Create') {
         }
     } else {
         $query = "SELECT * FROM detail_penjualan WHERE id_detail_penjualan = $id_detail_penjualan AND id_barang = $id_barang";
-        echo $query;
-        if ($mysqli->query($query)->num_rows > 0) {
-            if ($qty > 0) {
-                $query = "UPDATE detail_penjualan SET jumlah = $qty, total = $hargaTotal WHERE id_detail_penjualan = $id_detail_penjualan";
-                $mysqli->query($query) or die($mysqli->error);
-                echo "Qty Updated";
-            } else {
-                $query = "DELETE FROM detail_penjualan WHERE id_detail_penjualan = $id_detail_penjualan";
-                $mysqli->query($query) or die($mysqli->error);
-                echo "Delete Performed";
-            }
+        $data = $mysqli->query($query);
+        if ($data) {
+            if ($data->num_rows > 0)
+                if ($qty > 0) {
+                    $query = "UPDATE detail_penjualan SET jumlah = $qty, total = $hargaTotal WHERE id_detail_penjualan = $id_detail_penjualan";
+                    $mysqli->query($query) or die($mysqli->error);
+                    echo "Qty Updated";
+                } else {
+                    $query = "DELETE FROM detail_penjualan WHERE id_detail_penjualan = $id_detail_penjualan";
+                    $mysqli->query($query) or die($mysqli->error);
+                    echo "Delete Performed";
+                }
         } else {
             $query = "INSERT INTO detail_penjualan SET id_penjualan = $id_penjualan, id_barang = $id_barang, jumlah = $qty, total = $hargaTotal";
             $mysqli->query($query) or die($mysqli->error);
