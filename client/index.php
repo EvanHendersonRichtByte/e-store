@@ -3,7 +3,7 @@
 <?php include "../components/client_dashboard_navbar.php" ?>
 <section class="client-dashboard container d-flex flex-wrap pt-5">
     <div class="col-12 mb-4">
-        <div class="col-3">
+        <div class="col-lg-4 col-md-5 col-sm-12">
             <form class="d-flex" action="#" method="POST">
                 <input type="text" name="search_barang" class="form-control border-success" placeholder="Search...">
                 <input class="ms-3 btn btn-success" type="submit" name="Search">
@@ -39,7 +39,7 @@
             // $id_penjualan = isset($user_transaction['id_penjualan']) && $user_transaction['id_penjualan'];
             $id_detail_penjualan = isset($user_transaction['id_detail_penjualan']) ? $user_transaction['id_detail_penjualan'] : null;
             $user_transaction_jumlah = isset($user_transaction['jumlah']) ? $user_transaction['jumlah'] : 0; ?>
-            <div class="card me-5 mb-5" style="width: 18rem;">
+            <div class="card me-sm-0 me-md-5 mb-4 mb-md-5" style="width: 18rem;">
                 <img class="card-img-top h-auto w-auto mx-auto" src="<?php echo $address ?>/components/view_image.php?id_barang=<?php echo $key['id_barang'] ?>" style="max-width: 10rem ; max-height: 10rem; ">
                 <div class="card-body">
                     <button type="button" class="btn border-0 btn-transparent text-left p-0 text-success" data-bs-toggle="modal" data-bs-target="#detail<?php echo $key['id_barang'] ?>">
