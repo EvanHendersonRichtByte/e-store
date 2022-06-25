@@ -2,10 +2,17 @@
 
 <?php include "../components/client_dashboard_navbar.php" ?>
 <section class="client-dashboard container d-flex flex-wrap pt-5">
+    <div class="col-12 mb-4">
+        <div class="col-3">
+            <form class="d-flex" action="#" method="POST">
+                <input type="text" name="search_barang" class="form-control border-success" placeholder="Search...">
+                <input class="ms-3 btn btn-success" type="submit" name="Search">
+            </form>
+        </div>
+    </div>
     <?php
     include_once "../config/connect.php";
     $id_customer = $_SESSION['logged']['id'];
-
     $query = "SELECT id_penjualan FROM penjualan WHERE id_customer = $id_customer AND status = 'Listed' AND id_petugas IS NULL LIMIT 1";
     $data = $mysqli->query($query);
     $id_penjualan = null;
@@ -13,10 +20,18 @@
         $id_penjualan = $data->fetch_array()["id_penjualan"];
     }
     // $query = "SELECT * FROM penjualan p LEFT JOIN detail_penjualan dp ON p.id_penjualan = dp.id_penjualan JOIN barang b ON dp.id_barang = b.id_barang WHERE p.status = 'Listed' AND p.id_customer = 4 AND dp.id_barang = 1";
+
     $query = "SELECT * FROM barang ORDER BY nama_barang";
+
+    if (isset($_POST['Search'])) {
+        $nama = $_POST['search_barang'];
+        $query = "SELECT * FROM barang WHERE nama_barang LIKE '%$nama%' ORDER BY nama_barang";
+    }
+
     $data = $mysqli->query($query);
     if ($data->num_rows > 0) {
         $data->fetch_assoc();
+
         foreach ($data as $key) {
             $query = "SELECT * FROM penjualan p LEFT JOIN detail_penjualan dp ON p.id_penjualan = dp.id_penjualan JOIN barang b ON dp.id_barang = b.id_barang WHERE p.status = 'Listed' AND p.id_customer = $id_customer AND dp.id_barang = " . $key['id_barang'];
             $user_transaction = $mysqli->query($query) or die($mysqli->error);
@@ -27,9 +42,9 @@
             <div class="card me-5 mb-5" style="width: 18rem;">
                 <img class="card-img-top h-auto w-auto mx-auto" src="<?php echo $address ?>/components/view_image.php?id_barang=<?php echo $key['id_barang'] ?>" style="max-width: 10rem ; max-height: 10rem; ">
                 <div class="card-body">
-                    <a class="card-title text-decoration-none" href="<?php echo $address ?>/client/item.php?id=<?php echo $key['id_barang'] ?>">
+                    <button type="button" class="btn border-0 btn-transparent text-left p-0 text-success" data-bs-toggle="modal" data-bs-target="#detail<?php echo $key['id_barang'] ?>">
                         <h5><?php echo $key['nama_barang'] ?></h5>
-                    </a>
+                    </button>
                     <p class="card-text"><?php echo $key['deskripsi'] ?></p>
                     <p class="card-text">Stok : <?php echo $key['stok'] ?></p>
                     <p class="card-text">Rp. : <?php echo $key['harga'] ?></p>
@@ -44,6 +59,25 @@
                             <button type="button" class="input-group-text" name="editJumlah" value="+"><i class="bi bi-plus"></i></button>
                         </div>
                     </div>
+
+                    <div class="modal fade" id="detail<?php echo $key['id_barang'] ?>" tabindex="-1" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title"><?php echo $key['nama_barang'] ?></h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <p class="card-text"><?php echo $key['deskripsi'] ?></p>
+                                    <p class="card-text">Rp. : <?php echo $key['harga'] ?></p>
+                                </div>
+                                <div class="modal-footer justify-content-between">
+                                    <p class="card-text">Stok : <?php echo $key['stok'] ?></p>
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
     <?php }
@@ -56,6 +90,20 @@
     const defaultUrl = "<?php echo $address ?>"
     const id_customer = "<?php echo $_SESSION['logged']['id'] ?>"
     let id_barang = null
+
+    // $('input[name=search_barang]').on('change', () => {
+    //     $('.card').filter((_, e) => {
+    //         $(e).find('.card-body h5').each((_, f) => {
+    //             const input = $('input[name=search_barang]').val().toLowerCase()
+    //             console.log(input, $(f).html())
+    //             if ($(e).html().toLowerCase().search(input) <= -1) {
+    //                 $(e).toggle()
+    //             }
+    //         })
+
+    //     })
+    // })
+
     const updateNav = () => {
         $.post(`${defaultUrl}/client/api/navbarControl.php`, {
             Update: id_customer
