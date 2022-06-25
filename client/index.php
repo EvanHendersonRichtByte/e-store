@@ -68,6 +68,7 @@
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
+                                    <img src="<?php echo $address ?>/components/view_image.php?id_barang=<?php echo $key['id_barang'] ?>" alt="" class="img-fluid">
                                     <p class="card-text"><?php echo $key['deskripsi'] ?></p>
                                     <p class="card-text">Rp. : <?php echo $key['harga'] ?></p>
                                 </div>
