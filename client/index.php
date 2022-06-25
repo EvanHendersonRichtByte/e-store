@@ -25,7 +25,7 @@
 
     if (isset($_POST['Search'])) {
         $nama = $_POST['search_barang'];
-        $query = "SELECT * FROM barang WHERE nama_barang LIKE '%$nama%' ORDER BY nama_barang";
+        $query = "SELECT * FROM barang WHERE nama_barang LIKE '%$nama%' OR deskripsi LIKE '%$nama%' ORDER BY nama_barang";
     }
 
     $data = $mysqli->query($query);
