@@ -24,7 +24,7 @@
                         <?php
                         $number = 1;
                         $id_customer = $_SESSION['logged']['id'];
-                        $query = "SELECT p.*, pt.username FROM penjualan p JOIN petugas pt ON p.id_petugas = pt.id_petugas WHERE id_customer = $id_customer AND p.id_petugas IS NOT NULL";
+                        $query = "SELECT p.*, pt.username FROM penjualan p JOIN petugas pt ON p.id_petugas = pt.id_petugas WHERE id_customer = $id_customer AND p.id_petugas IS NOT NULL ORDER BY p.tanggal DESC";
                         $penjualan = $mysqli->query($query) or die($mysqli->error);
                         foreach ($penjualan as $key) {
                         ?>
@@ -66,7 +66,7 @@
                                 </td>
                             </tr>
                         <?php
-                        $number++;
+                            $number++;
                         }
                         ?>
                     </tbody>

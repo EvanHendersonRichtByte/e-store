@@ -8,7 +8,7 @@ $query = "SELECT COUNT(*) total_order FROM penjualan WHERE id_petugas IS NULL AN
 $total_order = $mysqli->query($query)->fetch_assoc()['total_order'];
 $query = "SELECT COUNT(*) total_order_selesai FROM penjualan WHERE id_petugas IS NOT NULL";
 $total_order_selesai = $mysqli->query($query)->fetch_assoc()['total_order_selesai'];
-$query = "SELECT p.id_customer, c.username, p.total, c.imageType ,c.imageData , p.status FROM penjualan p JOIN customer c ON p.id_customer = c.id_customer WHERE p.id_petugas IS NULL ORDER BY tanggal LIMIT 3";
+$query = "SELECT p.id_customer, c.username, p.total, c.imageType ,c.imageData , p.status FROM penjualan p JOIN customer c ON p.id_customer = c.id_customer WHERE p.id_petugas IS NULL AND p.status = 'Proses' ORDER BY tanggal LIMIT 3";
 // $query = "SELECT p.id_customer, username, dp.total, c.imageType ,c.imageData , status FROM penjualan p JOIN customer c ON p.id_customer = c.id_customer JOIN detail_penjualan dp ON p.id_penjualan = dp.id_penjualan  WHERE id_petugas IS NULL ORDER BY tanggal LIMIT 3";
 $penjualan_terbaru = $mysqli->query($query) or die($mysqli->error);
 ?>
