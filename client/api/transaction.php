@@ -55,16 +55,21 @@ if ($type === 'Create') {
         $query = "SELECT * FROM detail_penjualan WHERE id_detail_penjualan = $id_detail_penjualan AND id_barang = $id_barang";
         $data = $mysqli->query($query);
         if ($data) {
-            if ($data->num_rows > 0)
-                if ($qty > 0) {
+            if ($data->num_rows > 0){
+                $query = "SELECT * FROM barang WHERE id_barang = $id_barang";
+                $stk = $mysqli->query($query)->fetch_assoc()['stok'];
+                if ($qty > 0 && $qty <= $stk) {
                     $query = "UPDATE detail_penjualan SET jumlah = $qty, total = $hargaTotal WHERE id_detail_penjualan = $id_detail_penjualan";
                     $mysqli->query($query) or die($mysqli->error);
                     echo "Qty Updated";
+                } else if ($qty > $stk || $qty < 0) {
+                    echo "False Qty";
                 } else {
                     $query = "DELETE FROM detail_penjualan WHERE id_detail_penjualan = $id_detail_penjualan";
                     $mysqli->query($query) or die($mysqli->error);
                     echo "Delete Performed";
                 }
+            }
         } else {
             $query = "INSERT INTO detail_penjualan SET id_penjualan = $id_penjualan, id_barang = $id_barang, jumlah = $qty, total = $hargaTotal";
             $mysqli->query($query) or die($mysqli->error);

@@ -55,7 +55,7 @@
                         </div>
                         <div class="input-group w-75">
                             <button type="button" class="input-group-text" name="editJumlah" value="-"><i class="bi bi-dash"></i></button>
-                            <input type="number" min=0 max="<?php echo $key['stok'] ?>" name="editInputField" class="form-control" value="<?php echo $user_transaction_jumlah ?>" data-cs-idBarang="<?php echo $key['id_barang'] ?>" data-cs-idDetailPenjualan="<?php echo $id_detail_penjualan ?>" data-cs-idCustomer="<?php echo $id_customer ?>" data-cs-hargaBarang="<?php echo $key['harga'] ?>" data-cs-idPenjualan="<?php echo $id_penjualan ?>" disabled>
+                            <input type="number" min=0 max=<?php echo $key['stok'] ?> name="editInputField" class="form-control" value="<?php echo $user_transaction_jumlah ?>" data-cs-idBarang="<?php echo $key['id_barang'] ?>" data-cs-idDetailPenjualan="<?php echo $id_detail_penjualan ?>" data-cs-idCustomer="<?php echo $id_customer ?>" data-cs-hargaBarang="<?php echo $key['harga'] ?>" data-cs-idPenjualan="<?php echo $id_penjualan ?>">
                             <button type="button" class="input-group-text" name="editJumlah" value="+"><i class="bi bi-plus"></i></button>
                         </div>
                     </div>
@@ -143,5 +143,28 @@
                 if (data === 'New Data Created') window.location.reload()
             }).done(() => updateNav());
         }, 500)
+    }))
+
+    $('input[name=editInputField]').each((_, e) => e.addEventListener('change', function () {
+        let input = $(e).closest('div').find('input');
+        // Handle input limit
+        $.post(`${defaultUrl}/client/api/transaction.php`, {
+            Type: "ModifyQty",
+            id_customer: input.attr('data-cs-idCustomer'),
+            id_penjualan: input.attr('data-cs-idPenjualan'),
+            id_detail_penjualan: input.attr('data-cs-idDetailPenjualan'),
+            id_barang: input.attr('data-cs-idBarang'),
+            harga: input.attr('data-cs-hargaBarang'),
+            qty: $(e).val()
+        }, (data, status) => {
+            if (data === 'New Data Created') {
+                window.location.reload();
+            } else if(data === 'False Qty'){
+                alert(`Stok tidak mencukui\nPastikan data telah benar`);
+                window.location.reload();
+            } else if(data === 'Qty Update'){
+                alert(`tes`);
+            }
+        }).done(() => updateNav());
     }))
 </script>
