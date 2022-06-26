@@ -76,4 +76,9 @@ if ($type === 'Create') {
             echo "New Data Created";
         }
     }
+} else if($type == "DeleteCarto"){
+    $id_detail_penjualan = $_POST['id_detail_penjualan'];
+    $query = "DELETE FROM detail_penjualan WHERE id_detail_penjualan = $id_detail_penjualan";
+    $mysqli->query($query) or die($mysqli->error);
+    echo "Delete Performed";
 }

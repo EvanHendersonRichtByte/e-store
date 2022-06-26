@@ -49,15 +49,32 @@
                     <p class="card-text">Stok : <?php echo $key['stok'] ?></p>
                     <p class="card-text">Rp. : <?php echo $key['harga'] ?></p>
                     <div class="row">
+                    <?php
+                        if(isset($id_detail_penjualan)){
+                        ?>
                         <div class="col">
-                            <button type="button" class="btn border-0 btn-transparent text-success" name="asyncAddCart" value="<?php echo $key['id_barang'] ?>" data-cs-hargaBarang="<?php echo $key['harga'] ?>"><i class="bi bi-bag-plus"></i></button>
-                            <!-- <button class="btn btn-danger" name="hapusCart" value="<?php echo $key['id_barang'] ?>"><i class="bi bi-bag-x"></i></button> -->
+                            <button type="button" class="btn btn-danger border-0" name="asyncDelCart" value="<?php echo $key['id_barang'] ?>" data-cs-idDetailPenjualan="<?php echo $id_detail_penjualan ?>"><i class="bi bi-bag-x"></i></button>
                         </div>
                         <div class="input-group w-75">
                             <button type="button" class="input-group-text" name="editJumlah" value="-"><i class="bi bi-dash"></i></button>
                             <input type="number" min=0 max=<?php echo $key['stok'] ?> name="editInputField" class="form-control" value="<?php echo $user_transaction_jumlah ?>" data-cs-idBarang="<?php echo $key['id_barang'] ?>" data-cs-idDetailPenjualan="<?php echo $id_detail_penjualan ?>" data-cs-idCustomer="<?php echo $id_customer ?>" data-cs-hargaBarang="<?php echo $key['harga'] ?>" data-cs-idPenjualan="<?php echo $id_penjualan ?>">
                             <button type="button" class="input-group-text" name="editJumlah" value="+"><i class="bi bi-plus"></i></button>
                         </div>
+                        <?php
+                        } else if($key['stok'] == 0) {
+                        ?>
+                        <div class="col">
+                            <button type="button" class="form-control btn btn-outline-secondary" name="nothing" value="<?php echo $key['id_barang'] ?>" onclick="alert('Stok tidak mencukupi')"><i class="bi bi-bag"></i></button>
+                        </div>
+                        <?php
+                        } else {
+                        ?>
+                        <div class="col">
+                            <button type="button" class="form-control btn btn-success" name="asyncAddCart" value="<?php echo $key['id_barang'] ?>" data-cs-hargaBarang="<?php echo $key['harga'] ?>"><i class="bi bi-bag-plus"></i></button>
+                        </div>
+                        <?php
+                        }
+                        ?>
                     </div>
 
                     <div class="modal fade" id="detail<?php echo $key['id_barang'] ?>" tabindex="-1" aria-hidden="true">
@@ -122,8 +139,19 @@
             id_customer,
             harga
         }, (data, status) => updateNav());
+        location.reload();
     }))
 
+    $('button[name=asyncDelCart]').each((_, e) => e.addEventListener("click", async () => {
+        let data = $(e).attr('data-cs-idDetailPenjualan');
+        await $.post(`${defaultUrl}/client/api/transaction.php`, {
+            Type: "DeleteCarto",
+            id_detail_penjualan: data
+        }, (data, status) => {
+            if(data === 'Delete Performed') window.location.reload()
+        }).done(() => updateNav());
+    }))
+    
     $('button[name=editJumlah]').each((_, e) => e.addEventListener('click', async () => {
         await setTimeout(() => {
             let operation = $(e).val();
@@ -140,7 +168,7 @@
                 harga: input.attr('data-cs-hargaBarang'),
                 qty: input.val()
             }, (data, status) => {
-                if (data === 'New Data Created') window.location.reload()
+                if (data === 'New Data Created' || data == 'Delete Performed') window.location.reload()
             }).done(() => updateNav());
         }, 500)
     }))
@@ -162,8 +190,6 @@
             } else if(data === 'False Qty'){
                 alert(`Stok tidak mencukui\nPastikan data telah benar`);
                 window.location.reload();
-            } else if(data === 'Qty Update'){
-                alert(`tes`);
             }
         }).done(() => updateNav());
     }))
