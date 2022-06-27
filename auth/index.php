@@ -37,7 +37,7 @@ if (isset($_POST['client-login'])) {
     if ($data->num_rows > 0) {
         $data = $data->fetch_assoc();
         session_start();
-        $_SESSION['logged'] = ['role' => 'Customer', 'id' => $data['id_customer'], 'email' => $data['email'], 'username' => $data['username'], 'password' => $data['password'], 'image' => $data['imageData'], 'alamat' => $data['alamat'], 'tgl_lahir' => $data['tgl_lahir']];
+        $_SESSION['logged'] = ['role' => 'Customer', 'id' => $data['id_customer'], 'email' => $data['email'], 'username' => $data['username'], 'password' => $data['password'], 'image' => $data['imageData'], 'alamat' => $data['alamat'], 'tgl_lahir' => $data['tgl_lahir'], 'no_telp' => $data['no_telp']];
         header("location: " . $address . "/client");
     } else {
         header("location: " . $address . "/client/login.php?msg=404user");
@@ -50,7 +50,7 @@ if (isset($_POST['client-login'])) {
     if ($data->num_rows > 0) {
         $data = $data->fetch_assoc();
         session_start();
-        $_SESSION['logged'] = ['role' => 'Admin', 'id' => $data['id_petugas'], 'email' => $data['email'], 'username' => $data['username'], 'password' => $data['password'], 'image' => $data['imageData'], 'alamat' => $data['alamat'], 'tgl_lahir' => $data['tgl_lahir']];
+        $_SESSION['logged'] = ['role' => 'Admin', 'id' => $data['id_petugas'], 'email' => $data['email'], 'username' => $data['username'], 'password' => $data['password'], 'image' => $data['imageData'], 'alamat' => $data['alamat'], 'tgl_lahir' => $data['tgl_lahir'], 'no_telp' => $data['no_telp']];
         header("location: " . $address . "/admin");
     } else {
         header("location: " . $address . "/admin/login.php?msg=404user");
