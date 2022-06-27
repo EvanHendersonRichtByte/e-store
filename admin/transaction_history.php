@@ -45,7 +45,7 @@
                     </tr> -->
 
                     <?php
-                    $query = "SELECT p.id_penjualan, p.tanggal, c.username, p.total, p.status FROM penjualan p JOIN customer c ON p.id_customer = c.id_customer WHERE id_petugas IS NOT NULL AND p.total > 0 ORDER BY tanggal";
+                    $query = "SELECT p.id_penjualan, p.tanggal, c.username, p.total, p.status FROM penjualan p JOIN customer c ON p.id_customer = c.id_customer WHERE id_petugas IS NOT NULL AND p.total > 0 ORDER BY p.tanggal DESC";
                     $penjualan_terbaru = $mysqli->query($query) or die($mysqli->error);
                     foreach ($penjualan_terbaru as $key) {
                     ?>
