@@ -34,6 +34,10 @@
                             </div>
                         </div>
                         <div class="form-group mt-3">
+                            <label class="form-label" for="no_telp">No. Telepon</label>
+                            <input class="form-control" id="no_telp" type="text" name="no_telp" value="<?php echo $_SESSION['logged']['no_telp'] ?>">
+                        </div>
+                        <div class="form-group mt-3">
                             <label class="form-label" for="alamat">Alamat</label>
                             <input class="form-control" id="alamat" type="text" name="alamat" value="<?php echo $_SESSION['logged']['alamat'] ?>">
                         </div>
@@ -62,11 +66,13 @@
                 $username = $_POST['username'];
                 $alamat = $_POST['alamat'];
                 $tanggal_lahir = $_POST['tanggal_lahir'];
-                $query = "UPDATE petugas SET username = '$username', alamat = '$alamat', tgl_lahir = '$tanggal_lahir' WHERE id_petugas = $idPetugas";
+                $no_telp = $_POST['no_telp'];
+                $query = "UPDATE petugas SET username = '$username', alamat = '$alamat', tgl_lahir = '$tanggal_lahir', no_telp = '$no_telp' WHERE id_petugas = $idPetugas";
                 if ($mysqli->query($query)) {
                     $_SESSION['logged']['username'] = $username;
                     $_SESSION['logged']['alamat'] = $alamat;
                     $_SESSION['logged']['tgl_lahir'] = $tanggal_lahir;
+                    $_SESSION['logged']['no_telp'] = $no_telp;
                 ?>
                     <script>
                         alert("Data diri telah diubah");

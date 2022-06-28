@@ -13,18 +13,38 @@
                     <thead>
                         <tr class="bg-dark text-light">
                             <th scope="col">#</th>
-                            <th scope="col">Tgl Pemesanan</th>
-                            <th scope="col">Ditangani Oleh</th>
+                            <th scope="col"><a class="text-decoration-none text-light" href="<?php echo(isset($_GET['desc']) ? "?sort=tgl" : (isset($_GET['sort']) && $_GET['sort']=="tgl" ? "?sort=tgl&desc=true" : "?sort=tgl")) ?>">Tgl Pemesanan</a><?php echo(isset($_GET['sort']) && $_GET['sort']=="tgl" ? (isset($_GET['desc']) ? "<i class='bi bi-arrow-down-short'><i>" : "<i class='bi bi-arrow-up-short'><i>") : "") ?></th>
+                            <th scope="col"><a class="text-decoration-none text-light" href="<?php echo(isset($_GET['desc']) ? "?sort=adm" : (isset($_GET['sort']) && $_GET['sort']=="adm" ? "?sort=adm&desc=true" : "?sort=adm")) ?>">Ditangani Oleh</a><?php echo(isset($_GET['sort']) && $_GET['sort']=="adm" ? (isset($_GET['desc']) ? "<i class='bi bi-arrow-down-short'><i>" : "<i class='bi bi-arrow-up-short'><i>") : "") ?></th>
                             <th scope="col">List Barang</th>
-                            <th scope="col">Total Harga</th>
-                            <th scope="col">Status</th>
+                            <th scope="col"><a class="text-decoration-none text-light" href="<?php echo(isset($_GET['desc']) ? "?sort=total" : (isset($_GET['sort']) && $_GET['sort']=="total" ? "?sort=total&desc=true" : "?sort=total")) ?>">Total Harga</a><?php echo(isset($_GET['sort']) && $_GET['sort']=="total" ? (isset($_GET['desc']) ? "<i class='bi bi-arrow-down-short'><i>" : "<i class='bi bi-arrow-up-short'><i>") : "") ?></th>
+                            <th scope="col"><a class="text-decoration-none text-light" href="<?php echo(isset($_GET['desc']) ? "?sort=sts" : (isset($_GET['sort']) && $_GET['sort']=="sts" ? "?sort=sts&desc=true" : "?sort=sts")) ?>">Status</a><?php echo(isset($_GET['sort']) && $_GET['sort']=="sts" ? (isset($_GET['desc']) ? "<i class='bi bi-arrow-down-short'><i>" : "<i class='bi bi-arrow-up-short'><i>") : "") ?></th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php
                         $number = 1;
+                        $sort = "p.tanggal DESC";
+                        if(isset($_GET['sort'])){
+                            switch ($_GET['sort']) {
+                                case 'tgl':
+                                    $sort = "p.tanggal" . (isset($_GET['desc']) ? " DESC" : "");
+                                    break;
+                                case 'adm':
+                                    $sort = "pt.username" . (isset($_GET['desc']) ? " DESC" : "");
+                                    break;
+                                case 'total':
+                                    $sort = "p.total" . (isset($_GET['desc']) ? " DESC" : "");
+                                    break;
+                                case 'sts':
+                                    $sort = "p.status" . (isset($_GET['desc']) ? " DESC" : "");
+                                    break;
+                                
+                                default:
+                                    break;
+                            }
+                        }
                         $id_customer = $_SESSION['logged']['id'];
-                        $query = "SELECT p.*, pt.username FROM penjualan p JOIN petugas pt ON p.id_petugas = pt.id_petugas WHERE id_customer = $id_customer AND p.id_petugas IS NOT NULL";
+                        $query = "SELECT p.*, pt.username FROM penjualan p JOIN petugas pt ON p.id_petugas = pt.id_petugas WHERE id_customer = $id_customer AND p.id_petugas IS NOT NULL ORDER BY $sort";
                         $penjualan = $mysqli->query($query) or die($mysqli->error);
                         foreach ($penjualan as $key) {
                         ?>
@@ -66,7 +86,7 @@
                                 </td>
                             </tr>
                         <?php
-                        $number++;
+                            $number++;
                         }
                         ?>
                     </tbody>

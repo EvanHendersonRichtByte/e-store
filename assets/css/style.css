@@ -16,6 +16,19 @@ input.form-control.placeholder-light::placeholder {
   color: var(--bs-light) !important;
 }
 
+/* Disable number input arrow | Chrome, Safari, Edge, Opera */
+input[name=editInputField]::-webkit-outer-spin-button,
+input[name=editInputField]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Disable number input arrow | Firefox */
+input[type=number][name=editInputField] {
+  -moz-appearance: textfield;
+}
+
+
 /* ANIMATION */
 @keyframes fadeIn {
   from {

@@ -2,183 +2,195 @@
 
 <?php include "../components/client_dashboard_navbar.php" ?>
 <section class="client-dashboard container d-flex flex-wrap pt-5">
-    <div id="carousel-index" class="carousel slide mb-5 w-100" data-bs-ride="true">
-        <div class="carousel-indicators">
-            <button type="button" data-bs-target="#carousel-index" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-            <button type="button" data-bs-target="#carousel-index" data-bs-slide-to="1" aria-label="Slide 2"></button>
-            <button type="button" data-bs-target="#carousel-index" data-bs-slide-to="2" aria-label="Slide 3"></button>
+    <div class="col-12 mb-4">
+        <div class="col-lg-4 col-md-5 col-sm-12">
+            <form class="d-flex" action="#" method="POST">
+                <input type="text" name="search_barang" class="form-control border-success" placeholder="Search...">
+                <input class="ms-3 btn btn-success" type="submit" name="Search">
+            </form>
         </div>
-        <div class="carousel-inner">
-            <div class="carousel-item  active" data-bs-interval="2000">
-                <img src="../assets/static_images/slide1.jpg" class="d-block" alt="slide1.jpg">
-            </div>
-            <div class="carousel-item " data-bs-interval="2000">
-                <img src="../assets/static_images/slide2.jpg" class="d-block" alt="slide2.jpg">
-            </div>
-            <div class="carousel-item " data-bs-interval="2000">
-                <img src="../assets/static_images/slide3.jpg" class="d-block" alt="slide3.jpg">
-            </div>
-        </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#carousel-index" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#carousel-index" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-        </button>
     </div>
     <?php
     include_once "../config/connect.php";
+    $id_customer = $_SESSION['logged']['id'];
+    $query = "SELECT id_penjualan FROM penjualan WHERE id_customer = $id_customer AND status = 'Listed' AND id_petugas IS NULL LIMIT 1";
+    $data = $mysqli->query($query);
+    $id_penjualan = null;
+    if ($data->num_rows > 0) {
+        $id_penjualan = $data->fetch_array()["id_penjualan"];
+    }
+    // $query = "SELECT * FROM penjualan p LEFT JOIN detail_penjualan dp ON p.id_penjualan = dp.id_penjualan JOIN barang b ON dp.id_barang = b.id_barang WHERE p.status = 'Listed' AND p.id_customer = 4 AND dp.id_barang = 1";
 
-    // Add Item
-    if (isset($_POST['addToCart'])) {
-        $id_penjualan = null;
-        $id_barang = $_POST['addToCart'];
-        $id_customer = $_SESSION['logged']['id'];
-        $query = "SELECT id_penjualan FROM penjualan WHERE id_customer = $id_customer AND status = 'Listed' AND id_petugas IS NULL LIMIT 1";
-        $data = $mysqli->query($query);
-        if ($data->num_rows > 0) {
-            $id_penjualan = $data->fetch_array()["id_penjualan"];
-            $query = "INSERT INTO detail_penjualan SET id_penjualan = $id_penjualan, id_barang = $id_barang, jumlah = 1, total = NULL";
-            if ($mysqli->query($query) or die($mysqli->error)) {
-            } else {
-                echo "Failed!";
-            }
-    ?>
-            <script>
-                window.location.assign("<?php echo $address ?>/client/")
-            </script>
-        <?php
-        } else {
-            $query = "INSERT INTO penjualan SET id_customer = $id_customer, id_petugas = NULL";
-            if ($mysqli->query($query)) {
-                $query = "SELECT id_penjualan FROM penjualan WHERE id_customer = $id_customer AND status = 'Listed' AND id_petugas IS NULL LIMIT 1";
-                $id_penjualan = $mysqli->query($query)->fetch_array()["id_penjualan"];
-                $query = "INSERT INTO detail_penjualan SET id_penjualan = $id_penjualan, id_barang = $id_barang, jumlah = 1, total = " . $_POST['harga'];
-                if ($mysqli->query($query) or die($mysqli->error)) {
-                } else {
-                    echo "Failed";
-                }
-            } else {
-                echo "Failed";
-            }
-        ?>
-            <script>
-                window.location.assign("<?php echo $address ?>/client/")
-            </script>
-        <?php
-        }
-    } elseif (isset($_POST['editJumlah'])) {
-        if (($_POST['stokBrg'] > $_POST['jmlBrg'] && $_POST['jmlBrg'] > 0) || ($_POST['jmlBrg'] == 10 && $_POST['editJumlah'] == "-")) {
-            $id_customer = $_SESSION['logged']['id'];
-            $id_barang = $_POST['idBrg'];
-            $opr = $_POST['editJumlah'];
-            if ($_POST['jmlBrg'] == 1 && $_POST['editJumlah'] == "-") {
-                $query = "DELETE FROM detail_penjualan WHERE id_barang = $id_barang AND id_penjualan = (SELECT id_penjualan FROM penjualan WHERE id_customer = $id_customer AND status = 'Listed')";
-                $mysqli->query($query);
-            } else {
-                $query = "UPDATE detail_penjualan SET jumlah = jumlah $opr 1 WHERE id_barang = $id_barang AND id_penjualan = (SELECT id_penjualan FROM penjualan WHERE id_customer = $id_customer AND status = 'Listed')";
-                $mysqli->query($query);
-            }
-        } else {
-            echo "<script type='text/javascript'>alert('Stok tidak mencukupi');</script>";
-        }
-    } elseif (isset($_POST['hapusCart'])) {
-        $id_customer = $_SESSION['logged']['id'];
-        $id_barang = $_POST['idBrg'];
-        $query = "DELETE FROM detail_penjualan WHERE id_barang = $id_barang AND id_penjualan = (SELECT id_penjualan FROM penjualan WHERE id_customer = $id_customer AND status = 'Listed')";
-        $mysqli->query($query);
-        ?>
-        <script>
-            window.location.assign("<?php echo $address ?>/client/")
-        </script>
-        <?php
-    } elseif (isset($_POST['editInput'])) {
-        $jumlah = $_POST['editInput'];
-        $id_customer = $_SESSION['logged']['id'];
-        $id_barang = $_POST['idBrg'];
-        $query = "UPDATE detail_penjualan SET jumlah = $jumlah WHERE id_barang = $id_barang AND id_penjualan = (SELECT id_penjualan FROM penjualan WHERE id_customer = $id_customer AND status = 'Listed')";
-        $mysqli->query($query);
+    $query = "SELECT * FROM barang ORDER BY nama_barang";
+
+    if (isset($_POST['Search'])) {
+        $nama = $_POST['search_barang'];
+        $query = "SELECT * FROM barang WHERE nama_barang LIKE '%$nama%' OR deskripsi LIKE '%$nama%' ORDER BY nama_barang";
     }
 
-    // Load Page
-    $query = "SELECT * FROM barang ORDER BY nama_barang";
     $data = $mysqli->query($query);
     if ($data->num_rows > 0) {
         $data->fetch_assoc();
-        $j = 0;
+
         foreach ($data as $key) {
-        ?>
-            <div class="card me-5 mb-5" style="width: 18rem;">
+            $query = "SELECT * FROM penjualan p LEFT JOIN detail_penjualan dp ON p.id_penjualan = dp.id_penjualan JOIN barang b ON dp.id_barang = b.id_barang WHERE p.status = 'Listed' AND p.id_customer = $id_customer AND dp.id_barang = " . $key['id_barang'];
+            $user_transaction = $mysqli->query($query) or die($mysqli->error);
+            $user_transaction = $user_transaction->fetch_assoc();
+            // $id_penjualan = isset($user_transaction['id_penjualan']) && $user_transaction['id_penjualan'];
+            $id_detail_penjualan = isset($user_transaction['id_detail_penjualan']) ? $user_transaction['id_detail_penjualan'] : null;
+            $user_transaction_jumlah = isset($user_transaction['jumlah']) ? $user_transaction['jumlah'] : 0; ?>
+            <div class="card me-sm-0 me-md-5 mb-4 mb-md-5" style="width: 18rem;">
                 <img class="card-img-top h-auto w-auto mx-auto" src="<?php echo $address ?>/components/view_image.php?id_barang=<?php echo $key['id_barang'] ?>" style="max-width: 10rem ; max-height: 10rem; ">
                 <div class="card-body">
-                    <a class="card-title text-decoration-none" href="<?php echo $address ?>/client/item.php?id=<?php echo $key['id_barang'] ?>">
+                    <button type="button" class="btn border-0 btn-transparent text-left p-0 text-success" data-bs-toggle="modal" data-bs-target="#detail<?php echo $key['id_barang'] ?>">
                         <h5><?php echo $key['nama_barang'] ?></h5>
-                    </a>
+                    </button>
                     <p class="card-text"><?php echo $key['deskripsi'] ?></p>
                     <p class="card-text">Stok : <?php echo $key['stok'] ?></p>
                     <p class="card-text">Rp. : <?php echo $key['harga'] ?></p>
-                    <form method="POST" id="formAdd<?php echo $j ?>">
-                        <div class="row">
-                            <?php
-                            $id_customer = $_SESSION['logged']['id'];
-                            $query = "SELECT id_barang,jumlah FROM detail_penjualan WHERE id_penjualan = (SELECT id_penjualan FROM penjualan WHERE id_customer = " . $id_customer . " AND penjualan.status = 'Listed')  ORDER BY id_barang";
-                            $dataDP = $mysqli->query($query);
-                            $arrayDP_id = array();
-                            $arrayDP_jml = array();
-                            while ($rowID = mysqli_fetch_assoc($dataDP)) {
-                                $arrayDP_id[] = $rowID['id_barang'];
-                                $arrayDP_jml[] = $rowID['jumlah'];
-                            }
-                            $bool = false;
-                            if ($dataDP->num_rows > 0) {
-                                for ($i = 1; $i <= $dataDP->num_rows; $i++) {
-                                    if ($arrayDP_id[$i - 1] == $key['id_barang']) {
-                                        $index = $i;
-                                        $bool = true;
-                                    }
-                                }
-                            }
-                            if ($bool == true) {
-                            ?>
-                                <div class="col">
-                                    <button class="btn btn-danger" name="hapusCart" type="submit" value="<?php echo $key['id_barang'] ?>"><i class="bi bi-bag-x"></i></button>
-                                    <!-- <a href="#" class="form-control btn btn-danger"><i class="bi bi-bag-x"></i></a> -->
-                                </div>
-                                <div class="input-group w-75">
-                                    <input type="hidden" name="stokBrg" value="<?php echo $key['stok'] ?>">
-                                    <input type="hidden" name="idBrg" value="<?php echo $arrayDP_id[$index - 1] ?>">
-                                    <input type="hidden" name="jmlBrg" value="<?php echo $arrayDP_jml[$index - 1] ?>">
-                                    <input type="hidden" id="editInput<?php echo $j ?>" name="editInput" value="<?php echo $arrayDP_jml[$index - 1] ?>">
-                                    <button class="input-group-text" name="editJumlah" type="submit" value="-"><i class="bi bi-dash"></i></button>
-                                    <input type="number" max="<?php echo $key['stok'] ?>" name="editInputField" id="editInputField<?php echo $j ?>" class="form-control" value="<?php echo $arrayDP_jml[$index - 1] ?>" onchange="editInputDewe(this.value,<?php echo $key['stok'] ?>,<?php echo $j ?>)">
-                                    <button class="input-group-text" name="editJumlah" type="submit" value="+"><i class="bi bi-plus"></i></button>
-                                </div>
-                            <?php
-                            } else {
-                            ?>
-                                <div class="col">
-                                    <?php if ($key['stok'] != 0) { ?>
-                                        <input type="hidden" name="stokBrg" value="<?php echo $key['stok'] ?>">
-                                        <input type="hidden" name="harga" value="<?php echo $key['harga'] ?>">
-                                        <button class="form-control btn btn-success" name="addToCart" type="submit" value="<?php echo $key['id_barang'] ?>"><i class="bi bi-bag-plus"></i></button>
-                                    <?php } else { ?>
-                                        <button class="form-control btn btn-outline-dark" onclick="alert('Stok tidak mencukupi')" type=""><i class="bi bi-bag-fill"></i></button>
-                                    <?php } ?>
-                                </div>
-                            <?php
-                            }
-                            ?>
+                    <div class="row">
+                    <?php
+                        if(isset($id_detail_penjualan)){
+                        ?>
+                        <div class="col">
+                            <button type="button" class="btn btn-danger border-0" name="asyncDelCart" value="<?php echo $key['id_barang'] ?>" data-cs-idDetailPenjualan="<?php echo $id_detail_penjualan ?>"><i class="bi bi-bag-x"></i></button>
                         </div>
-                    </form>
+                        <div class="input-group w-75">
+                            <button type="button" class="input-group-text" name="editJumlah" value="-"><i class="bi bi-dash"></i></button>
+                            <input type="number" min=0 max=<?php echo $key['stok'] ?> name="editInputField" class="form-control" value="<?php echo $user_transaction_jumlah ?>" data-cs-idBarang="<?php echo $key['id_barang'] ?>" data-cs-idDetailPenjualan="<?php echo $id_detail_penjualan ?>" data-cs-idCustomer="<?php echo $id_customer ?>" data-cs-hargaBarang="<?php echo $key['harga'] ?>" data-cs-idPenjualan="<?php echo $id_penjualan ?>">
+                            <button type="button" class="input-group-text" name="editJumlah" value="+"><i class="bi bi-plus"></i></button>
+                        </div>
+                        <?php
+                        } else if($key['stok'] == 0) {
+                        ?>
+                        <div class="col">
+                            <button type="button" class="form-control btn btn-outline-secondary" name="nothing" value="<?php echo $key['id_barang'] ?>" onclick="alert('Stok tidak mencukupi')"><i class="bi bi-bag"></i></button>
+                        </div>
+                        <?php
+                        } else {
+                        ?>
+                        <div class="col">
+                            <button type="button" class="form-control btn btn-success" name="asyncAddCart" value="<?php echo $key['id_barang'] ?>" data-cs-hargaBarang="<?php echo $key['harga'] ?>"><i class="bi bi-bag-plus"></i></button>
+                        </div>
+                        <?php
+                        }
+                        ?>
+                    </div>
+
+                    <div class="modal fade" id="detail<?php echo $key['id_barang'] ?>" tabindex="-1" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title"><?php echo $key['nama_barang'] ?></h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <img src="<?php echo $address ?>/components/view_image.php?id_barang=<?php echo $key['id_barang'] ?>" alt="" class="img-fluid">
+                                    <p class="card-text"><?php echo $key['deskripsi'] ?></p>
+                                    <p class="card-text">Rp. : <?php echo $key['harga'] ?></p>
+                                </div>
+                                <div class="modal-footer justify-content-between">
+                                    <p class="card-text">Stok : <?php echo $key['stok'] ?></p>
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-    <?php
-            $j++;
-        }
-    }
-    ?>
+    <?php }
+    } ?>
 </section>
 
 <?php include_once "../template/footer.php"  ?>
+
+<script>
+    const defaultUrl = "<?php echo $address ?>"
+    const id_customer = "<?php echo $_SESSION['logged']['id'] ?>"
+    let id_barang = null
+
+    // $('input[name=search_barang]').on('change', () => {
+    //     $('.card').filter((_, e) => {
+    //         $(e).find('.card-body h5').each((_, f) => {
+    //             const input = $('input[name=search_barang]').val().toLowerCase()
+    //             console.log(input, $(f).html())
+    //             if ($(e).html().toLowerCase().search(input) <= -1) {
+    //                 $(e).toggle()
+    //             }
+    //         })
+
+    //     })
+    // })
+
+    const updateNav = () => {
+        $.post(`${defaultUrl}/client/api/navbarControl.php`, {
+            Update: id_customer
+        }, (data, status) => {
+            $('a.cart').has('span').length ? $('a.cart span').html(data) : $('a.cart').append("<span class='position-absolute translate-middle badge rounded-pill bg-danger'>1</span>")
+        })
+    }
+
+    $('button[name=asyncAddCart]').each((_, e) => e.addEventListener("click", async () => {
+        id_barang = $(e).val();
+        harga = $(e).attr('data-cs-hargaBarang');
+        await $.post(`${defaultUrl}/client/api/transaction.php`, {
+            Type: "Create",
+            id_barang,
+            id_customer,
+            harga
+        }, (data, status) => updateNav());
+        location.reload();
+    }))
+
+    $('button[name=asyncDelCart]').each((_, e) => e.addEventListener("click", async () => {
+        let data = $(e).attr('data-cs-idDetailPenjualan');
+        await $.post(`${defaultUrl}/client/api/transaction.php`, {
+            Type: "DeleteCarto",
+            id_detail_penjualan: data
+        }, (data, status) => {
+            if(data === 'Delete Performed') window.location.reload()
+        }).done(() => updateNav());
+    }))
+    
+    $('button[name=editJumlah]').each((_, e) => e.addEventListener('click', async () => {
+        await setTimeout(() => {
+            let operation = $(e).val();
+            let input = $(e).closest('div').find('input');
+            // Handle input limit
+            if (input.val() !== input.attr('max') || operation === '-') input.val(eval(`parseInt(input.val()) ${operation} 1`));
+            input.val() <= input.attr('min') && input.val(0)
+            $.post(`${defaultUrl}/client/api/transaction.php`, {
+                Type: "ModifyQty",
+                id_customer: input.attr('data-cs-idCustomer'),
+                id_penjualan: input.attr('data-cs-idPenjualan'),
+                id_detail_penjualan: input.attr('data-cs-idDetailPenjualan'),
+                id_barang: input.attr('data-cs-idBarang'),
+                harga: input.attr('data-cs-hargaBarang'),
+                qty: input.val()
+            }, (data, status) => {
+                if (data === 'New Data Created' || data == 'Delete Performed') window.location.reload()
+            }).done(() => updateNav());
+        }, 500)
+    }))
+
+    $('input[name=editInputField]').each((_, e) => e.addEventListener('change', function () {
+        let input = $(e).closest('div').find('input');
+        // Handle input limit
+        $.post(`${defaultUrl}/client/api/transaction.php`, {
+            Type: "ModifyQty",
+            id_customer: input.attr('data-cs-idCustomer'),
+            id_penjualan: input.attr('data-cs-idPenjualan'),
+            id_detail_penjualan: input.attr('data-cs-idDetailPenjualan'),
+            id_barang: input.attr('data-cs-idBarang'),
+            harga: input.attr('data-cs-hargaBarang'),
+            qty: $(e).val()
+        }, (data, status) => {
+            if (data === 'New Data Created') {
+                window.location.reload();
+            } else if(data === 'False Qty'){
+                alert(`Stok tidak mencukui\nPastikan data telah benar`);
+                window.location.reload();
+            }
+        }).done(() => updateNav());
+    }))
+</script>

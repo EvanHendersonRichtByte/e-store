@@ -34,7 +34,11 @@ $idCustomer = $_SESSION['logged']['id'];
             </div>
             <div class="form-group mt-3">
                 <label class="form-label" for="alamat">Alamat</label>
-                <input class="form-control" id="alamat" type="text" name="alamat" value="<?php echo $_SESSION['logged']['alamat'] ?>">
+                <input class="form-control" id="alamat" type="text" name="alamat" value="<?php echo $_SESSION['logged']['alamat'] ?>" placeholder="Alamat...">
+            </div>
+            <div class="form-group mt-3">
+                <label class="form-label" for="no_telp">No. HP</label>
+                <input class="form-control" id="no_telp" type="text" name="no_telp" value="<?php echo $_SESSION['logged']['no_telp'] ?>" placeholder="Nomor Anda...">
             </div>
             <div class="form-group mt-3 mb-5">
                 <label class="form-label" for="tanggal_lahir">Tanggal Lahir</label>
@@ -62,11 +66,13 @@ if (isset($_POST['changeImage'])) {
     $username = $_POST['username'];
     $alamat = $_POST['alamat'];
     $tanggal_lahir = $_POST['tanggal_lahir'];
-    $query = "UPDATE customer SET username = '$username', alamat = '$alamat', tgl_lahir = '$tanggal_lahir' WHERE id_customer = $idCustomer";
+    $no_tlp = $_POST['no_telp'];
+    $query = "UPDATE customer SET username = '$username', alamat = '$alamat', tgl_lahir = '$tanggal_lahir', no_telp = '$no_tlp' WHERE id_customer = $idCustomer";
     if ($mysqli->query($query)) {
         $_SESSION['logged']['username'] = $username;
         $_SESSION['logged']['alamat'] = $alamat;
         $_SESSION['logged']['tgl_lahir'] = $tanggal_lahir;
+        $_SESSION['logged']['no_telp'] = $no_tlp;
     ?>
         <script>
             alert("Data diri telah diubah");

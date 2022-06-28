@@ -8,12 +8,12 @@
             <table class="table">
                 <thead>
                     <tr>
-                        <th>ID</th>
-                        <th>Tanggal</th>
-                        <th>Customer</th>
+                        <th><a class="text-decoration-none text-dark" href="<?php echo(isset($_GET['desc']) ? "?sort=id" : (isset($_GET['sort']) && $_GET['sort']=="id" ? "?sort=id&desc=true" : "?sort=id")) ?>">ID<?php echo(isset($_GET['sort']) && $_GET['sort']=="id" ? (isset($_GET['desc']) ? "<i class='bi bi-arrow-down-short'><i>" : "<i class='bi bi-arrow-up-short'><i>") : "") ?></a></th>
+                        <th><a class="text-decoration-none text-dark" href="<?php echo(isset($_GET['desc']) ? "?sort=tgl" : (isset($_GET['sort']) && $_GET['sort']=="tgl" ? "?sort=tgl&desc=true" : "?sort=tgl")) ?>">Tanggal<?php echo(isset($_GET['sort']) && $_GET['sort']=="tgl" ? (isset($_GET['desc']) ? "<i class='bi bi-arrow-down-short'><i>" : "<i class='bi bi-arrow-up-short'><i>") : "") ?></a></th>
+                        <th><a class="text-decoration-none text-dark" href="<?php echo(isset($_GET['desc']) ? "?sort=cus" : (isset($_GET['sort']) && $_GET['sort']=="cus" ? "?sort=cus&desc=true" : "?sort=cus")) ?>">Customer<?php echo(isset($_GET['sort']) && $_GET['sort']=="cus" ? (isset($_GET['desc']) ? "<i class='bi bi-arrow-down-short'><i>" : "<i class='bi bi-arrow-up-short'><i>") : "") ?></a></th>
                         <th>Items</th>
-                        <th>Total</th>
-                        <th>Status</th>
+                        <th><a class="text-decoration-none text-dark" href="<?php echo(isset($_GET['desc']) ? "?sort=total" : (isset($_GET['sort']) && $_GET['sort']=="total" ? "?sort=total&desc=true" : "?sort=total")) ?>">Total<?php echo(isset($_GET['sort']) && $_GET['sort']=="total" ? (isset($_GET['desc']) ? "<i class='bi bi-arrow-down-short'><i>" : "<i class='bi bi-arrow-up-short'><i>") : "") ?></a></th>
+                        <th><a class="text-decoration-none text-dark" href="<?php echo(isset($_GET['desc']) ? "?sort=sts" : (isset($_GET['sort']) && $_GET['sort']=="sts" ? "?sort=sts&desc=true" : "?sort=sts")) ?>">Status<?php echo(isset($_GET['sort']) && $_GET['sort']=="sts" ? (isset($_GET['desc']) ? "<i class='bi bi-arrow-down-short'><i>" : "<i class='bi bi-arrow-up-short'><i>") : "") ?></a></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -45,7 +45,30 @@
                     </tr> -->
 
                     <?php
-                    $query = "SELECT p.id_penjualan, p.tanggal, c.username, p.total, p.status FROM penjualan p JOIN customer c ON p.id_customer = c.id_customer WHERE id_petugas IS NOT NULL AND p.total > 0 ORDER BY tanggal";
+                    $sort = "p.tanggal DESC";
+                    if(isset($_GET['sort'])){
+                        switch ($_GET['sort']) {
+                            case 'id':
+                                $sort = "p.id_penjualan" . (isset($_GET['desc']) ? " DESC" : "");
+                                break;
+                            case 'tgl':
+                                $sort = "p.tanggal" . (isset($_GET['desc']) ? " DESC" : "");
+                                break;
+                            case 'cus':
+                                $sort = "c.username" . (isset($_GET['desc']) ? " DESC" : "");
+                                break;
+                            case 'total':
+                                $sort = "p.total" . (isset($_GET['desc']) ? " DESC" : "");
+                                break;
+                            case 'sts':
+                                $sort = "p.status" . (isset($_GET['desc']) ? " DESC" : "");
+                                break;
+                            
+                            default:
+                                break;
+                        }
+                    } 
+                    $query = "SELECT p.id_penjualan, p.tanggal, c.username, p.total, p.status FROM penjualan p JOIN customer c ON p.id_customer = c.id_customer WHERE id_petugas IS NOT NULL AND p.total > 0 ORDER BY $sort";
                     $penjualan_terbaru = $mysqli->query($query) or die($mysqli->error);
                     foreach ($penjualan_terbaru as $key) {
                     ?>
