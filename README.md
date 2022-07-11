@@ -2,6 +2,8 @@
 
 ### Alat untuk membantu para konsumen dalam berbelanja
 
+[Live Preview](http://extstore.epizy.com/)
+
 #### Sistem ini dikembangkan menggunakan bahasa pemrograman [PHP](https://www.php.net/) [HTML](https://html.com/) [CSS](https://en.wikipedia.org/wiki/CSS) [JS](https://www.javascript.com/)
 
 ### Fitur
