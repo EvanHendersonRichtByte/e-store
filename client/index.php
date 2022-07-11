@@ -24,8 +24,6 @@
     $activePage = isset($_GET['page']) ? $_GET['page'] : 1;
     $itemLimit = 3;
     $totalPage = ceil($mysqli->query("SELECT * FROM barang")->num_rows / $itemLimit);
-    // hal 2 = 3
-    // hal 3 = 6
     $itemIndexStart = $activePage * 3 - $itemLimit;
 
     $query = "SELECT * FROM barang ORDER BY nama_barang LIMIT $itemIndexStart , $itemLimit";

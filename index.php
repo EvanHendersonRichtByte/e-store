@@ -14,7 +14,7 @@
 </head>
 
 <body>
-    <div class="container-fluid min-vh-100 p-0">
+    <div class="container-fluid min-vh-100">
         <nav class="navbar navbar-expand-lg shadow">
             <div class="container">
                 <a class="navbar-brand" href="#">
@@ -57,9 +57,12 @@
                 </p>
                 <a href="<?php echo $address ?>/client/login.php" class="btn btn-primary rounded-0">Get Started</a>
             </div>
-            <div class="col-md-8">
-                <img src="./assets/static_images/es.png" alt="Truck" class="w-100">
-            </div>
+            <<<<<<< HEAD <div class="col-md-8">
+                =======
+                <div class="col-md-5">
+                    >>>>>>> 758c0117f48007ea6c420b26b227fe9d88103fc4
+                    <img src="./assets/static_images/es.png" alt="Truck" class="w-100">
+                </div>
         </div>
     </div>
 
