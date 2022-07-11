@@ -1,0 +1,278 @@
+:root {
+  --primary: #2f80ed;
+  --primary-dark: #344154;
+  --secondary: #1ccc66;
+  --tertiary: #eb5757;
+  --gray-1: #3e3e3e;
+  --gray-2: #b3b3b3;
+  --gray-3: #989eb4;
+  --light-1: #fefefe;
+  --light-2: #f2f1f6;
+  --overlay-dark: rgba(28, 28, 28, 0.5);
+}
+
+/* OVERRIDES */
+input.form-control.placeholder-light::placeholder {
+  color: var(--bs-light) !important;
+}
+
+/* Disable number input arrow | Chrome, Safari, Edge, Opera */
+input[name=editInputField]::-webkit-outer-spin-button,
+input[name=editInputField]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Disable number input arrow | Firefox */
+input[type=number][name=editInputField] {
+  -moz-appearance: textfield;
+}
+
+
+/* ANIMATION */
+@keyframes fadeIn {
+  from {
+    opacity: 0%;
+  }
+  to {
+    opacity: 100%;
+  }
+}
+
+@keyframes fadeInTop {
+  from {
+    opacity: 0;
+    transform: translateY(-300px);
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes scale {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* NAVBAR */
+.client-dashboard-navbar li.nav-item.dropdown img {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 40rem;
+}
+
+/* COMPONENTS */
+table.rounded-top-corner thead tr th:first-child {
+  border-top-left-radius: 1rem;
+}
+
+table.rounded-top-corner thead tr th:last-child {
+  border-top-right-radius: 1rem;
+}
+
+.fadeInTop {
+  animation: fadeInTop 0.5s;
+  animation-fill-mode: both;
+}
+
+.delay {
+  animation-delay: 0.3s;
+}
+.delay-1 {
+  animation-delay: 0.5s;
+}
+.delay-2 {
+  animation-delay: 1s;
+}
+.delay-3 {
+  animation-delay: 1.2s;
+}
+.delay-4 {
+  animation-delay: 1.4s;
+}
+
+.disable-btn-hover:hover {
+  border: 1px solid transparent;
+}
+
+/* PAGES */
+
+.client-login {
+  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+    url("../static_images/loginuser.jpg");
+  background-size: cover;
+  color: var(--light-1);
+}
+
+.client-login a.client-signup h5 {
+  color: var(--secondary);
+}
+
+.carousel-inner > .carousel-item > img {
+  width: 100%;
+  height: 35rem;
+}
+
+.client-settings .client-settings--profile .header__background {
+  height: 8rem;
+  background-color: var(--gray-2);
+  border-top-left-radius: 5rem;
+}
+
+.client-settings .client-settings--profile .header__content {
+  position: absolute;
+  left: 50%;
+  top: 100%;
+  transform: translate(-50%, -50%);
+}
+
+.client-settings .client-settings--profile .header__image {
+  width: 8rem;
+  height: 8rem;
+  border-radius: 20rem;
+}
+.client-settings .client-settings--profile .header__image img {
+  width: inherit;
+  height: inherit;
+  border-radius: 20rem;
+  border: 3px solid var(--light-1);
+}
+
+.client-settings .client-settings--profile .content {
+  margin-top: 5rem;
+}
+
+.client-settings .client-settings--profile .content img {
+  width: 4rem;
+  height: 4rem;
+  border-radius: 20rem;
+}
+
+.client-dashboard-navbar .cart i {
+  font-size: 1.5rem;
+}
+
+.client-dashboard-navbar .cart span {
+  top: 30%;
+  left: 80%;
+}
+
+.admin-login::before {
+  content: "";
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  background: url("../static_images/loginadmin.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  z-index: -1;
+  animation: scale;
+  animation-duration: 5s;
+  animation-iteration-count: infinite;
+}
+
+.admin nav a {
+  color: var(--gray-3);
+}
+
+.admin nav a.active {
+  position: relative;
+  color: var(--bs-red);
+}
+
+.admin nav a.active::after {
+  position: absolute;
+  height: 100%;
+  width: 5px;
+  background-color: var(--bs-red);
+  top: 0;
+  left: 0;
+  border-top-right-radius: 5rem;
+  border-bottom-right-radius: 5rem;
+  content: "";
+}
+
+.admin .sidebar img {
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+}
+
+.admin .sidebar img {
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+}
+
+.admin .nav-tabs .nav-item a {
+  color: var(--bs-secondary);
+  font-weight: 500;
+}
+
+.admin .nav-tabs .nav-item a.active {
+  border-bottom: 2px solid var(--bs-red) !important;
+  color: var(--bs-red);
+}
+
+.admin .task p {
+  color: var(--bs-secondary);
+}
+
+.admin .task .task__thumbnail {
+  width: 4.3rem;
+  height: 4.3rem;
+  border-radius: 1rem;
+}
+
+.admin .task .task__creator {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 20rem;
+}
+
+.admin .stats i {
+  font-size: 1.8rem;
+}
+
+.admin .stats .box-1 {
+  background: #36d1dc;
+  background: -webkit-linear-gradient(to right, #5b86e5, #36d1dc);
+  background: linear-gradient(to right, #5b86e5, #36d1dc);
+}
+
+.admin .stats .box-2 {
+  background: #ee0979;
+  background: -webkit-linear-gradient(to right, #ff6a00, #ee0979);
+  background: linear-gradient(to right, #ff6a00, #ee0979);
+}
+
+.admin .stats .box-3 {
+  background: #11998e;
+  background: -webkit-linear-gradient(to right, #38ef7d, #11998e);
+  background: linear-gradient(to right, #38ef7d, #11998e);
+}
+
+.admin .header__image {
+  border-radius: 20rem;
+}
+
+.admin .header__image img {
+  border-radius: 20rem;
+  width: 8rem;
+  height: 8rem;
+}
+
+.admin .content img {
+  border-radius: 20rem;
+  width: 4rem;
+  height: 4rem;
+}
